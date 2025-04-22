@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Аналізатор 3D Моделей</title>
+  <style>
+    body { 
+      margin: 0; 
+      font-family: Arial, sans-serif; 
+      background: #181818; 
+      color: #fff;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .model-card {
+      margin-bottom: 50px;
+      background: #242424;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    .model-header {
+      padding: 15px;
+      background: #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .model-title {
+      font-size: 18px;
+      margin: 0;
+    }
+    .model-viewer {
+      height: 300px;
+      width: 100%;
+    }
+    .model-info {
+      padding: 15px;
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .info-item {
+      background: #333;
+      padding: 10px;
+      border-radius: 4px;
+    }
+    .info-label {
+      font-size: 12px;
+      color: #aaa;
+      margin-bottom: 5px;
+    }
+    .info-value {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .controls {
+      padding: 15px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    button {
+      background: #0066cc;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0055aa;
+    }
+    .loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      background: rgba(0,0,0,0.5);
+      padding: 10px 20px;
+      border-radius: 4px;
+    }
+    .model-viewer-container {
+      position: relative;
+      height: 300px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Аналізатор 3D-моделей</h1>
+    
+    <div id="models-container"></div>
+  </div>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
+      }
+    }
+  </script>
+  
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+    
+    const models = [
+      '3D_models/chess_piece_knight_horse.glb',
+      '3D_models/bicycle.glb',
+      '3D_models/origami_unicorn.glb',
+      '3D_models/macbook_laptop.glb',
+      '3D_models/chess_piece_queen.glb'
+    ];
+    
+    const modelsContainer = document.getElementById('models-container');
+    
+    // Створюємо карточку для кожної моделі
+    models.forEach((modelPath, index) => {
+      const modelName = modelPath.split('/').pop();
+      
+      // Створюємо DOM-елементи
+      const modelCard = document.createElement('div');
+      modelCard.className = 'model-card';
+      
+      const modelHeader = document.createElement('div');
+      modelHeader.className = 'model-header';
+      
+      const modelTitle = document.createElement('h2');
+      modelTitle.className = 'model-title';
+      modelTitle.textContent = modelName;
+      
+      const modelViewerContainer = document.createElement('div');
+      modelViewerContainer.className = 'model-viewer-container';
+      
+      const modelViewerElement = document.createElement('div');
+      modelViewerElement.className = 'model-viewer';
+      modelViewerElement.id = `viewer-${index}`;
+      
+      const loadingElement = document.createElement('div');
+      loadingElement.className = 'loading';
+      loadingElement.textContent = 'Завантаження...';
+      
+      const modelInfo = document.createElement('div');
+      modelInfo.className = 'model-info';
+      modelInfo.innerHTML = `
+        <div class="info-grid" id="info-${index}">
+          <div class="info-item">
+            <div class="info-label">Завантаження...</div>
+            <div class="info-value">...</div>
+          </div>
+        </div>
+      `;
+      
+      const controlsElement = document.createElement('div');
+      controlsElement.className = 'controls';
+      
+      const resetButton = document.createElement('button');
+      resetButton.textContent = 'Скинути вигляд';
+      resetButton.onclick = () => resetView(index);
+      
+      const debugButton = document.createElement('button');
+      debugButton.textContent = 'Показати BoundingBox';
+      debugButton.onclick = () => toggleBoundingBox(index);
+      
+      // Об'єднуємо всі елементи
+      modelHeader.appendChild(modelTitle);
+      modelViewerContainer.appendChild(modelViewerElement);
+      modelViewerContainer.appendChild(loadingElement);
+      controlsElement.appendChild(resetButton);
+      controlsElement.appendChild(debugButton);
+      
+      modelCard.appendChild(modelHeader);
+      modelCard.appendChild(modelViewerContainer);
+      modelCard.appendChild(modelInfo);
+      modelCard.appendChild(controlsElement);
+      
+      modelsContainer.appendChild(modelCard);
+      
+      // Ініціалізуємо 3D-переглядач
+      initModelViewer(modelPath, index);
+    });
+    
+    // Зберігаємо посилання на об'єкти сцени
+    const scenes = [];
+    const cameras = [];
+    const controls = [];
+    const renderers = [];
+    const models3D = [];
+    const boundingBoxHelpers = [];
+    let boundingBoxVisible = [];
+    
+    // Ініціалізація 3D-переглядача
+    function initModelViewer(modelPath, index) {
+      const container = document.getElementById(`viewer-${index}`);
+      const loadingElement = container.parentElement.querySelector('.loading');
+      
+      // Налаштування сцени
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x242424);
+      
+      // Налаштування камери
+      const camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 2000);
+      camera.position.set(0, 0, 10);
+      
+      // Налаштування рендерера
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.outputEncoding = THREE.sRGBEncoding;
+      container.appendChild(renderer.domElement);
+      
+      // Налаштування контролів орбіти
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.25;
+      
+      // Додавання освітлення
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+      scene.add(ambientLight);
+      
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+      directionalLight.position.set(1, 1, 1);
+      scene.add(directionalLight);
+      
+      // Завантаження моделі
+      const loader = new GLTFLoader();
+      
+      loader.load(
+        modelPath,
+        function (gltf) {
+          // Успішне завантаження
+          loadingElement.style.display = 'none';
+          
+          const model = gltf.scene;
+          scene.add(model);
+          models3D[index] = model;
+          
+          // Створюємо BoundingBox для моделі
+          const box = new THREE.Box3().setFromObject(model);
+          const boxHelper = new THREE.Box3Helper(box, 0xff0000);
+          scene.add(boxHelper);
+          boxHelper.visible = false;
+          boundingBoxHelpers[index] = boxHelper;
+          boundingBoxVisible[index] = false;
+          
+          // Обчислюємо розмір і центр моделі
+          const size = new THREE.Vector3();
+          box.getSize(size);
+          
+          const center = new THREE.Vector3();
+          box.getCenter(center);
+          
+          // Автоматичне масштабування моделі для кращого відображення
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const distance = maxDim * 2;
+          camera.position.set(0, 0, distance);
+          camera.lookAt(center);
+          
+          controls.target.copy(center);
+          controls.update();
+          
+          // Оновлення інформації про модель
+          updateModelInfo(index, gltf, box, size, center, maxDim);
+          
+          // Анімація
+          animate(index);
+        },
+        function (xhr) {
+          // Прогрес завантаження
+          const percent = Math.floor((xhr.loaded / xhr.total) * 100);
+          loadingElement.textContent = `Завантаження: ${percent}%`;
+        },
+        function (error) {
+          // Помилка завантаження
+          console.error(`Помилка завантаження моделі ${modelPath}:`, error);
+          loadingElement.textContent = 'Помилка завантаження!';
+          loadingElement.style.backgroundColor = 'rgba(255,0,0,0.5)';
+        }
+      );
+      
+      // Збереження посилань
+      scenes[index] = scene;
+      cameras[index] = camera;
+      renderers[index] = renderer;
+      controls[index] = controls;
+      
+      // Обробник зміни розміру вікна
+      window.addEventListener('resize', () => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      });
+    }
+    
+    // Анімація
+    function animate(index) {
+      requestAnimationFrame(() => animate(index));
+      controls[index].update();
+      renderers[index].render(scenes[index], cameras[index]);
+    }
+    
+    // Оновлення інформації про модель
+    function updateModelInfo(index, gltf, box, size, center, maxDim) {
+      const infoContainer = document.getElementById(`info-${index}`);
+      
+      // Обчислення кількості полігонів
+      let totalPolygons = 0;
+      let totalVertices = 0;
+      let totalMeshes = 0;
+      let totalMaterials = 0;
+      let totalTextures = 0;
+      
+      gltf.scene.traverse((object) => {
+        if (object.isMesh) {
+          totalMeshes++;
+          const geometry = object.geometry;
+          if (geometry.index !== null) {
+            totalPolygons += geometry.index.count / 3;
+          } else {
+            totalPolygons += geometry.attributes.position.count / 3;
+          }
+          totalVertices += geometry.attributes.position.count;
+        }
+        if (object.material) {
+          if (Array.isArray(object.material)) {
+            totalMaterials += object.material.length;
+          } else {
+            totalMaterials++;
+          }
+          
+          // Перевірка текстур
+          const material = Array.isArray(object.material) ? object.material[0] : object.material;
+          if (material.map) totalTextures++;
+          if (material.normalMap) totalTextures++;
+          if (material.roughnessMap) totalTextures++;
+          if (material.metalnessMap) totalTextures++;
+        }
+      });
+      
+      // Оновлюємо DOM з інформацією
+      infoContainer.innerHTML = `
+        <div class="info-item">
+          <div class="info-label">Розміри (X, Y, Z)</div>
+          <div class="info-value">${size.x.toFixed(2)}, ${size.y.toFixed(2)}, ${size.z.toFixed(2)}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Центр (X, Y, Z)</div>
+          <div class="info-value">${center.x.toFixed(2)}, ${center.y.toFixed(2)}, ${center.z.toFixed(2)}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Максимальний розмір</div>
+          <div class="info-value">${maxDim.toFixed(2)}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Полігони</div>
+          <div class="info-value">${totalPolygons.toLocaleString()}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Вершини</div>
+          <div class="info-value">${totalVertices.toLocaleString()}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Мешів</div>
+          <div class="info-value">${totalMeshes}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Матеріалів</div>
+          <div class="info-value">${totalMaterials}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Текстур</div>
+          <div class="info-value">${totalTextures}</div>
+        </div>
+      `;
+    }
+    
+    // Функція скидання вигляду
+    function resetView(index) {
+      const model = models3D[index];
+      if (!model) return;
+      
+      const box = new THREE.Box3().setFromObject(model);
+      const center = new THREE.Vector3();
+      box.getCenter(center);
+      
+      const size = new THREE.Vector3();
+      box.getSize(size);
+      
+      const maxDim = Math.max(size.x, size.y, size.z);
+      const distance = maxDim * 2;
+      
+      cameras[index].position.set(0, 0, distance);
+      cameras[index].lookAt(center);
+      
+      controls[index].target.copy(center);
+      controls[index].update();
+    }
+    
+    // Функція перемикання відображення BoundingBox
+    function toggleBoundingBox(index) {
+      if (boundingBoxHelpers[index]) {
+        boundingBoxVisible[index] = !boundingBoxVisible[index];
+        boundingBoxHelpers[index].visible = boundingBoxVisible[index];
+      }
+    }
+    
+    // Експортуємо функції в глобальний простір імен
+    window.resetView = resetView;
+    window.toggleBoundingBox = toggleBoundingBox;
+  </script>
+</body>
+</html> 

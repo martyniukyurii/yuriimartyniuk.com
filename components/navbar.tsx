@@ -1,0 +1,108 @@
+"use client";
+
+import {
+  Navbar as HeroUINavbar,
+  NavbarContent,
+  NavbarMenu,
+  NavbarMenuToggle,
+  NavbarBrand,
+  NavbarItem,
+  NavbarMenuItem,
+} from "@heroui/navbar";
+import { Button } from "@heroui/button";
+import { Kbd } from "@heroui/kbd";
+import Link from "next/link";
+import { Input } from "@heroui/input";
+import { link as linkStyles } from "@heroui/theme";
+import { usePathname } from "next/navigation";
+
+import { siteConfig } from "@/config/site";
+import { ThemeSwitch } from "@/components/theme-switch";
+import {
+  TwitterIcon,
+  GithubIcon,
+  DiscordIcon,
+  HeartFilledIcon,
+  SearchIcon,
+  Logo,
+} from "@/components/icons";
+
+const navItems = [
+  { href: "/", label: "Про мене" },
+  { href: "/projects", label: "Проекти" },
+  { href: "/blog", label: "Блог" },
+  { href: "/models-demo", label: "3D Моделі" },
+  { href: "/contact", label: "Контакти" },
+];
+
+export function Navbar() {
+  const pathname = usePathname();
+
+  const searchInput = (
+    <Input
+      aria-label="Search"
+      classNames={{
+        inputWrapper: "bg-default-100",
+        input: "text-sm",
+      }}
+      endContent={
+        <Kbd className="hidden lg:inline-block" keys={["command"]}>
+          K
+        </Kbd>
+      }
+      labelPlacement="outside"
+      placeholder="Search..."
+      startContent={
+        <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
+      }
+      type="search"
+    />
+  );
+
+  return (
+    <nav className="bg-white dark:bg-gray-900 shadow-md">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center h-16">
+          <Link href="/" className="text-xl font-bold text-gray-800 dark:text-white">
+            Yurii Martyniuk
+          </Link>
+          
+          <div className="hidden md:flex space-x-8">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`${
+                  pathname === item.href
+                    ? "text-blue-600 dark:text-blue-400"
+                    : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                } transition-colors duration-200`}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+
+          <div className="md:hidden">
+            {/* Тут можна додати мобільне меню */}
+            <button className="text-gray-600 dark:text-gray-300">
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+}

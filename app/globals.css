@@ -1,0 +1,219 @@
+/* Імпорт стилів для проектів і блогу */
+@import "../styles/projects.css";
+@import "../styles/blog.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+ 
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+ 
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+ 
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+ 
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+ 
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+ 
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+ 
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+ 
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+ 
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Світла тема з перламутровим градієнтом на всю сторінку */
+:root body {
+  background: linear-gradient(
+    135deg,
+    #fdf4f9 0%,
+    #f5e6fb 20%,
+    #fce0f0 40%,
+    #e2edff 60%,
+    #e0f2fe 80%,
+    #f5e5ff 100%
+  );
+  background-attachment: fixed;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  color: #333366; /* Темніший синій текст для кращого контрасту */
+}
+
+:root body .text-gray-300, 
+:root body .text-gray-200, 
+:root body .text-gray-400 {
+  color: #4a4a7c; /* Темніший колір для тексту в світлій темі */
+}
+
+:root body .bg-white\/5 {
+  background-color: rgba(255, 255, 255, 0.5); /* Світліший, але більш помітний фон для карток */
+}
+
+:root body .from-blue-500\/20 {
+  --tw-gradient-from: rgba(59, 130, 246, 0.3);
+}
+
+:root body .to-purple-500\/20 {
+  --tw-gradient-to: rgba(168, 85, 247, 0.3);
+}
+
+/* Стилі для Технічного стеку в світлій темі */
+:root body .p-2.bg-blue-400\/10 {
+  background-color: rgba(96, 165, 250, 0.2);
+}
+
+:root body .bg-blue-500\/20 {
+  background-color: rgba(59, 130, 246, 0.2);
+}
+
+:root body .text-blue-300 {
+  color: #3b82f6;
+}
+
+:root body .text-blue-400 {
+  color: #2563eb; 
+}
+
+/* Градієнт для шкали навичок у світлій темі */
+:root body .bg-gradient-to-r.from-blue-500.to-cyan-400 {
+  background: linear-gradient(to right, #3b82f6, #22d3ee);
+}
+
+/* Стилізація прогресбару для світлої теми */
+:root body .bg-gray-700 {
+  background-color: rgba(224, 231, 255, 0.6); /* Світло-голубий фон замість темного */
+}
+
+/* Стилі для футера в світлій темі */
+:root body footer,
+:root body footer .bg-black\/30 {
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+:root body footer .text-gray-400 {
+  color: #4a4a7c;
+}
+
+:root body footer a.text-gray-400:hover {
+  color: #3b82f6;
+}
+
+:root body footer .border-t {
+  border-top-color: rgba(59, 130, 246, 0.2);
+}
+
+/* Темний режим з яскравим градієнтом на всю сторінку */
+.dark body {
+  background: linear-gradient(
+    135deg,
+    #1f1745 0%,
+    #2e165f 20%,
+    #3c154f 40%,
+    #301b61 60%,
+    #24267b 80%,
+    #1f205e 100%
+  );
+  background-attachment: fixed;
+  min-height: 100vh;
+  /* Забезпечуємо, щоб градієнт був на всю висоту екрану */
+  background-size: cover;
+  background-position: center;
+  color: #ffffff; /* Повернення білого кольору для темної теми */
+} 
+
+/* Відновлення властивостей для темної теми */
+.dark body .text-gray-300, 
+.dark body .text-gray-200, 
+.dark body .text-gray-400 {
+  color: #d1d5db; /* Повернення світло-сірого кольору для темної теми */
+}
+
+.dark body .bg-white\/5 {
+  background-color: rgba(255, 255, 255, 0.05); /* Повернення прозорого фону для карток */
+}
+
+.dark body .bg-gray-700 {
+  background-color: #374151; /* Повернення темно-сірого фону для прогресбару */
+}
+
+/* Стилі для футера в темній темі */
+.dark body footer .bg-black\/30 {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.dark body footer .border-t {
+  border-top-color: rgba(75, 85, 99, 0.4);
+}
+
+.dark body footer .text-gray-400 {
+  color: #ffffff;
+}
+
+/* Клас для градієнтного тексту */
+.gradient-text {
+  background: linear-gradient(to right, #3b82f6, #22d3ee);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  color: transparent;
+} 

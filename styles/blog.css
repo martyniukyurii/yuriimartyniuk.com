@@ -1,0 +1,170 @@
+/* Стилі для компонентів блогу */
+
+/* Стилі для темної теми */
+.dark .blog-description {
+  color: white !important;
+}
+
+.dark .blog-text {
+  color: white !important;
+}
+
+.dark .blog-tech-badge {
+  background-color: rgba(139, 92, 246, 0.4) !important;
+  color: white !important;
+}
+
+.dark .blog-link {
+  color: rgba(139, 92, 246, 1) !important;
+}
+
+.dark .blog-link:hover {
+  color: rgba(167, 139, 250, 1) !important;
+}
+
+/* Стилі для заголовків у темній темі */
+.dark .blog-title {
+  color: white !important;
+}
+
+.dark .blog-subtitle {
+  color: rgba(229, 231, 235, 0.9) !important;
+}
+
+/* Стилі для метаданих (дата, переглядів) у темній темі */
+.dark .blog-meta {
+  color: rgba(209, 213, 219, 0.8) !important;
+}
+
+/* Стилі для світлої теми */
+.blog-description {
+  color: #1e293b;
+}
+
+.blog-text {
+  color: #374151;
+}
+
+.blog-tech-badge {
+  background-color: rgba(139, 92, 246, 0.2);
+  color: rgba(109, 40, 217, 1);
+}
+
+.blog-link {
+  color: rgba(139, 92, 246, 1);
+  transition: color 0.3s ease;
+}
+
+.blog-link:hover {
+  color: rgba(124, 58, 237, 1);
+}
+
+.blog-title {
+  color: #1e293b;
+}
+
+.blog-subtitle {
+  color: #4b5563;
+}
+
+.blog-meta {
+  color: #6b7280;
+}
+
+/* Стилі для тегів */
+.blog-tag {
+  background-color: rgba(139, 92, 246, 0.2);
+  color: rgba(109, 40, 217, 1);
+  transition: all 0.3s ease;
+}
+
+.dark .blog-tag {
+  background-color: rgba(139, 92, 246, 0.3);
+  color: rgba(229, 231, 235, 0.9);
+}
+
+.blog-tag:hover {
+  background-color: rgba(139, 92, 246, 0.3);
+}
+
+.dark .blog-tag:hover {
+  background-color: rgba(139, 92, 246, 0.4);
+}
+
+/* Стилі для карток блогу */
+.blog-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Стилі для контенту блогу */
+.blog-content {
+  line-height: 1.7;
+}
+
+.dark .blog-content {
+  color: rgba(229, 231, 235, 0.9) !important;
+}
+
+/* Стилі для кнопок навігації */
+.blog-nav-button {
+  background-color: rgba(139, 92, 246, 0.9);
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.blog-nav-button:hover {
+  background-color: rgba(124, 58, 237, 1);
+}
+
+.dark .blog-nav-button {
+  background-color: rgba(124, 58, 237, 0.8);
+}
+
+.dark .blog-nav-button:hover {
+  background-color: rgba(109, 40, 217, 1);
+}
+
+/* Стилі для зображень і відео */
+.blog-media {
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.blog-carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+.blog-carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.blog-carousel-nav:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.blog-carousel-prev {
+  left: 1rem;
+}
+
+.blog-carousel-next {
+  right: 1rem;
+}

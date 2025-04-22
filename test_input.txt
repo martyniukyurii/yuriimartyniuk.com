@@ -1,0 +1,1770 @@
+2UMh53bUtXe.js:244 
+Зупиніться!
+2UMh53bUtXe.js:244 
+Цю функцію браузера призначено для розробників. Якщо хтось сказав вам щось скопіювати й сюди вставити, щоб увімкнути функцію Facebook або «зламати» чийсь обліковий запис, це шахраї. Виконавши ці дії, ви надасте їм доступ до свого облікового запису Facebook.
+2UMh53bUtXe.js:244 
+Перегляньте https://www.facebook.com/selfxss для додаткової інформації.
+2UMh53bUtXe.js:244 
+
+2UMh53bUtXe.js:72 ErrorUtils caught an error:
+
+Trying to load a Privacy Selector Dialog without a scope.
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. Object
+errorListener @ 2UMh53bUtXe.js:72
+// Парсер для витягування посилань та тексту
+(function() {
+  // Знаходимо всі посилання на сторінці
+  const links = Array.from(document.querySelectorAll('a'));
+  
+  // Отримуємо інформацію про кожне посилання
+  const linkInfo = links.map((link, index) => {
+    return {
+      index: index + 1,
+      text: link.textContent.trim(),
+      url: link.href,
+      isExternal: link.hostname !== window.location.hostname
+    };
+  });
+  
+  // Виводимо інформацію в консоль у форматованому вигляді
+  console.log('=== СПИСОК ПОСИЛАНЬ НА СТОРІНЦІ ===');
+  
+  linkInfo.forEach(link => {
+    console.log(`${link.index}. ${link.text}`);
+    console.log(`   URL: ${link.url}`);
+    console.log(`   ${link.isExternal ? 'Зовнішнє посилання' : 'Внутрішнє посилання'}`);
+    console.log('---');
+  });
+  
+  // Додатково отримуємо весь текст сторінки
+  console.log('\n=== ТЕКСТ СТОРІНКИ ===');
+  const pageText = document.body.innerText;
+  console.log(pageText);
+  
+  // Повертаємо інформацію для можливого подальшого використання
+  return {
+    links: linkInfo,
+    pageText: pageText,
+    totalLinks: linkInfo.length
+  };
+})();
+VM292:17 === СПИСОК ПОСИЛАНЬ НА СТОРІНЦІ ===
+VM292:20 1. 
+VM292:21    URL: https://www.facebook.com/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 2. 
+VM292:21    URL: https://www.facebook.com/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 3. 
+VM292:21    URL: https://www.facebook.com/friends/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 4. 
+VM292:21    URL: https://www.facebook.com/watch/?ref=tab
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 5. 
+VM292:21    URL: https://www.facebook.com/marketplace/?ref=app_tab
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 6. 
+VM292:21    URL: https://www.facebook.com/gaming/play/?store_visit_source=gaming_tab
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 7. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 8. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02d43mHV9n7oSiCtcS2tCtt2CN5CVZwF7WqX8U1wQxbSJd7JVXQtteFLzKS1QfheYDl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 9. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 10. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02AWWjtUertiW64aFffKUb9GUo9d3Bag6BKXNaFX5ojVH9ycv3gwL8rMW9oW5tUff1l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 11. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02AWWjtUertiW64aFffKUb9GUo9d3Bag6BKXNaFX5ojVH9ycv3gwL8rMW9oW5tUff1l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 12. Serhiy Dmytrenko
+VM292:21    URL: https://www.facebook.com/dmytrenko.serhiy
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 13. коментарі
+VM292:21    URL: https://www.facebook.com/vctr.group/posts/pfbid02p1m39ypnKQa8sKa9TViFxXS7YTy6J8jCu11LJyoTGoNgzyobL9ZW2dR5tiDQfUN5l?comment_id=558803046972449&reply_comment_id=1230279868071738
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 14. Переглянути
+VM292:21    URL: https://www.facebook.com/vctr.group/posts/pfbid02p1m39ypnKQa8sKa9TViFxXS7YTy6J8jCu11LJyoTGoNgzyobL9ZW2dR5tiDQfUN5l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 15. Inna Danylevska
+VM292:21    URL: https://www.facebook.com/InnaDanylevska
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 16. коментарі
+VM292:21    URL: https://www.facebook.com/vctr.group/posts/pfbid02p1m39ypnKQa8sKa9TViFxXS7YTy6J8jCu11LJyoTGoNgzyobL9ZW2dR5tiDQfUN5l?comment_id=558803046972449&reply_comment_id=1111956903912796
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 17. Переглянути
+VM292:21    URL: https://www.facebook.com/vctr.group/posts/pfbid02p1m39ypnKQa8sKa9TViFxXS7YTy6J8jCu11LJyoTGoNgzyobL9ZW2dR5tiDQfUN5l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 18. Андрій Гев'юк
+VM292:21    URL: https://www.facebook.com/agevyuk
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 19. коментарі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02ufVvxBnSMeGQAKu96nVRDx4ear9HXDLikpmHRmDAUpgFQty7o16raxZpfBd1dV82l?comment_id=1140048894179401
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 20. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02ufVvxBnSMeGQAKu96nVRDx4ear9HXDLikpmHRmDAUpgFQty7o16raxZpfBd1dV82l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 21. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 22. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0YbSSqZCXLGsmRDL9CT7WTUQVRJMTMuZzbTL5Uv8oUVbdjBkNpcsYzDfQQtHJRmdEl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 23. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 24. Переглянути
+VM292:21    URL: https://www.facebook.com/photo/?fbid=8428425627286138&set=a.215330225262427
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 25. Kirill Zakharov
+VM292:21    URL: https://www.facebook.com/KirillZaharov
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 26. коментарі
+VM292:21    URL: https://www.facebook.com/KirillZaharov/posts/pfbid0guvt4wcpsKTRxQGDKECkonrWSC5aCDNN46keb9FYeXDChRTx2sjWUZdWaXsWkBKil?comment_id=1392822535174578&reply_comment_id=1112402716494160
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 27. Переглянути
+VM292:21    URL: https://www.facebook.com/KirillZaharov/posts/pfbid0guvt4wcpsKTRxQGDKECkonrWSC5aCDNN46keb9FYeXDChRTx2sjWUZdWaXsWkBKil
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 28. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 29. Переглянути
+VM292:21    URL: https://www.facebook.com/krupkoo/posts/pfbid0gcTQpWrtL75Sj5RzJc6oRptnC4TQKApbhwCYGwYw6RqESkYp96nh1nf1GaeZxg6hl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 30. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 31. Переглянути
+VM292:21    URL: https://www.facebook.com/roksolana.petryk/posts/pfbid0giu8QUPb6wN1m8QSK8f4Ur4MxABXLXsPr7fPjL7dRSSMBFEdNDrKnCMiBPU7ohuzl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 32. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 33. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02YTuKxMDuqosCr8iq8M4KdGZUG87WW3BE5BPKoEXTTDQxa3Z68d9whBkkwZwDVrdUl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 34. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 35. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0FzCwwG5Qx9rgQJuR1SdKALgLa5ewk2KNmWEWHmnfdJj4mDWJt1pYwBFmDT6oRDDDl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 36. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 37. Переглянути
+VM292:21    URL: https://www.facebook.com/serhii.yanushevskiy/posts/pfbid0QnDbdigvSNogSCtUZCjQF1wstjaBdQZPVdahqEpJ84WgRh1fsT2PsBtTDCDMvAkal
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 38. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 39. дописі
+VM292:21    URL: https://www.facebook.com/serhii.yanushevskiy/posts/pfbid0QnDbdigvSNogSCtUZCjQF1wstjaBdQZPVdahqEpJ84WgRh1fsT2PsBtTDCDMvAkal
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 40. Переглянути
+VM292:21    URL: https://www.facebook.com/serhii.yanushevskiy/posts/pfbid0QnDbdigvSNogSCtUZCjQF1wstjaBdQZPVdahqEpJ84WgRh1fsT2PsBtTDCDMvAkal
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 41. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 42. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0GzJjb5bWqyedmsv9mgLMPZFbCRTYih2Vv7rBwXeuhY5z2XPiks4rYkGumU2sNTvul
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 43. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 44. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0GzJjb5bWqyedmsv9mgLMPZFbCRTYih2Vv7rBwXeuhY5z2XPiks4rYkGumU2sNTvul
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 45. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0GzJjb5bWqyedmsv9mgLMPZFbCRTYih2Vv7rBwXeuhY5z2XPiks4rYkGumU2sNTvul
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 46. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 47. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid028Xx9teJBCJQ4onjdjQpM8t1tFXELDz2PESGrdnR1CKa88GA6jqTLH9Ho2tjykpZCl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 48. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 49. дописі
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid028Xx9teJBCJQ4onjdjQpM8t1tFXELDz2PESGrdnR1CKa88GA6jqTLH9Ho2tjykpZCl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 50. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid028Xx9teJBCJQ4onjdjQpM8t1tFXELDz2PESGrdnR1CKa88GA6jqTLH9Ho2tjykpZCl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 51. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 52. Переглянути
+VM292:21    URL: https://www.facebook.com/roksolana.petryk/posts/pfbid02KFFLfcz2gvE3J1sQt4uXoQgw1AS7K58E3qjwReVLGqEHyiV14rQjJnQSMGXRKdgDl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 53. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 54. дописі
+VM292:21    URL: https://www.facebook.com/roksolana.petryk/posts/pfbid02KFFLfcz2gvE3J1sQt4uXoQgw1AS7K58E3qjwReVLGqEHyiV14rQjJnQSMGXRKdgDl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 55. Переглянути
+VM292:21    URL: https://www.facebook.com/roksolana.petryk/posts/pfbid02KFFLfcz2gvE3J1sQt4uXoQgw1AS7K58E3qjwReVLGqEHyiV14rQjJnQSMGXRKdgDl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 56. Julie Pikas
+VM292:21    URL: https://www.facebook.com/profile.php?id=61553177135695
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 57. коментарі
+VM292:21    URL: https://www.facebook.com/permalink.php?story_fbid=pfbid034TWaeePwqsv8pK5gSgVpZBPfC4dod8abmSZjRgzZ2jp15m7jSG6bTxTQfQhrD7gHl&id=61553177135695&comment_id=973342614562899&reply_comment_id=1234461148004094
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 58. Переглянути
+VM292:21    URL: https://www.facebook.com/permalink.php?story_fbid=pfbid034TWaeePwqsv8pK5gSgVpZBPfC4dod8abmSZjRgzZ2jp15m7jSG6bTxTQfQhrD7gHl&id=61553177135695
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 59. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 60. Переглянути
+VM292:21    URL: https://www.facebook.com/groups/164454878706085/posts/1030700495414848/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 61. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 62. Переглянути
+VM292:21    URL: https://www.facebook.com/groups/4380198668693782/posts/8352545604792382/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 63. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 64. дописі
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02qYf6CBpRrH7cwknjrm2U2Ny9EaRGLje4LvGGmkt4EbpXLiw95z3fA2m5ud7CmdEcl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 65. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02qYf6CBpRrH7cwknjrm2U2Ny9EaRGLje4LvGGmkt4EbpXLiw95z3fA2m5ud7CmdEcl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 66. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 67. дописі
+VM292:21    URL: https://www.facebook.com/vpuradio/posts/pfbid0Nk41SS4mwcs1qUeVDpVUV599qzEEAbZ4pbsfbuqC5HsgatJrSPw3cdB6rBos2xSml
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 68. Переглянути
+VM292:21    URL: https://www.facebook.com/vpuradio/posts/pfbid0Nk41SS4mwcs1qUeVDpVUV599qzEEAbZ4pbsfbuqC5HsgatJrSPw3cdB6rBos2xSml
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 69. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 70. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid09X4zZrvUAUsLH4zBCd7Mn5H3QM3UGhBg1LSAW5eSiWQdLQdoLNgbu1rjrymAYyb9l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 71. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid09X4zZrvUAUsLH4zBCd7Mn5H3QM3UGhBg1LSAW5eSiWQdLQdoLNgbu1rjrymAYyb9l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 72. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 73. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0zKaS6c9FeS1ce4Aut8aevU4yxBvbG7gx6nLcHrGVvu4mCSJpC91J5CctL9rsPASCl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 74. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 75. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02LRqD4txVhqjGqWKMEXurJaDD5UYoBRa4B4ovXgoEdMg957mXjNs1eWivFpPynJjkl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 76. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 77. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0NzgmJMZUWDXoN3ctiKvWHvdvbm5cbBBUytMzH3SWssQWjGaKPMybKSvYW3QcDTUml
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 78. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 79. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02fRm9ZpEUxLsE9cKxvJQNBWukUUos7SBxzGxxXX1mPBdtwvDDyahm8gxExJochXKcl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 80. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 81. дописі
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02JuvBukPvNGV5qt3w1sWj9hDTjxoKqi75rv2ppn6wiUQWqexAK6hbWLMuydu34Wo9l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 82. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02JuvBukPvNGV5qt3w1sWj9hDTjxoKqi75rv2ppn6wiUQWqexAK6hbWLMuydu34Wo9l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 83. Marina Marinkevich
+VM292:21    URL: https://www.facebook.com/Marina.Marinkevich
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 84. коментарі
+VM292:21    URL: https://www.facebook.com/Marina.Marinkevich/posts/pfbid0o9CNPNHHv4eKGfSVvqRjkupZ1XzNKegQfS3vsuQoeTw342rDn63SqUtJr8cXbkUwl?comment_id=1426492721350489&reply_comment_id=533344809201735
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 85. Переглянути
+VM292:21    URL: https://www.facebook.com/Marina.Marinkevich/posts/pfbid0o9CNPNHHv4eKGfSVvqRjkupZ1XzNKegQfS3vsuQoeTw342rDn63SqUtJr8cXbkUwl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 86. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 87. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02jpLAKUAEpbwDcYLXpiSsurkP3LDtfpgcsXhZYLmZ2f3jwuqQoB6sebuwjZTfLPVWl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 88. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 89. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid01sopcYFeTGQF2U6u1mpYpzNwCHPVPE1EnwwQZRkfH53Svs26gsV1mxWEzFFPpYjl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 90. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid01sopcYFeTGQF2U6u1mpYpzNwCHPVPE1EnwwQZRkfH53Svs26gsV1mxWEzFFPpYjl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 91. Arina Banar
+VM292:21    URL: https://www.facebook.com/arinabanar
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 92. коментарі
+VM292:21    URL: https://www.facebook.com/arinabanar/posts/pfbid023FWRjxWaBxNG5iEvYHdrNX7aijQjH15skKg6z7eDYT3xTr9deSQZXm9mGjqvmfpal?comment_id=1030444288729049&reply_comment_id=1693045574804158
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 93. Переглянути
+VM292:21    URL: https://www.facebook.com/arinabanar/posts/pfbid023FWRjxWaBxNG5iEvYHdrNX7aijQjH15skKg6z7eDYT3xTr9deSQZXm9mGjqvmfpal
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 94. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 95. дописі
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0KZACv5fENVUyKqAahyidsrSpdFwUyFoLtzxwsmdFTT53i4Rz47PJhGNHftfura1xl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 96. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0KZACv5fENVUyKqAahyidsrSpdFwUyFoLtzxwsmdFTT53i4Rz47PJhGNHftfura1xl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 97. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 98. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid023ZXZuQ3PNWYFSoNgrNwf4SZPihjhfyVCEXoLBG8L4UexezkQCQggxYADiPc9z9GYl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 99. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid023ZXZuQ3PNWYFSoNgrNwf4SZPihjhfyVCEXoLBG8L4UexezkQCQggxYADiPc9z9GYl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 100. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 101. дописі
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02K8hHhThYzBUJu9xs31GMNFqcHYjnBr8CBPPxuMatMKEpt6vgkH3JXEjJTYH7dyrGl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 102. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02K8hHhThYzBUJu9xs31GMNFqcHYjnBr8CBPPxuMatMKEpt6vgkH3JXEjJTYH7dyrGl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 103. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 104. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0CXUguXEYmU2mXNrB5pC3QVouvRRSgWNSDy6utnBNHXQ9Qo9qD6gpWo4GL1gWgaVil
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 105. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0CXUguXEYmU2mXNrB5pC3QVouvRRSgWNSDy6utnBNHXQ9Qo9qD6gpWo4GL1gWgaVil
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 106. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 107. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02hqSaB2YELeWhaYpMmbNywRJiTtLoLMs4ZtBE74pH5BNthAPVnoaq6vV4hNDxuMFMl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 108. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 109. дописі
+VM292:21    URL: https://www.facebook.com/vasilbukovinec/posts/pfbid02EJ8mGonY1HdiY15HhNz2ebx5G7VNmuNdczGxXchSLFhiFbfohNH7BGtiLFLThKDDl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 110. Переглянути
+VM292:21    URL: https://www.facebook.com/vasilbukovinec/posts/pfbid02EJ8mGonY1HdiY15HhNz2ebx5G7VNmuNdczGxXchSLFhiFbfohNH7BGtiLFLThKDDl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 111. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 112. Переглянути
+VM292:21    URL: https://www.facebook.com/vasilbukovinec/posts/pfbid02EJ8mGonY1HdiY15HhNz2ebx5G7VNmuNdczGxXchSLFhiFbfohNH7BGtiLFLThKDDl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 113. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 114. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02Hxskyc1WU9wdknWtESf7z7PZxL3Y6F1eYxuiSSK3GUYE67kb2VitWrh9jGW163iKl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 115. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 116. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02z4Hb31aeF4mV2HfDqpKYh3LKxQpuG8iNf8cqHCkJJJ7go72yMGvjLcsgL2S34h8Ql
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 117. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 118. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02MMZdQcHcTkwh5tZg3rpXTuQfUVvHb2RhTHpaWUFK2AyoNzWowmnJhEh2ua6TpG6Gl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 119. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 120. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02BRb8VjpEEyBWX1aucQLCWMFGbduLN12sTSX9gTpjcoXS4z9JXRJKG3Bsf5cfLyPnl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 121. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 122. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0Ce2mJvA8K2ky3YB8kaV8vF9h3ZvENCqNZqfx4QkBXcnXVdKMV9X2CDX51vUnq1zHl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 123. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 124. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02yoyqKhMGTs6Y6tD7fnUWPXLjZEW2M4LYgDTPMiyESyuwNkkPLS7k2UPwhZrHgVxTl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 125. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 126. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0mxWAbtZ3yNm8M39nZqK6X8nvTAK5gPG1bVgjDwbu61qtcKJvHqsVREvLGdzfRVRol
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 127. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 128. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0Ujzhcu1dtZXcdW69h63WbF8b3ExEaJNkSdRZaueUmy25dAcChhKg2GviZhufN5Ddl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 129. Julie Pikas
+VM292:21    URL: https://www.facebook.com/profile.php?id=61553177135695
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 130. коментарі
+VM292:21    URL: https://www.facebook.com/permalink.php?story_fbid=pfbid02cciEUU44jm98PHUhJ9bF685tAVUNGY4UQ52ZHwcgj6GRqooC63J43xqdVL5PEa4kl&id=61553177135695&comment_id=1025639588992480&reply_comment_id=1678112682722051
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 131. Переглянути
+VM292:21    URL: https://www.facebook.com/permalink.php?story_fbid=pfbid02cciEUU44jm98PHUhJ9bF685tAVUNGY4UQ52ZHwcgj6GRqooC63J43xqdVL5PEa4kl&id=61553177135695
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 132. Julie Pikas
+VM292:21    URL: https://www.facebook.com/profile.php?id=61553177135695
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 133. коментарі
+VM292:21    URL: https://www.facebook.com/permalink.php?story_fbid=pfbid02sW8JvkzGRh5d4pnUFvii1A5RsxrmZzbyfztNFn4WXgUXj9un24cUsTmYwpP2dcT8l&id=61553177135695&comment_id=463123479699769&reply_comment_id=2523816634485960
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 134. Переглянути
+VM292:21    URL: https://www.facebook.com/permalink.php?story_fbid=pfbid02sW8JvkzGRh5d4pnUFvii1A5RsxrmZzbyfztNFn4WXgUXj9un24cUsTmYwpP2dcT8l&id=61553177135695
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 135. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 136. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid031jvNhRxG3a3gf9z7dE3DaVqKuCn8vEExSddEGcjWt1x5xUEVFoZDkB5HYwA8q1xMl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 137. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 138. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0ZSNBmaxf5cGrnN5ih9XrkvPYJ8eXDenoJq9upTGtVfcXE7drercESkVp2Trjap8Xl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 139. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 140. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0ZSNBmaxf5cGrnN5ih9XrkvPYJ8eXDenoJq9upTGtVfcXE7drercESkVp2Trjap8Xl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 141. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0ZSNBmaxf5cGrnN5ih9XrkvPYJ8eXDenoJq9upTGtVfcXE7drercESkVp2Trjap8Xl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 142. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 143. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02yn1nzp8Duzti7nLDu4VcJY43eDWRMrGvugL23Ad1Dzsg5maeqXgJgkiZR46cmKizl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 144. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02yn1nzp8Duzti7nLDu4VcJY43eDWRMrGvugL23Ad1Dzsg5maeqXgJgkiZR46cmKizl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 145. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 146. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0JNuN6ebByvKX1PF169RN2vQdVUCrN5XjMvpUtMERPcnmesQrcC2RzLCwaJKMKpbsl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 147. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 148. Переглянути
+VM292:21    URL: https://www.facebook.com/groups/306053991684272/posts/769015125388154/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 149. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 150. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid037mcR18yWqzPfiaVruC1cDkW5jfCt7trZBo55iiFj57zobDdq4x5QSTWqsjkYPnzgl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 151. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 152. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02k21tqvH2KMrXFnQYrdjzxZKaFVaJ9qN966EoQeCG4G5jeK8Sb24U8zaBwZm6yZkUl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 153. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 154. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0E5MixKP4pTDo4WzTtM1LDrQreFFXUVg3KDf2d6ED5uqJmYZmjGCdxE85VcqaDzTpl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 155. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 156. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0pNQFyWNMDH3onuHWBppavtphGskagn9EU7QU8iEQRnq53Zd236JTWKb1hNFtQ4NXl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 157. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 158. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02Tw9GvjLABjPG4HATLCNYYQ1zymuqVYmG5gPVcXvWSMtq1FJbioLFGeD5xxmnBUJel
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 159. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 160. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02TMqNc9mzsXJrUGVWeQ86WjwcLLDMVYnungvnw5nQ5KL9oE2wmYQyz4zADfqfaK23l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 161. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 162. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02zNrQ7TtL4q1S26un6UbUQSTqKT9hfYipzhgUhaA6z6cukHEvmMsYj82iMLCEkCEnl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 163. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 164. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0pgrjfkvG7CyWzf77vkeeMViyhG413aKEEnWb9MFMoFE8ktnBr1S2iT3gGqBnp1p9l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 165. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0pgrjfkvG7CyWzf77vkeeMViyhG413aKEEnWb9MFMoFE8ktnBr1S2iT3gGqBnp1p9l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 166. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 167. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0pgrjfkvG7CyWzf77vkeeMViyhG413aKEEnWb9MFMoFE8ktnBr1S2iT3gGqBnp1p9l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 168. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 169. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/videos/305760932393170/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 170. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 171. Переглянути
+VM292:21    URL: https://www.facebook.com/reel/734625722159323/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 172. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 173. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/videos/448018327631302/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 174. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 175. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02zHih7wQvRzgLCPCiqZ2gecRhrqNNGhyarQoAMr4LCGcHjoZaadHugHms4Pd1aNN3l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 176. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 177. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0fcnz8jzyzNXvXR6z1vnFvPZbHgVHmMWdjaTtBroqnS8HCnXZvqmEwGva3wwVPj5Nl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 178. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0fcnz8jzyzNXvXR6z1vnFvPZbHgVHmMWdjaTtBroqnS8HCnXZvqmEwGva3wwVPj5Nl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 179. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 180. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0oMRphJT9jLMwVxuRLtR1FpPK978oUPR8zcNbyGiBGvK4FjVaRtizkUTJupP662Fyl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 181. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0oMRphJT9jLMwVxuRLtR1FpPK978oUPR8zcNbyGiBGvK4FjVaRtizkUTJupP662Fyl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 182. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 183. дописі
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid024JZGAV3gz9LvtXpXVz6F9CKrKJjxqNr5bMr6csdzT3kgtZabQHe5iNqVG1XcYHsil
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 184. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid024JZGAV3gz9LvtXpXVz6F9CKrKJjxqNr5bMr6csdzT3kgtZabQHe5iNqVG1XcYHsil
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 185. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 186. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid024JZGAV3gz9LvtXpXVz6F9CKrKJjxqNr5bMr6csdzT3kgtZabQHe5iNqVG1XcYHsil
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 187. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 188. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02SVpKHL7DgMbWp4nn79upXLBHZ1V8LFdNhgJxadrqpmYsPUgskpW3tAL7FrLj8bjJl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 189. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 190. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02mKvBL1TVNncQkjaMQfJMAzYq7Nv6kngpBQKrkYgxzJFUWpWNUzg4dArQc2fxoMqZl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 191. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02mKvBL1TVNncQkjaMQfJMAzYq7Nv6kngpBQKrkYgxzJFUWpWNUzg4dArQc2fxoMqZl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 192. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 193. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02mKvBL1TVNncQkjaMQfJMAzYq7Nv6kngpBQKrkYgxzJFUWpWNUzg4dArQc2fxoMqZl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 194. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 195. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid028Jjia7ySrqAPxBEMsMdm9Ep4Gj2d1mZJKoWbwoWR9DUPVSHMcaXehWHWmRz8R72xl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 196. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 197. дописі
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid028Jjia7ySrqAPxBEMsMdm9Ep4Gj2d1mZJKoWbwoWR9DUPVSHMcaXehWHWmRz8R72xl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 198. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid028Jjia7ySrqAPxBEMsMdm9Ep4Gj2d1mZJKoWbwoWR9DUPVSHMcaXehWHWmRz8R72xl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 199. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 200. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid024hVR7ouG75MMwgN9ffbBgnjNcN4yJgUinnsB2ERQZRx8GywLFcTkB26B9a4U36Gbl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 201. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid024hVR7ouG75MMwgN9ffbBgnjNcN4yJgUinnsB2ERQZRx8GywLFcTkB26B9a4U36Gbl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 202. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 203. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid048QDbd7iEzysnrZcA36dZhEoah5LSPw8HkdKpxSALxhPmyxV9Atznh2MSaiFWaf2l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 204. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 205. Переглянути
+VM292:21    URL: https://www.facebook.com/arinabanar/posts/pfbid02p6ZmS8fy1FKNSFz4HCx6KwaQogt2ubVFBKN55fnYdFKQdDPdgW5Jji5GBLcTLAJPl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 206. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 207. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02htPcwjZFFAFDzMAV9VWUdHAgbmcUYu5LLz2rzzvfALRmUJrVFjgWFguV9dnvuGugl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 208. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 209. Переглянути
+VM292:21    URL: https://www.facebook.com/arinabanar/posts/pfbid0Mz9e7j2GtzupUxVeq2xLdywLWXbGzguzD5adZLPFpyCQNSAJMkvfg93AD3gv9WwLl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 210. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 211. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0ySuNUZwpt9e72ZXA9TkM8dyZ2Z9nePYmvHQZucdsnKTcF6eWmCgq5FFMEK463Egnl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 212. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 213. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02nP5JGGUBRP1owou75V1ygH7TuYcALq8UQwjAjwVHcAA4t7QTHst1e9jQhT3oNvgRl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 214. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 215. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid035tctxskSLEL1z8Uv79r6TTuWk2eBbcR1ojPWKjzr9nGggFyBdnTwcj6knYGFWBRul
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 216. Тамара Лисенко-Завізьон
+VM292:21    URL: https://www.facebook.com/profile.php?id=61555929387530
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 217. коментарі
+VM292:21    URL: https://www.facebook.com/mollbuk/videos/2196466607355398/?comment_id=1425983814623641&reply_comment_id=692428393083452
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 218. Переглянути
+VM292:21    URL: https://www.facebook.com/mollbuk/videos/2196466607355398/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 219. Lyubov Dika-Kuchar
+VM292:21    URL: https://www.facebook.com/burkovaemma
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 220. коментарі
+VM292:21    URL: https://www.facebook.com/mollbuk/videos/2196466607355398/?comment_id=1425983814623641&reply_comment_id=264293143355796
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 221. Переглянути
+VM292:21    URL: https://www.facebook.com/mollbuk/videos/2196466607355398/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 222. Люд Мила
+VM292:21    URL: https://www.facebook.com/profile.php?id=100044350328206
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 223. коментарі
+VM292:21    URL: https://www.facebook.com/mollbuk/videos/2196466607355398/?comment_id=1425983814623641&reply_comment_id=740195051543042
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 224. Переглянути
+VM292:21    URL: https://www.facebook.com/mollbuk/videos/2196466607355398/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 225. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 226. дописі
+VM292:21    URL: https://www.facebook.com/ActiveYOU/posts/pfbid02mHdAHkcDszkgyYNLNxiFZJuZHCi6tKxYgRtwJQVgk9YeYNfQXFSLtVmYcdjtbp9nl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 227. Переглянути
+VM292:21    URL: https://www.facebook.com/ActiveYOU/posts/pfbid02mHdAHkcDszkgyYNLNxiFZJuZHCi6tKxYgRtwJQVgk9YeYNfQXFSLtVmYcdjtbp9nl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 228. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 229. дописі
+VM292:21    URL: https://www.facebook.com/ActiveYOU/posts/pfbid02d8XSYZTSLvHaLvhWr9cWR5BCovMWDULUPCeHCwpfrFJc4xN2yCFYsTUY2AdZkv79l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 230. Переглянути
+VM292:21    URL: https://www.facebook.com/ActiveYOU/posts/pfbid02d8XSYZTSLvHaLvhWr9cWR5BCovMWDULUPCeHCwpfrFJc4xN2yCFYsTUY2AdZkv79l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 231. Julie Pikas
+VM292:21    URL: https://www.facebook.com/profile.php?id=61553177135695
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 232. коментарі
+VM292:21    URL: https://www.facebook.com/permalink.php?story_fbid=pfbid0JrkaiL3iiXhqVKdk2Nv4um27JvekLqzCZNgo6P43wf2jd6ReY1zcQbhVgFWeR4Nwl&id=61553177135695&comment_id=220611071116132&reply_comment_id=225785973916632
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 233. Переглянути
+VM292:21    URL: https://www.facebook.com/permalink.php?story_fbid=pfbid0JrkaiL3iiXhqVKdk2Nv4um27JvekLqzCZNgo6P43wf2jd6ReY1zcQbhVgFWeR4Nwl&id=61553177135695
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 234. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 235. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02NfFDh4KRpf6ByakWZuYcgEGf5Smo7o8kfKb6uAKTNGYhdqWn3FPi49yaSjJSjKDhl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 236. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 237. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0WSHVaXuuFzBXjhn7KhR51v6CXEQp6NcuqWF18PTd7Femq2Z6gDBSfuYsZKe9gicsl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 238. Julie Pikas
+VM292:21    URL: https://www.facebook.com/profile.php?id=61553177135695
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 239. коментарі
+VM292:21    URL: https://www.facebook.com/permalink.php?story_fbid=pfbid0kwK4ZH8JdetPVDukEwzV9qdyRNJybN5SLgGQ7yQP2SgohVDRhr7obTPU7ojXM771l&id=61553177135695&comment_id=1061238598353936&reply_comment_id=1523438834864549
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 240. Переглянути
+VM292:21    URL: https://www.facebook.com/permalink.php?story_fbid=pfbid0kwK4ZH8JdetPVDukEwzV9qdyRNJybN5SLgGQ7yQP2SgohVDRhr7obTPU7ojXM771l&id=61553177135695
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 241. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 242. Переглянути
+VM292:21    URL: https://www.facebook.com/permalink.php?story_fbid=pfbid0kwK4ZH8JdetPVDukEwzV9qdyRNJybN5SLgGQ7yQP2SgohVDRhr7obTPU7ojXM771l&id=61553177135695
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 243. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 244. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02xpkhJGEGALjSeds8qU4DjBfo2DawbCdmEEr3LFP3Mbiy56cyd3Ev2b7rESJRqmrfl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 245. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02xpkhJGEGALjSeds8qU4DjBfo2DawbCdmEEr3LFP3Mbiy56cyd3Ev2b7rESJRqmrfl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 246. Roksolana Petryk
+VM292:21    URL: https://www.facebook.com/roksolana.petryk
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 247. коментарі
+VM292:21    URL: https://www.facebook.com/roksolana.petryk/posts/pfbid0aA5pZmdTsvjaJ62Sk4vxpTQ7DKFz3PYV3f1e9MKPxzS4RkPEtCKg4oDCQQvrqoXWl?comment_id=1577394356336692&reply_comment_id=1334028050557505
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 248. Переглянути
+VM292:21    URL: https://www.facebook.com/roksolana.petryk/posts/pfbid0aA5pZmdTsvjaJ62Sk4vxpTQ7DKFz3PYV3f1e9MKPxzS4RkPEtCKg4oDCQQvrqoXWl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 249. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 250. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0vADt6iBKx1Xr1XBhNoZk1mcJQNHwtYjbrHUTTQLVFsy7ZLAAKtBQV3Jx1pkQwNNBl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 251. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 252. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0HWzcio35siSBxUYbVUC7E3Wv1rWs3MFLeP8bQUMStDWy4ivyL73doeddLsSuuEsnl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 253. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0HWzcio35siSBxUYbVUC7E3Wv1rWs3MFLeP8bQUMStDWy4ivyL73doeddLsSuuEsnl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 254. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 255. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid023CZQQV8f84Vi9mrAeiw9KFAsX5EVJNK6d7kvx5aFaber6J1g1Q2sLt19n4aKkJRUl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 256. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 257. Переглянути
+VM292:21    URL: https://www.facebook.com/serhii.yanushevskiy/posts/pfbid02hrrwatzQFGFMVhgLshQb2K2YxLEUTHysEH8GU2RY8EpsnyKNtgrmUPMY54EQMmupl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 258. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 259. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0355LDeMb8BgCyEKmkFw75XwPJpw7ogC2pRemb447TaLEN5PPHJ1nPmFWGsxTuMPYGl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 260. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 261. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02Vov9dpgngU3VhavZxiU6v6Fcu9AT82gLx6EoBaJyrcG9EaWLnfowBteVNmoKWsTml
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 262. Укрпошта
+VM292:21    URL: https://www.facebook.com/ukrposhta
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 263. коментарі
+VM292:21    URL: https://www.facebook.com/ukrposhta/posts/pfbid02AmuqRpRyxH3HUH8kGEzDzi1dhNZnAWmxxrnZ5PCpRgpLkFTg6qXgrFm475yFHvkCl?comment_id=731594252206451&reply_comment_id=363163739523353
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 264. Переглянути
+VM292:21    URL: https://www.facebook.com/ukrposhta/posts/pfbid02AmuqRpRyxH3HUH8kGEzDzi1dhNZnAWmxxrnZ5PCpRgpLkFTg6qXgrFm475yFHvkCl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 265. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 266. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0347JnGPQjvyTmWt5CBPr2q2ASydNYYLHMaSq14PgG7oyLNMSNEXFYQ6tR7TtyvPhDl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 267. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid0347JnGPQjvyTmWt5CBPr2q2ASydNYYLHMaSq14PgG7oyLNMSNEXFYQ6tR7TtyvPhDl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 268. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 269. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02vMMw7PuH3tMbpsRvb52GtDv8x738VgYboF77JGWf7AibwryU3Apjadqey8Zcxczyl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 270. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 271. Переглянути
+VM292:21    URL: https://www.facebook.com/dmytro.shchogolev/posts/pfbid0pRncqnmMzbQRjJkJApnmb3RA286ArDwVZCjn5Wff4zZT1bX43JaRuYCg7iweNcG7l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 272. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 273. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02DipqWzbGrJME3wXVTMFFnMTxMfTW9FA3qwdv29dDB8s3H5AUMKLDGhxT18HjoPB3l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 274. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02DipqWzbGrJME3wXVTMFFnMTxMfTW9FA3qwdv29dDB8s3H5AUMKLDGhxT18HjoPB3l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 275. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 276. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02eXT5CjiSGKsysVYSH1oQeNhvK6ScJW4qguw8hfp7cZGMM7M7AKjnFqjiU5zVRHSEl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 277. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 278. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid05vhPcQXafyMHuHLYuyMy2WrgWQVncWKx9KYQqbWXgqTfdR1GeypyPdx8kgWp2HUZl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 279. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 280. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0euHyEVZXNTAgmMMExVTCYovdpS1oUcueZ7wnNuGRn7wUuMx1rbAyRD2ZB567PdEGl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 281. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 282. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/videos/1367136780907585/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 283. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/videos/1367136780907585/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 284. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 285. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0RqhiiaxwGdbnb8RPFC93eTtagJd2HMrY7yn2QieQR6jzGdaeojEi4Q4S4Vg9aHVzl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 286. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 287. дописі
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0RqhiiaxwGdbnb8RPFC93eTtagJd2HMrY7yn2QieQR6jzGdaeojEi4Q4S4Vg9aHVzl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 288. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0RqhiiaxwGdbnb8RPFC93eTtagJd2HMrY7yn2QieQR6jzGdaeojEi4Q4S4Vg9aHVzl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 289. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 290. Переглянути
+VM292:21    URL: https://www.facebook.com/serhii.yanushevskiy/posts/pfbid0HmX4dkR7MKAdCvgcJzTPuwb9kcd7KvfFBD3wnVN2GFwQYLbWsK9UdDEdEchyZhSEl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 291. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 292. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid03ErUuxt63xqoAUxgdV8wKpAMxRsx6fFH8hQsVMbupi31EDjgBf134wxT27VFQ8j3l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 293. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid03ErUuxt63xqoAUxgdV8wKpAMxRsx6fFH8hQsVMbupi31EDjgBf134wxT27VFQ8j3l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 294. Ihor Michurin
+VM292:21    URL: https://www.facebook.com/profile.php?id=100049905751574
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 295. коментарі
+VM292:21    URL: https://www.facebook.com/permalink.php?story_fbid=pfbid0LXQK4TMAUwdyoKiiP1tgwt2K3uEB83gC8CPhYqyYqenbbVrdjhefVftRb6qXvxJ5l&id=100049905751574&comment_id=1372141810398021&reply_comment_id=1018598639420525
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 296. Переглянути
+VM292:21    URL: https://www.facebook.com/permalink.php?story_fbid=pfbid0LXQK4TMAUwdyoKiiP1tgwt2K3uEB83gC8CPhYqyYqenbbVrdjhefVftRb6qXvxJ5l&id=100049905751574
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 297. Ivanka Syrotiuk
+VM292:21    URL: https://www.facebook.com/profile.php?id=100025383603077
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 298. коментарі
+VM292:21    URL: https://www.facebook.com/permalink.php?story_fbid=pfbid086cgYr6dF2MFnwUKVxg6qZTHac5ezxpErdNg9eVTxF2a4VzTfjfWc3CqGECCsFB3l&id=100025383603077&comment_id=1522546768507939&reply_comment_id=3471040393149512
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 299. Переглянути
+VM292:21    URL: https://www.facebook.com/permalink.php?story_fbid=pfbid086cgYr6dF2MFnwUKVxg6qZTHac5ezxpErdNg9eVTxF2a4VzTfjfWc3CqGECCsFB3l&id=100025383603077
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 300. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 301. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0Wp8JhqDj6VFBqUuCGqJQUpoQKRKZSCF251W7mQcBRoMpQGL2dMAoUfFnwUpoVuzjl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 302. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 303. Переглянути
+VM292:21    URL: https://www.facebook.com/ulia.martinuk.722617/posts/pfbid02zMeiuEaorW48Y8eenXFCEkjG3u5YySDZRiPsmDsUuKgHgDpG1HT4JPJkYfjBWh8xl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 304. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 305. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02jHyETthntuwwNKADPTuvMG8sidXP1b1FApogApS3Lwipo5NGZunz3Bm7rxjaQ1iXl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 306. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02jHyETthntuwwNKADPTuvMG8sidXP1b1FApogApS3Lwipo5NGZunz3Bm7rxjaQ1iXl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 307. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 308. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid05q8M6535KtBsFnG1nqQ7CtRUigC1z3CsYG7aXxxd7g15Gc29EkwGKgQrkxLmWky8l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 309. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 310. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02uSirbi7uaGmUFrcvEqeZq38TA3vEa9LbR7URucKBKjP59JYupi5UYfoWZDVorurul
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 311. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02uSirbi7uaGmUFrcvEqeZq38TA3vEa9LbR7URucKBKjP59JYupi5UYfoWZDVorurul
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 312. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 313. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02HryiJfFgLTosjswKha6tWjkY3M3vMCiZyRpU2DXGBpEBT8sXXtNmsodfBp3mtZyMl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 314. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid02HryiJfFgLTosjswKha6tWjkY3M3vMCiZyRpU2DXGBpEBT8sXXtNmsodfBp3mtZyMl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 315. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 316. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0cMRWMKHnCWCTHbx1ggLMV5Ni8dtWYzdcc5AQXJrLGjwamWJ1apkpLaGf1vSfvJQyl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 317. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 318. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02ZHdNEv3RYHtg8zodn31mArUU9pBAG8KzSpADkTgT35SaqSQ3fPxbgWXS7EnjoPZDl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 319. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 320. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02aKUW1ydvHdftCqSkmJKFHYYyrYCVEW6nwPjNtzXykMa31bnHJtB4heMq6xqaE21pl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 321. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 322. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0gxSZsbyeDkP6286JAcJn7boAFk5QcDv4cztfnRPbAdgV5uxpwPUERh1z4AyzRonyl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 323. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 324. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid035TjzXyUDDJfRdoMr2idpQ26KQyMZZwex1E1RWYj7RHt8FMcrwcxH2UcASLGGU4El
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 325. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 326. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0Q35ZzRvqtcpn2QE32Y9VLcgaSbZAZqhtVKytuZwjoqT6TFX1zzEnPpCnt6CGweiNl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 327. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 328. дописі
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid037vZqpzW8osogg8xheKDyyWDWYfxch6dfCri4NEMPmLiRh4G3w7CqDRru2kN95sn6l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 329. Переглянути
+VM292:21    URL: https://www.facebook.com/fsymvoly/posts/pfbid037vZqpzW8osogg8xheKDyyWDWYfxch6dfCri4NEMPmLiRh4G3w7CqDRru2kN95sn6l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 330. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 331. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0RchxAU9ko2twxVdhd3zz5jBRD9aBLD5scnNDvyv5j1KwFGeusyhw7PQGX1TCBXgAl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 332. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 333. дописі
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0mbeLVBQ6ekBUVKGbv5kBRxAZ352QrcQsAzrUzS52oMy1DyVSBoDZJPXPCw22kk7Sl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 334. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0mbeLVBQ6ekBUVKGbv5kBRxAZ352QrcQsAzrUzS52oMy1DyVSBoDZJPXPCw22kk7Sl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 335. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 336. Переглянути
+VM292:21    URL: https://www.facebook.com/photo/?fbid=306161418771099&set=a.101890219198221
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 337. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 338. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0ejFFT5mMoMrWyRvfFnZDKYtPGvCzApjqxbB1Gf6tTM5zNk5vQqxY85rz4tNohXpNl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 339. Укрпошта
+VM292:21    URL: https://www.facebook.com/ukrposhta
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 340. коментарі
+VM292:21    URL: https://www.facebook.com/photo/?fbid=721416436697534&set=a.625333642972481&comment_id=1021012802267075&reply_comment_id=837423614756189
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 341. Переглянути
+VM292:21    URL: https://www.facebook.com/photo/?fbid=721416436697534&set=a.625333642972481
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 342. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 343. дописі
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02yrGpviZS7wqjvkWybKM3YxVG3DvRNMgvXszpn9CSuMvD6342RthmDsnsjwsUoUYbl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 344. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02yrGpviZS7wqjvkWybKM3YxVG3DvRNMgvXszpn9CSuMvD6342RthmDsnsjwsUoUYbl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 345. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 346. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02ZkGw5bqXuFac1cp3BizCJmR62MuKYV9e12Dm5afjUxGMikAPdFHi3hpNiS8qC2KHl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 347. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 348. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid032G4cMNG4GwqnGgfKRv7RtF3UngT5zBQzVUBMhUFsjSym7WBQTcc1SxPMeVV5v3h3l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 349. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 350. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0jmVWQBoAH418zm8dfk5QW5g1MokYJVD9fcTissMZdSetuKsPV5pgBMTC527pZrz5l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 351. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 352. Переглянути
+VM292:21    URL: https://www.facebook.com/groups/178951010153854/posts/840327484016200/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 353. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 354. Переглянути
+VM292:21    URL: https://www.facebook.com/groups/276429756181582/posts/1629898107501400/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 355. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 356. Переглянути
+VM292:21    URL: https://www.facebook.com/groups/zpershuxryk/posts/1212184139453391/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 357. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 358. Переглянути
+VM292:21    URL: https://www.facebook.com/groups/747107132629098/posts/1221562245183582/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 359. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 360. Переглянути
+VM292:21    URL: https://www.facebook.com/ulia.martinuk.722617/posts/pfbid02iNgB6E2sh7uw9ZfaHeHjnN2Tmgh8rvKscZVNdViaTohp95Dnim2pUNCHwcNHWFFHl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 361. Укрпошта
+VM292:21    URL: https://www.facebook.com/ukrposhta
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 362. коментарі
+VM292:21    URL: https://www.facebook.com/ukrposhta/posts/pfbid02VczhvKaE196LY9aq9txFhVfJ2YPjqc47mVigAZtwrfZLZr7zYSaqhDFLcmNqcBoLl?comment_id=6151328298306369&reply_comment_id=1025642901913556
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 363. Переглянути
+VM292:21    URL: https://www.facebook.com/ukrposhta/posts/pfbid02VczhvKaE196LY9aq9txFhVfJ2YPjqc47mVigAZtwrfZLZr7zYSaqhDFLcmNqcBoLl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 364. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 365. Переглянути
+VM292:21    URL: https://www.facebook.com/groups/cyberrange/posts/958039405458826/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 366. Укрпошта
+VM292:21    URL: https://www.facebook.com/ukrposhta
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 367. коментарі
+VM292:21    URL: https://www.facebook.com/ukrposhta/posts/pfbid02VczhvKaE196LY9aq9txFhVfJ2YPjqc47mVigAZtwrfZLZr7zYSaqhDFLcmNqcBoLl?comment_id=266371669520952&reply_comment_id=1419271941979567
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 368. Переглянути
+VM292:21    URL: https://www.facebook.com/ukrposhta/posts/pfbid02VczhvKaE196LY9aq9txFhVfJ2YPjqc47mVigAZtwrfZLZr7zYSaqhDFLcmNqcBoLl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 369. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 370. Переглянути
+VM292:21    URL: https://www.facebook.com/groups/linux.fans.group/posts/9908346212540405/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 371. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 372. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid06sxVJxRYRoVHibhmEvZ5httC3kYcJK9b2Q5jmbuWnwpqXP1vp3NxD98U4WV7EzUwl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 373. Тарас Князєв
+VM292:21    URL: https://www.facebook.com/taras.knyazev.new
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 374. коментарі
+VM292:21    URL: https://www.facebook.com/ukrposhta/videos/754159176462246/?comment_id=1013725413092302&reply_comment_id=667561564975919
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 375. Переглянути
+VM292:21    URL: https://www.facebook.com/ukrposhta/videos/754159176462246/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 376. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 377. дописі
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid06sxVJxRYRoVHibhmEvZ5httC3kYcJK9b2Q5jmbuWnwpqXP1vp3NxD98U4WV7EzUwl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 378. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid06sxVJxRYRoVHibhmEvZ5httC3kYcJK9b2Q5jmbuWnwpqXP1vp3NxD98U4WV7EzUwl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 379. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 380. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0HYrJEEsFf9qeG6t81DmqbgU1N7GDXGDQyhZz5hMdRuqKoHqCMvvb8hHR944x7yszl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 381. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 382. Переглянути
+VM292:21    URL: https://www.facebook.com/ulia.martinuk.722617/videos/2846742102132502/
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 383. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 384. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0sBLs7tS6LmaUemvEK7Nvj773h9FhMUvtVsS2EuE9HCae74rh2zaVDootFXuguMqml
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 385. Укрпошта
+VM292:21    URL: https://www.facebook.com/ukrposhta
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 386. коментарі
+VM292:21    URL: https://www.facebook.com/ukrposhta/posts/pfbid0gJDbtfpXHoRQtMH4Q95nzfDdzHEib4sRGrgZMT68AgGZ1NSCXeiDeVRoK1zhqKmLl?comment_id=840190813961127&reply_comment_id=274864071833370
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 387. Переглянути
+VM292:21    URL: https://www.facebook.com/ukrposhta/posts/pfbid0gJDbtfpXHoRQtMH4Q95nzfDdzHEib4sRGrgZMT68AgGZ1NSCXeiDeVRoK1zhqKmLl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 388. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 389. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02AeV8qGkQfUhUevzzqgQMWsUNRRyMXQfL1n43W5nWTo9zQSeLTQSchBXfyvCzm1DLl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 390. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 391. дописі
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0iY4x3eCZ85py84S56Q8F8MAPf2GpXptC8gRiHsTkNw3jCuevApxSwrv8fvK5Y2Fdl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 392. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0iY4x3eCZ85py84S56Q8F8MAPf2GpXptC8gRiHsTkNw3jCuevApxSwrv8fvK5Y2Fdl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 393. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 394. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid02bjVUWBSfVSC74oW2HqR6bz9Sr6moMTfhmbdUqQMGoDdoQYrPGBZzBxZHYFW9fPTJl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 395. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 396. Переглянути
+VM292:21    URL: https://www.facebook.com/ulia.martinuk.722617/posts/pfbid02PC3TeD9sdBUV8Aj9vYUFJSUb3S6DXoshhLzjz6ozSX1ywEuuZtVVxvN9LzKrC7uJl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 397. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 398. дописі
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0uDwnqz5LYqKPwamXPDxeB3RroXfs4KzEmDh8GLuFwsKBfMfJY1KuDNwiDAMarKKml
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 399. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0uDwnqz5LYqKPwamXPDxeB3RroXfs4KzEmDh8GLuFwsKBfMfJY1KuDNwiDAMarKKml
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 400. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 401. Переглянути
+VM292:21    URL: https://www.facebook.com/agevyuk/posts/pfbid0mn25rS6grB8yZvsVytbBbp2JvwAjckuzeuNDUCYmrZLkuE2qmjVhscmKhBV5M5nJl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 402. Natalia Davydenko
+VM292:21    URL: https://www.facebook.com/natalya.davydenko.37
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 403. коментарі
+VM292:21    URL: https://www.facebook.com/ukrposhta/posts/pfbid038PKhBQmpRTNMjwTumqGT4mZZwVeruJbvChWvUitLRCg3Y7SUkweJXZRR5sWD2vVLl?comment_id=1511459752594551&reply_comment_id=280177617836905
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 404. Переглянути
+VM292:21    URL: https://www.facebook.com/ukrposhta/posts/pfbid038PKhBQmpRTNMjwTumqGT4mZZwVeruJbvChWvUitLRCg3Y7SUkweJXZRR5sWD2vVLl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 405. Укрпошта
+VM292:21    URL: https://www.facebook.com/ukrposhta
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 406. коментарі
+VM292:21    URL: https://www.facebook.com/ukrposhta/posts/pfbid038PKhBQmpRTNMjwTumqGT4mZZwVeruJbvChWvUitLRCg3Y7SUkweJXZRR5sWD2vVLl?comment_id=1511459752594551&reply_comment_id=811030993541248
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 407. Переглянути
+VM292:21    URL: https://www.facebook.com/ukrposhta/posts/pfbid038PKhBQmpRTNMjwTumqGT4mZZwVeruJbvChWvUitLRCg3Y7SUkweJXZRR5sWD2vVLl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 408. Укрпошта
+VM292:21    URL: https://www.facebook.com/ukrposhta
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 409. коментарі
+VM292:21    URL: https://www.facebook.com/ukrposhta/posts/pfbid038PKhBQmpRTNMjwTumqGT4mZZwVeruJbvChWvUitLRCg3Y7SUkweJXZRR5sWD2vVLl?comment_id=1511459752594551&reply_comment_id=289542340181855
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 410. Переглянути
+VM292:21    URL: https://www.facebook.com/ukrposhta/posts/pfbid038PKhBQmpRTNMjwTumqGT4mZZwVeruJbvChWvUitLRCg3Y7SUkweJXZRR5sWD2vVLl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 411. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 412. Переглянути
+VM292:21    URL: https://www.facebook.com/photo/?fbid=1989279807986131&set=a.1694946224086159
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 413. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 414. Переглянути
+VM292:21    URL: https://www.facebook.com/colleen.card/posts/pfbid025yCzWcM8kdBpSys6Ak3D7mmWhhZJQuu7bd77rQbK2wBwJ17iCEsLhqsR1ZDuQd39l
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 415. Юрій Мартинюк
+VM292:21    URL: https://www.facebook.com/yuriimartyniukofficial
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:20 416. Переглянути
+VM292:21    URL: https://www.facebook.com/colleen.card/posts/pfbid02RXMYNYujiETCwTCwx3y4JioEdHeHpkBW8AXY163cFRAZz2ikGXapWJ8FjDBrti9Kl
+VM292:22    Внутрішнє посилання
+VM292:23 ---
+VM292:27 
+=== ТЕКСТ СТОРІНКИ ===
+VM292:29  
+Журнал активності
+Головна
+Архів
+Кошик
+Перевірка життєпису, світлин, тегів
+Журнал активності
+20 березня 2025 р.
+Юрій Мартинюк позначений у дописі.
+#Cyber Вже більше двох років як Фонд Символи проводить різноманітні освітні заходи з кібербезпеки дітей. За цей час ми в партнерстві з правоохоронними органами, навчальними закладами та іншими ГО ми організували десятки різноманітних навчальних подій де допомагали дітям, батькам та педагогами стати обізнанішими й безпечнішими в цифровому світі, як уберегтися від загроз в інтернеті, розпізнавати шахраїв та захищати особисті дані. Цифрова безпека - це не розкіш, а необхідність. Дякую всім, хто підтримує роботу Фонду "Символи" у цій місії! Разом ми маємо створювати безпечніше онлайн-середовище для наших дітей. Долучайтеся, поширюйте знання, будьте cyber захищені! 🔒💡
+Публічно
+23:55
+Переглянути
+31 грудня 2024 р.
+Юрій Мартинюк згадано в дописі.
+Наприкінці року важливо підбити підсумки, проаналізувати зроблене, щоб зрозуміти куди і як рухатися далі. Тож сезон звітів проєктів від Фонд Символи #Звіт2024 «Креативні індустрії» Проекти: Art for Peace UA, «Згадайте нас такими…». Чернівецькі зустрічі Ольги Кобилянської і Василя Стефаника: реальність та омріяне», «Буковинські мальописи», «Буковинські мальописи: Федькович», «Буковинські мальописи: Кобиляньска», «Музи Федьковича», Музичний батл «Митець & штучний інтелект». #Звіт2024 «Навчання» 30 - тренінгів; 7 - презентацій; 9 - лекції. Тематика - кібербезпека, психологія, основи ІТ, стартап, роботехніка та інше. #Звіт2024 #Аналітика Проекти: Mindex, «ASI», «Index Che», «Osint Media Wiki», «Символи Змін. #Звіт2024 «Медіа напрям» Медіапроєкти із використанням штучного інтелекту (АІ) - Aivrora, Федькович.live Media Hub Bukovyna, iChernivtsi. #Звіт2024 #Практика студентів #Волонтерство В рамках проєкту «Інфо БукВолонтер 4.0» та співпраці з навчальними закладами Чернівців близько 100 студентів пройшло практику та близько 10 волонтерів було задіяно в різних проектах фонду. #Звіт2024 #Співпраця Підписано меморандуми про співпрацю та спільну діяльність з 2 організаціями (Бахмутська міська військова адміністрація). Участь у міжнародній конференції-дебатах в Румунії: «Європейська підтримка молодих людей у вигнанні. Порівняльний підхід між Францією та Румунією». #Звіт2024 #Відзнаки За внесок у розвиток молодіжної політики Чернівців - Serhii Yanushevskyi, Юрій Мартинюк, @Анастасія Няйко отримали від Чернівецької міської ради відповідні грамоти та відзнаки. За участь в 4 акселераційних програмах та хакатонах члени фонду отримали відповідні сертифікати та відзнаки. #Звіт2024 #CyberChe #ІнфоБезпека #Кібербезпека Є що згадати, але неможна розказати. Тому все, що можемо сказати «Ніхто і ніде не в безпеці». #Звіт2024 #Техно В рамках «Техно та UAV&UGV напряму» діяльності Фонд Символи підтримував та організовував діяльність тільки двох проєктів #TechHubBukovyna #AeroDraco. Війни виграють ті в кого є нові технології, наука, знання, гроші та розумні люди. Невеликі технологічні групи розумних людей подекуди можуть зробити багато чого, що пришвидшить нашу перемогу.
+Публічно
+15:13
+Переглянути
+28 грудня 2024 р.
+Serhiy Dmytrenko згадав вас у коментарі.
+Юрій Мартинюк статтю читати не пробували?🤔
+Публічно
+09:46
+Переглянути
+26 грудня 2024 р.
+Inna Danylevska згадала вас у коментарі.
+Юрій Мартинюкяк акселератор зі стартапами
+Публічно
+08:20
+Переглянути
+22 грудня 2024 р.
+Андрій Гев'юк згадав вас у коментарі.
+Юрій Мартинюк більше коду і все буде MVP 🍰
+Публічно
+19:08
+Переглянути
+17 грудня 2024 р.
+Юрій Мартинюк позначений у дописі.
+🌟 Важливий етап позаду! 🎉 Наш стартап Mindex успішно завершив акселераційну програму Open Data Accelerator - ініціативу, що підтримує українські стартапи, які працюють із відкритими даними. За півроку інтенсивної роботи команда #Mindex отримала не лише безцінний досвід, а й можливість перетворити ідею в повноцінний робочий MVP проект.👍 Дякуємо організаторам та наставникам за підтримку та віру в нашу місію! #Mindex #OpenDataAccelerator #стартап #інновації #відкритідані
+Публічно
+14:18
+Переглянути
+12 грудня 2024 р.
+Юрій Мартинюк позначений на світлині.
+Публічно
+18:54
+Переглянути
+7 грудня 2024 р.
+Kirill Zakharov згадав вас у коментарі.
+Юрій Мартинюк, cпасибо за вашу высокую оценку. 🙂 Я смотрел не столько на интерфейс, сколько на JSON, которым обменивается проект. Если так, то все еще печальнее, потому что тогда перечень вариантов проблем с торгами фиксированный и это не делает ситуцию лучше, если действительно говорить об анализе торгов. На том сайте Госстата, который вы указали, как ни странно данные те же самые, что и на старом. И хотя генерация данных теперь идет на лету и файлы генерируются с сегодняшим таймстемпом, на содержимом это, увы несильно сказывается. С другой стороны, вы бы могли просто четко перечислить, какие конкретно наборы вы используете. В "Суде на ладони" нет речевого бота и никогда не было. А вот анализа и механизма разборов, очистки текстов и процессинга там более, чем достаточно. И при этом, да, мы прекрасно
+{links: Array(416), pageText: ' \nЖурнал активності\nГоловна\nАрхів\nКошик\nПеревірка …dingRock #OpFlint #Occupy\nДрузі\n17:32\nПереглянути', totalLinks: 416}links: (416) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, …]pageText: " \nЖурнал активності\nГоловна\nАрхів\nКошик\nПереtotalLinks: 416[[Prototype]]: Object

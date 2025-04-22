@@ -1,0 +1,129 @@
+/* Стилі для компонентів активізму */
+
+/* Стилі для темної теми */
+.dark .activism-description {
+  color: white !important;
+}
+
+.dark .activism-text {
+  color: white !important;
+}
+
+.dark .activism-card-text {
+  color: rgba(229, 231, 235, 0.9) !important;
+}
+
+.dark .activism-category-badge {
+  background-color: rgba(236, 72, 153, 0.4) !important;
+  color: white !important;
+}
+
+.dark .activism-link {
+  color: rgba(236, 72, 153, 1) !important;
+}
+
+.dark .activism-link:hover {
+  color: rgba(244, 114, 182, 1) !important;
+}
+
+/* Стилі для заголовків у темній темі */
+.dark .activism-title {
+  color: white !important;
+}
+
+.dark .activism-subtitle {
+  color: rgba(229, 231, 235, 0.9) !important;
+}
+
+/* Стилі для метаданих у темній темі */
+.dark .activism-meta {
+  color: rgba(209, 213, 219, 0.8) !important;
+}
+
+/* Стилі для світлої теми */
+.activism-description {
+  color: #1e293b;
+}
+
+.activism-text {
+  color: #374151;
+}
+
+.activism-card-text {
+  color: #4b5563;
+}
+
+.activism-category-badge {
+  background-color: rgba(236, 72, 153, 0.2);
+  color: rgba(157, 23, 77, 1);
+}
+
+.activism-link {
+  color: rgba(236, 72, 153, 1);
+  transition: color 0.3s ease;
+}
+
+.activism-link:hover {
+  color: rgba(219, 39, 119, 1);
+}
+
+.activism-title {
+  color: #1e293b;
+}
+
+.activism-subtitle {
+  color: #4b5563;
+}
+
+.activism-meta {
+  color: #6b7280;
+}
+
+/* Стилі для категорій */
+.activism-category {
+  background-color: rgba(236, 72, 153, 0.2);
+  color: rgba(157, 23, 77, 1);
+  transition: all 0.3s ease;
+}
+
+.dark .activism-category {
+  background-color: rgba(236, 72, 153, 0.3);
+  color: rgba(229, 231, 235, 0.9);
+}
+
+.activism-category:hover {
+  background-color: rgba(236, 72, 153, 0.3);
+}
+
+.dark .activism-category:hover {
+  background-color: rgba(236, 72, 153, 0.4);
+}
+
+/* Стилі для карток ініціатив */
+.activism-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.activism-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Стилі для кнопок навігації */
+.activism-nav-button {
+  background-color: rgba(236, 72, 153, 0.9);
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.activism-nav-button:hover {
+  background-color: rgba(219, 39, 119, 1);
+}
+
+.dark .activism-nav-button {
+  background-color: rgba(219, 39, 119, 0.8);
+}
+
+.dark .activism-nav-button:hover {
+  background-color: rgba(190, 24, 93, 1);
+} 

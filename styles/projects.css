@@ -1,0 +1,159 @@
+/* Стилі для компонента ProjectsSection */
+
+/* Стилі для темної теми */
+.dark .project-description {
+  color: white !important;
+}
+
+.dark .project-tech-badge {
+  background-color: rgba(5, 150, 105, 0.4) !important;
+  color: white !important;
+}
+
+.dark .project-link {
+  color: white !important;
+}
+
+.dark .project-link:hover {
+  color: rgb(209, 213, 219) !important;
+}
+
+/* Стилі для заблокованих посилань */
+.project-link-disabled {
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.project-link-disabled:hover {
+  opacity: 1;
+}
+
+.dark .project-link-disabled {
+  color: rgba(156, 163, 175, 0.8) !important;
+}
+
+/* Забезпечує читабельність тексту для іконок у темній темі */
+.dark .text-red-500 {
+  color: rgb(244, 63, 94) !important; /* Колір danger як у тултіпі */
+}
+
+.dark .text-rose-500 {
+  color: rgb(244, 63, 94) !important; /* Колір danger як у тултіпі */
+}
+
+.dark .text-yellow-500 {
+  color: rgb(252, 211, 77) !important; /* Світліший жовтий для темної теми */
+}
+
+/* Стилі для світлої теми */
+.project-description {
+  color: #1e293b;
+}
+
+.project-tech-badge {
+  background-color: rgba(5, 150, 105, 0.2);
+  color: rgba(4, 120, 87, 1);
+}
+
+.project-link {
+  color: rgba(75, 85, 99, 1);
+  transition: color 0.3s ease;
+}
+
+.project-link:hover {
+  color: rgba(17, 24, 39, 1);
+}
+
+/* Додавання стилів для ефекту світіння */
+.glow-card {
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+  background-size: 400% 400%;
+}
+
+.glow-card::before,
+.glow-card::after {
+  content: '';
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.glow-card::before {
+  inset: -2px;
+  z-index: -2;
+  background-position: 0% 0%;
+  background: var(--glow-color, transparent);
+  filter: blur(12px);
+}
+
+.glow-card::after {
+  inset: -1px;
+  z-index: -1;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.06)
+  );
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.05);
+}
+
+.glow-card:hover::before {
+  opacity: var(--glow-opacity, 0);
+}
+
+.glow-card:hover::after {
+  opacity: 1;
+}
+
+.glow-effect {
+  background: var(--glow-color, transparent);
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.project-tech-badge {
+  position: relative;
+  z-index: 2;
+}
+
+.project-description {
+  position: relative;
+  z-index: 2;
+}
+
+.project-link {
+  position: relative;
+  z-index: 2;
+}
+
+/* Додаткові стилі для анімації */
+.glow-card:hover {
+  transform: translateY(-5px) scale(1.03);
+  transition: transform 0.3s ease;
+}
+
+.dark .glow-card::after {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.04)
+  );
+}
+
+/* Вимкнення зміни курсора для тексту */
+.project-description,
+.project-tech-badge,
+h3,
+p,
+span:not(.project-link span):not(.project-link-disabled span) {
+  cursor: inherit;
+}
+
+/* Зберігаємо дефолтний курсор для всієї секції проєктів */
+#projects {
+  cursor: default;
+} 
