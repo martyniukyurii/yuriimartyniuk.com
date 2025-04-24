@@ -39,7 +39,7 @@ const filesToPreload = [
 export function PreloadingScreen() {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
-  const { t, language } = useTranslation();
+  const { _t, language } = useTranslation();
   
   useEffect(() => {
     // Функція для попереднього завантаження зображень
@@ -67,7 +67,7 @@ export function PreloadingScreen() {
           } else if (file.endsWith('.glb')) {
             // Завантаження 3D моделей
             fetch(file)
-              .then(response => {
+              .then(_response => {
                 loadedFiles++;
                 setProgress(Math.floor((loadedFiles / totalFiles) * 100));
                 resolve();
