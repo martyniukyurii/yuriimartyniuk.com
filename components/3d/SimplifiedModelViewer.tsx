@@ -27,6 +27,33 @@ function Model({ url, autoRotate, fitOffset }: { url: string; autoRotate?: boole
   const [modelLoaded, setModelLoaded] = useState(false);
   const previousUrlRef = useRef(url);
 
+  // Додаємо діагностичні логи
+  useEffect(() => {
+    console.log(`[Diagnostics] Model component mounted for URL: ${url}`);
+    console.log(`[Diagnostics] Scene object:`, scene);
+    
+    // Перевіряємо WebGL контекст
+    try {
+      const canvas = document.querySelector('canvas');
+      if (canvas) {
+        const gl = canvas.getContext('webgl') || canvas.getContext('webgl2');
+        console.log(`[Diagnostics] WebGL context available: ${!!gl}`);
+        if (!gl) console.error('[Diagnostics] WebGL not supported');
+        
+        // Перевіряємо розміри canvas
+        console.log(`[Diagnostics] Canvas dimensions: ${canvas.width}x${canvas.height}`);
+      } else {
+        console.error('[Diagnostics] Canvas element not found');
+      }
+    } catch (e) {
+      console.error('[Diagnostics] Error checking WebGL context:', e);
+    }
+    
+    return () => {
+      console.log(`[Diagnostics] Model component unmounted for URL: ${url}`);
+    };
+  }, [url, scene]);
+
   useEffect(() => {
     // Перевіряємо, чи змінився URL - якщо ні, не робимо зайвих дій
     if (previousUrlRef.current === url && modelLoaded && modelRef.current && 
@@ -38,7 +65,9 @@ function Model({ url, autoRotate, fitOffset }: { url: string; autoRotate?: boole
     previousUrlRef.current = url;
     
     if (modelRef.current && scene) {
-      console.log(`Loading model: ${url}, timestamp: ${Date.now()}`);
+      console.log(`[Diagnostics] Loading model: ${url}, timestamp: ${Date.now()}`);
+      console.log(`[Diagnostics] Model ref exists: ${!!modelRef.current}, Children count: ${modelRef.current.children.length}`);
+      console.log(`[Diagnostics] Scene exists: ${!!scene}, Scene children count: ${scene.children.length}`);
       
       // Очищаємо модель перед додаванням нової сцени
       while (modelRef.current.children.length > 0) {
@@ -48,13 +77,17 @@ function Model({ url, autoRotate, fitOffset }: { url: string; autoRotate?: boole
       try {
         // Клонуємо сцену для уникнення конфліктів
         const clonedScene = scene.clone();
+        console.log(`[Diagnostics] Cloned scene, children: ${clonedScene.children.length}`);
         
         // Додаємо скопійовану сцену до нашої групи
         modelRef.current.add(clonedScene);
+        console.log(`[Diagnostics] Added cloned scene to model ref, new children count: ${modelRef.current.children.length}`);
         
         // Встановлюємо налаштування для отримання тіней та покращення відображення
+        let meshCount = 0;
         modelRef.current.traverse((child) => {
           if (child instanceof THREE.Mesh) {
+            meshCount++;
             child.castShadow = true;
             child.receiveShadow = true;
             
@@ -67,17 +100,21 @@ function Model({ url, autoRotate, fitOffset }: { url: string; autoRotate?: boole
             }
           }
         });
+        console.log(`[Diagnostics] Processed ${meshCount} meshes in the model`);
         
         setModelLoaded(true);
       } catch (error) {
-        console.error(`Error loading model: ${url}`, error);
+        console.error(`[Diagnostics] Error loading model: ${url}`, error);
       }
+    } else {
+      console.error(`[Diagnostics] Cannot load model - modelRef exists: ${!!modelRef.current}, scene exists: ${!!scene}`);
     }
     
     // Функція очищення
     return () => {
-      console.log(`Unloading model: ${url}, timestamp: ${Date.now()}`);
+      console.log(`[Diagnostics] Unloading model: ${url}, timestamp: ${Date.now()}`);
       if (modelRef.current) {
+        console.log(`[Diagnostics] Cleaning up model ref with ${modelRef.current.children.length} children`);
         while (modelRef.current.children.length > 0) {
           const child = modelRef.current.children[0];
 
@@ -108,7 +145,7 @@ function Model({ url, autoRotate, fitOffset }: { url: string; autoRotate?: boole
       try {
         useGltfDrei.clear(url);
       } catch (e) {
-        console.log("Error clearing GLTF cache", e);
+        console.log("[Diagnostics] Error clearing GLTF cache", e);
       }
       
       setModelLoaded(false);
@@ -154,21 +191,53 @@ export default function SimplifiedModelViewer({
   const [isLoading, setIsLoading] = useState(true);
   const [modelKey, setModelKey] = useState(Date.now()); // Унікальний ключ для примусового оновлення
   
+  // Додаємо глобальну діагностику
+  useEffect(() => {
+    console.log(`[Diagnostics] SimplifiedModelViewer initialized, model path: ${modelPath}`);
+    console.log(`[Diagnostics] Running in ${typeof window !== 'undefined' ? 'browser' : 'SSR'} environment`);
+    
+    if (typeof window !== 'undefined') {
+      console.log(`[Diagnostics] Window dimensions: ${window.innerWidth}x${window.innerHeight}`);
+      console.log(`[Diagnostics] User agent: ${navigator.userAgent}`);
+      
+      // Перевірка підтримки WebGL
+      try {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('webgl2');
+        console.log(`[Diagnostics] WebGL support check: ${!!gl}`);
+        if (gl) {
+          const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+          if (debugInfo) {
+            console.log(`[Diagnostics] WebGL Vendor: ${gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL)}`);
+            console.log(`[Diagnostics] WebGL Renderer: ${gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)}`);
+          }
+        }
+      } catch (e) {
+        console.error('[Diagnostics] Error testing WebGL support:', e);
+      }
+    }
+    
+    return () => {
+      console.log(`[Diagnostics] SimplifiedModelViewer unmounted, path: ${modelPath}`);
+    };
+  }, [modelPath]);
+  
   // Перезавантаження моделі тільки при зміні шляху
   useEffect(() => {
-    console.log(`Model path changed to: ${modelPath}`);
+    console.log(`[Diagnostics] Model path changed to: ${modelPath}`);
     setModelKey(Date.now());
     setIsLoading(true);
     setError(null);
   }, [modelPath]);
   
   const handleError = (error: Error) => {
-    console.error("Error loading model:", error);
+    console.error("[Diagnostics] Error loading model:", error);
     setError(error);
     setIsLoading(false);
   };
   
   const handleModelLoad = () => {
+    console.log(`[Diagnostics] Model loaded callback triggered for: ${modelPath}`);
     setIsLoading(false);
   };
   
