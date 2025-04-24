@@ -1,4 +1,3 @@
-import { Media } from '@/app/models/Post';
 
 /**
  * Отримує URL для зображення
@@ -24,6 +23,7 @@ export function getVideoUrl(media: any): string {
   // Якщо це YouTube відео, перетворюємо URL на embeddable
   if (media.isExternal && media.mimeType === 'video/youtube') {
     const match = media.url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+
     if (match && match[1]) {
       return `https://www.youtube.com/embed/${match[1]}`;
     }
@@ -53,6 +53,7 @@ export function getVideoPosterUrl(media: any): string {
     if (!media.thumbnailUrl.startsWith('/api/media/') && !media.isExternal) {
       return `/api/media/${media.fileId}?thumbnail=true`;
     }
+
     return media.thumbnailUrl;
   }
   
@@ -107,8 +108,10 @@ export function getFileUrl(media: any): string {
  */
 export function getYoutubeThumbnail(url: string): string {
   const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+
   if (match && match[1]) {
     return `https://img.youtube.com/vi/${match[1]}/hqdefault.jpg`;
   }
+
   return '';
 } 

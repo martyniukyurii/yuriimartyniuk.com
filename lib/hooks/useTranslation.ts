@@ -1,8 +1,9 @@
 "use client";
 
+import { useEffect, useState } from 'react';
+
 import { useLanguage } from "@/components/language-provider";
 import { getTranslation, TranslationKey } from "@/lib/translations";
-import { useEffect, useState } from 'react';
 
 export function useTranslation() {
   const { language, setLanguage } = useLanguage();

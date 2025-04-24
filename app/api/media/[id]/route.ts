@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { MediaFile, Post } from '@/lib/models';
-import { connectToDatabase } from '@/lib/mongodb';
 import mongoose from 'mongoose';
 import { GridFSBucket } from 'mongodb';
+
+import { MediaFile, Post } from '@/lib/models';
+import { connectToDatabase } from '@/lib/mongodb';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,6 +14,7 @@ export async function GET(
   try {
     // Чекаємо на розв'язання Promise params перед доступом до властивості id
     const { id } = await params;
+
     await connectToDatabase();
     
     const isThumbnail = request.nextUrl.searchParams.has('thumbnail');
@@ -33,6 +35,7 @@ export async function GET(
       
       // Отримуємо файл з GridFS
       const conn = mongoose.connection;
+
       if (!conn.db) {
         throw new Error('База даних не підключена');
       }
@@ -45,6 +48,7 @@ export async function GET(
         
         // Зчитуємо дані в буфер
         const chunks: Buffer[] = [];
+
         for await (const chunk of downloadStream) {
           chunks.push(Buffer.from(chunk));
         }
@@ -67,6 +71,7 @@ export async function GET(
     
     // Файлу немає в базі - отримуємо інформацію про пост
     const post = await Post.findOne({ 'media.fileId': id });
+
     if (!post) {
       return new NextResponse('Post not found', { status: 404 });
     }
@@ -95,6 +100,7 @@ export async function GET(
     return new NextResponse('Media not found', { status: 404 });
   } catch (error) {
     console.error('Помилка при обробці запиту медіа:', error);
+
     return new NextResponse('Internal server error', { status: 500 });
   }
 }

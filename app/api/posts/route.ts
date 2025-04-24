@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+
 import { connectToDatabase } from '../../../lib/mongodb';
 import Post from '../../models/Post';
 
@@ -43,6 +44,7 @@ export async function GET(request: Request) {
           };
         });
       }
+
       return post;
     });
     
@@ -60,6 +62,7 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     console.error('Помилка при отриманні постів:', error);
+
     return NextResponse.json(
       { error: 'Не вдалося отримати пости' },
       { status: 500 }

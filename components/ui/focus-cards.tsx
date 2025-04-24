@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+
 import { cn } from "@/lib/utils";
 
 export const Card = React.memo(
@@ -16,17 +17,17 @@ export const Card = React.memo(
     setHovered: React.Dispatch<React.SetStateAction<number | null>>;
   }) => (
     <div
-      onMouseEnter={() => setHovered(index)}
-      onMouseLeave={() => setHovered(null)}
       className={cn(
         "rounded-lg relative bg-gray-100 dark:bg-neutral-900 overflow-hidden h-60 md:h-96 w-full transition-all duration-300 ease-out",
         hovered !== null && hovered !== index && "blur-sm scale-[0.98]"
       )}
+      onMouseEnter={() => setHovered(index)}
+      onMouseLeave={() => setHovered(null)}
     >
       <img
-        src={card.src}
         alt={card.title}
         className="object-cover absolute inset-0"
+        src={card.src}
       />
       <div
         className={cn(
@@ -58,8 +59,8 @@ export function FocusCards({ cards }: { cards: Card[] }) {
         <Card
           key={card.title}
           card={card}
-          index={index}
           hovered={hovered}
+          index={index}
           setHovered={setHovered}
         />
       ))}

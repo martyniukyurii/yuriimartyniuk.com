@@ -1,13 +1,14 @@
 "use client";
 
 import React from "react";
+import { AnimatePresence, motion } from "framer-motion";
+
 import { useSection } from "./section-provider";
 import { AboutSection } from "./sections/about-section";
 import { ProjectsSection } from "./sections/projects-section";
 import { BlogSection } from "./sections/blog-section";
 import { ActivismSection } from "./sections/activism-section";
 import { ContactsSection } from "./sections/contacts-section";
-import { AnimatePresence, motion } from "framer-motion";
 
 // Варіанти анімації для переходів між секціями
 const variants = {
@@ -66,11 +67,11 @@ export function MainContent() {
     return (
       <motion.div
         key={activeSection}
-        initial="hidden"
         animate="enter"
-        exit="exit"
-        variants={variants}
         className="w-full min-h-screen"
+        exit="exit"
+        initial="hidden"
+        variants={variants}
       >
         <SectionComponent />
       </motion.div>

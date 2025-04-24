@@ -1,30 +1,14 @@
 "use client";
 
-import {
-  Navbar as HeroUINavbar,
-  NavbarContent,
-  NavbarMenu,
-  NavbarMenuToggle,
-  NavbarBrand,
-  NavbarItem,
-  NavbarMenuItem,
-} from "@heroui/navbar";
-import { Button } from "@heroui/button";
+
+
 import { Kbd } from "@heroui/kbd";
 import Link from "next/link";
 import { Input } from "@heroui/input";
-import { link as linkStyles } from "@heroui/theme";
 import { usePathname } from "next/navigation";
 
-import { siteConfig } from "@/config/site";
-import { ThemeSwitch } from "@/components/theme-switch";
 import {
-  TwitterIcon,
-  GithubIcon,
-  DiscordIcon,
-  HeartFilledIcon,
   SearchIcon,
-  Logo,
 } from "@/components/icons";
 
 const navItems = [
@@ -63,7 +47,7 @@ export function Navbar() {
     <nav className="bg-white dark:bg-gray-900 shadow-md">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          <Link href="/" className="text-xl font-bold text-gray-800 dark:text-white">
+          <Link className="text-xl font-bold text-gray-800 dark:text-white" href="/">
             Yurii Martyniuk
           </Link>
           
@@ -71,12 +55,12 @@ export function Navbar() {
             {navItems.map((item) => (
               <Link
                 key={item.href}
-                href={item.href}
                 className={`${
                   pathname === item.href
                     ? "text-blue-600 dark:text-blue-400"
                     : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                 } transition-colors duration-200`}
+                href={item.href}
               >
                 {item.label}
               </Link>
@@ -93,10 +77,10 @@ export function Navbar() {
                 viewBox="0 0 24 24"
               >
                 <path
+                  d="M4 6h16M4 12h16M4 18h16"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
             </button>

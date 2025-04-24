@@ -2,7 +2,7 @@
 import { useScroll, useTransform } from "motion/react";
 import { useRef, useState, useEffect } from "react";
 import { motion } from "motion/react";
-import Image from "next/image";
+
 import { cn } from "@/lib/utils";
 
 export const ParallaxScrollAdaptive = ({
@@ -32,6 +32,7 @@ export const ParallaxScrollAdaptive = ({
   // Рівномірно розподіляємо зображення по колонках у порядку зліва направо
   images.forEach((image, index) => {
     const columnIndex = index % columns; // Визначаємо колонку за залишком від ділення
+
     columnImages[columnIndex].push(image);
   });
 
@@ -43,6 +44,7 @@ export const ParallaxScrollAdaptive = ({
     useEffect(() => {
       // Перевіряємо орієнтацію зображення
       const img = new window.Image();
+
       img.onload = () => {
         setIsHorizontal(img.width > img.height);
         setIsLoaded(true);
@@ -59,9 +61,9 @@ export const ParallaxScrollAdaptive = ({
 
     return (
       <motion.div 
-        style={{ y: translateY }} 
-        key={`grid-${columnIndex}-${index}`}
+        key={`grid-${columnIndex}-${index}`} 
         className="relative rounded-lg overflow-hidden mb-6 will-change-transform"
+        style={{ y: translateY }}
       >
         {isLoaded ? (
           <div 
@@ -72,20 +74,20 @@ export const ParallaxScrollAdaptive = ({
           >
             <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-transparent to-black/20 dark:to-black/40">
               <img
-                src={src}
+                alt="галерея активізму"
                 className={cn(
                   "w-full h-full",
                   isHorizontal 
                     ? "object-cover object-center" 
                     : "object-cover object-center"
                 )}
-                alt="галерея активізму"
                 loading="lazy"
+                src={src}
               />
             </div>
           </div>
         ) : (
-          <div className="w-full h-[300px] bg-gray-200 dark:bg-gray-800 animate-pulse rounded-lg"></div>
+          <div className="w-full h-[300px] bg-gray-200 dark:bg-gray-800 animate-pulse rounded-lg" />
         )}
       </motion.div>
     );
@@ -104,9 +106,9 @@ export const ParallaxScrollAdaptive = ({
             {column.map((image, imgIndex) => (
               <ImageItem 
                 key={`img-${colIndex}-${imgIndex}`} 
-                src={image} 
+                columnIndex={colIndex} 
                 index={imgIndex}
-                columnIndex={colIndex}
+                src={image}
               />
             ))}
           </div>

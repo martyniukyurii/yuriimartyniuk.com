@@ -6,6 +6,7 @@ import * as React from "react";
 import { HeroUIProvider, ToastProvider } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
+
 import { LanguageProvider } from "@/components/language-provider";
 
 export interface ProvidersProps {
@@ -38,8 +39,8 @@ export function Providers({ children, themeProps }: ProvidersProps) {
         </LanguageProvider>
       </NextThemesProvider>
       <ToastProvider 
-        placement="bottom-right" 
         maxVisibleToasts={5} 
+        placement="bottom-right" 
         toastProps={{ 
           color: "primary", 
           variant: "flat",

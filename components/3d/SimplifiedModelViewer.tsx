@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useRef, useState, Suspense, useEffect } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useGLTF, OrbitControls, Environment } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { useGLTF, Environment } from "@react-three/drei";
 import { ErrorBoundary } from "react-error-boundary";
 import * as THREE from "three";
-import { AutoFitCamera } from "./AutoFitCamera";
 import { useGLTF as useGltfDrei } from "@react-three/drei";
+
+import { AutoFitCamera } from "./AutoFitCamera";
 
 interface SimplifiedModelViewerProps {
   modelPath: string;
@@ -78,6 +79,7 @@ function Model({ url, autoRotate, fitOffset }: { url: string; autoRotate?: boole
       if (modelRef.current) {
         while (modelRef.current.children.length > 0) {
           const child = modelRef.current.children[0];
+
           modelRef.current.remove(child);
           
           // Додаткова очистка ресурсів Three.js
@@ -115,10 +117,10 @@ function Model({ url, autoRotate, fitOffset }: { url: string; autoRotate?: boole
   return (
     <group ref={modelRef}>
       <AutoFitCamera 
-        modelRef={modelRef} 
         autoRotate={autoRotate} 
+        enableZoom={false} // Вимикаємо масштабування 
         fitOffset={fitOffset} 
-        enableZoom={false} // Вимикаємо масштабування
+        modelRef={modelRef}
       />
     </group>
   );
@@ -128,7 +130,7 @@ function Loader() {
   return (
     <mesh>
       <sphereGeometry args={[0.8, 32, 32]} />
-      <meshStandardMaterial color="#2997ff" emissive="#2997ff" emissiveIntensity={0.8} roughness={0.2} metalness={0.8} transparent opacity={0.7} />
+      <meshStandardMaterial transparent color="#2997ff" emissive="#2997ff" emissiveIntensity={0.8} metalness={0.8} opacity={0.7} roughness={0.2} />
     </mesh>
   );
 }
@@ -179,19 +181,19 @@ export default function SimplifiedModelViewer({
       }}
     >
       <ErrorBoundary
+        key={modelKey} // Додаємо ключ для повного оновлення ErrorBoundary
         fallback={<div className="w-full h-full flex items-center justify-center text-red-500">Помилка завантаження моделі</div>}
         onError={handleError}
-        key={modelKey} // Додаємо ключ для повного оновлення ErrorBoundary
       >
         <Canvas 
-          shadows 
-          gl={{ preserveDrawingBuffer: true, antialias: true, alpha: true }}
+          key={modelKey} // Додаємо ключ для повного оновлення Canvas 
+          shadows
           camera={{ position: [0, 0, 5], fov: 45 }}
           dpr={[1, 2]} // Оптимізована щільність пікселів
+          gl={{ preserveDrawingBuffer: true, antialias: true, alpha: true }}
           onCreated={() => {
             setTimeout(handleModelLoad, 500); // Невелика затримка для відображення завантаження
           }}
-          key={modelKey} // Додаємо ключ для повного оновлення Canvas
         >
           <Suspense fallback={<Loader />}>
             {/* Покращена система освітлення для більш яскравих моделей */}
@@ -199,24 +201,24 @@ export default function SimplifiedModelViewer({
             <ambientLight intensity={2.0} />
             
             {/* Головне верхнє світло справа */}
-            <spotLight position={[10, 10, 10]} angle={0.3} penumbra={1} intensity={2.0} castShadow />
+            <spotLight castShadow angle={0.3} intensity={2.0} penumbra={1} position={[10, 10, 10]} />
             
             {/* Додаткове верхнє світло зліва */}
-            <spotLight position={[-10, 10, -10]} angle={0.3} penumbra={1} intensity={1.5} castShadow />
+            <spotLight castShadow angle={0.3} intensity={1.5} penumbra={1} position={[-10, 10, -10]} />
             
             {/* Нижні точкові світла */}
-            <pointLight position={[-10, -10, -10]} intensity={1.0} />
-            <pointLight position={[10, -10, 10]} intensity={1.0} />
+            <pointLight intensity={1.0} position={[-10, -10, -10]} />
+            <pointLight intensity={1.0} position={[10, -10, 10]} />
             
             {/* Верхнє направлене світло */}
-            <directionalLight position={[0, 10, 0]} intensity={1.5} castShadow />
+            <directionalLight castShadow intensity={1.5} position={[0, 10, 0]} />
             
             {/* Півсферичне світло */}
-            <hemisphereLight intensity={1.0} groundColor="black" />
+            <hemisphereLight groundColor="black" intensity={1.0} />
             
             <Environment preset={environmentPreset} />
             
-            <MemoizedModel url={modelPath} autoRotate={autoRotate} fitOffset={fitOffset} />
+            <MemoizedModel autoRotate={autoRotate} fitOffset={fitOffset} url={modelPath} />
           </Suspense>
         </Canvas>
       </ErrorBoundary>

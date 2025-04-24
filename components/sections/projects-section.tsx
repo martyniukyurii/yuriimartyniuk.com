@@ -5,7 +5,7 @@ import { IconCode, IconExternalLink, IconBrandGithub } from "@tabler/icons-react
 import Image from "next/image";
 import "../../styles/projects.css";
 import { Tooltip } from "@heroui/react";
-import { FaGithub } from "react-icons/fa";
+
 import { useTranslation } from "@/lib/hooks/useTranslation";
 
 export function ProjectsSection() {
@@ -76,6 +76,7 @@ export function ProjectsSection() {
     // Перевіряємо, чи зараз активна темна тема
     const checkDarkMode = () => {
       const isDark = document.documentElement.classList.contains('dark');
+
       setIsDarkMode(isDark);
     };
 
@@ -84,6 +85,7 @@ export function ProjectsSection() {
 
     // Налаштовуємо спостерігач за змінами класу
     const observer = new MutationObserver(checkDarkMode);
+
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['class'],
@@ -212,7 +214,7 @@ export function ProjectsSection() {
   ];
 
   return (
-    <section id="projects" className="min-h-screen flex items-center justify-center">
+    <section className="min-h-screen flex items-center justify-center" id="projects">
       <div className="max-w-6xl mx-auto px-4 py-16">
         <div className="flex items-center justify-center mb-12">
           <IconCode className="w-8 h-8 mr-2 text-emerald-500 dark:text-emerald-400" />
@@ -223,43 +225,43 @@ export function ProjectsSection() {
           {projects.map((project, index) => (
             <div 
               key={project.id} 
+              ref={(el) => setProjectRef(el, index)}
               className="bg-white/10 dark:bg-gray-800/30 backdrop-blur-md rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 flex flex-col h-full relative glow-card"
               style={getGradientStyle(index)}
-              ref={(el) => setProjectRef(el, index)}
             >
-              <div className="glow-effect absolute inset-0 opacity-0 transition-opacity duration-300 pointer-events-none"></div>
+              <div className="glow-effect absolute inset-0 opacity-0 transition-opacity duration-300 pointer-events-none" />
               
               <div className={`overflow-hidden ${project.isMobile ? 'flex justify-center items-center py-4 h-56' : 'h-48 relative'}`}>
                 {project.isMobile ? (
                   <div className="h-full max-h-48 relative" style={{ width: '35%' }}>
                     <Image 
-                      src={project.image} 
+                      fill 
                       alt={project.title}
-                      fill
-                      style={{ objectFit: 'contain' }}
                       className="rounded"
+                      src={project.image}
+                      style={{ objectFit: 'contain' }}
                     />
                   </div>
                 ) : project.customSize ? (
                   <div className="w-full h-full relative flex items-center justify-center">
                     <div className="relative" style={{ width: '120%', height: '120%' }}>
                       <Image 
-                        src={project.image} 
+                        fill 
                         alt={project.title}
-                        fill
-                        style={{ objectFit: 'contain' }}
                         className="transform transition-transform duration-500 hover:scale-105"
+                        src={project.image}
+                        style={{ objectFit: 'contain' }}
                       />
                     </div>
                   </div>
                 ) : (
                   <div className="w-full h-full relative">
                     <Image 
-                      src={project.image} 
+                      fill 
                       alt={project.title}
-                      fill
-                      style={{ objectFit: 'contain' }}
                       className="transform transition-transform duration-500 hover:scale-105"
+                      src={project.image}
+                      style={{ objectFit: 'contain' }}
                     />
                   </div>
                 )}
@@ -292,20 +294,20 @@ export function ProjectsSection() {
                 <div className="flex justify-between items-center mt-auto">
                   {isValidUrl(project.githubUrl) ? (
                     <a 
-                      href={project.githubUrl} 
-                      className="flex items-center transition-colors duration-300 text-gray-600 hover:text-black project-link"
+                      className="flex items-center transition-colors duration-300 text-gray-600 hover:text-black project-link" 
+                      href={project.githubUrl}
+                      rel="noopener noreferrer"
                       style={{ color: isDarkMode ? 'white' : '' }}
                       target="_blank"
-                      rel="noopener noreferrer"
                     >
                       <IconBrandGithub className="w-5 h-5 mr-1" />
                       <span>{t('projects.code')}</span>
                     </a>
                   ) : (
                     <Tooltip 
-                      content={t('projects.code.private')}
-                      color="danger"
                       className="text-xs"
+                      color="danger"
+                      content={t('projects.code.private')}
                     >
                       <span className="flex items-center text-gray-400 cursor-not-allowed project-link-disabled">
                         <IconBrandGithub className="w-5 h-5 mr-1 text-rose-500" />
@@ -316,20 +318,20 @@ export function ProjectsSection() {
                   
                   {isValidUrl(project.liveUrl) ? (
                     <a 
-                      href={project.liveUrl} 
-                      className="flex items-center transition-colors duration-300 text-gray-600 hover:text-black project-link"
+                      className="flex items-center transition-colors duration-300 text-gray-600 hover:text-black project-link" 
+                      href={project.liveUrl}
+                      rel="noopener noreferrer"
                       style={{ color: isDarkMode ? 'white' : '' }}
                       target="_blank"
-                      rel="noopener noreferrer"
                     >
                       <IconExternalLink className="w-5 h-5 mr-1" />
                       <span>{t('projects.demo')}</span>
                     </a>
                   ) : (
                     <Tooltip 
-                      content={t('projects.demo.unavailable')}
-                      color="warning"
                       className="text-xs"
+                      color="warning"
+                      content={t('projects.demo.unavailable')}
                     >
                       <span className="flex items-center text-gray-400 cursor-not-allowed project-link-disabled">
                         <IconExternalLink className="w-5 h-5 mr-1 text-yellow-500" />
@@ -345,10 +347,10 @@ export function ProjectsSection() {
         
         <div className="mt-12 text-center">
           <a 
-            href="https://github.com/martyniukyurii" 
-            target="_blank"
+            className="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-700 text-white rounded-md transition-colors duration-300" 
+            href="https://github.com/martyniukyurii"
             rel="noopener noreferrer"
-            className="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-700 text-white rounded-md transition-colors duration-300"
+            target="_blank"
           >
             {t('projects.view.more')}
           </a>

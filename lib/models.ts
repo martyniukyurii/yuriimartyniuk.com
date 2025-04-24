@@ -1,8 +1,9 @@
 // Re-експортуємо моделі з їхніх файлів
-import PostModel, { Media as MediaType, IPost } from '@/app/models/Post';
-import MediaFileModel, { IMediaFile } from '@/app/models/MediaFile';
 import mongoose from 'mongoose';
 import { GridFSBucket } from 'mongodb';
+
+import PostModel, { Media as MediaType, IPost } from '@/app/models/Post';
+import MediaFileModel, { IMediaFile } from '@/app/models/MediaFile';
 
 // Експортуємо інтерфейси та моделі
 export type Media = MediaType;
@@ -16,9 +17,11 @@ export { default as MediaFile } from '@/app/models/MediaFile';
 // Допоміжна функція для отримання GridFS bucket
 export const getGridFS = async () => {
   const conn = mongoose.connection;
+
   if (!conn || !conn.db) {
     throw new Error('MongoDB не підключено. Спочатку викличте connectToDatabase()');
   }
+
   return new GridFSBucket(conn.db);
 };
 
@@ -28,6 +31,7 @@ export const Media = {
   findOne: async ({ fileId }: { fileId: string }) => {
     // Спочатку шукаємо в колекції MediaFile
     const mediaFile = await MediaFileModel.findOne({ fileId });
+
     if (mediaFile) {
       try {
         // Отримуємо файл з GridFS
@@ -36,6 +40,7 @@ export const Media = {
         
         // Зчитуємо дані в буфер
         const chunks: Buffer[] = [];
+
         for await (const chunk of downloadStream) {
           chunks.push(Buffer.from(chunk));
         }

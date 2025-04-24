@@ -1,6 +1,5 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
 import {
   AnimatePresence,
@@ -13,6 +12,8 @@ import {
 import Link from "next/link";
 import { useRef, useState } from "react";
 import React from "react";
+
+import { cn } from "@/lib/utils";
 
 export type FloatingDockItem = {
   id: string;
@@ -36,8 +37,8 @@ export const FloatingDock = ({
 }) => {
   return (
     <>
-      <FloatingDockDesktop items={items} className={desktopClassName} />
-      <FloatingDockMobile items={items} className={mobileClassName} />
+      <FloatingDockDesktop className={desktopClassName} items={items} />
+      <FloatingDockMobile className={mobileClassName} items={items} />
     </>
   );
 };
@@ -50,18 +51,18 @@ const FloatingDockMobile = ({
   className?: string;
 }) => {
   const [open, setOpen] = useState(false);
+
   return (
     <div className={cn("relative block md:hidden", className)}>
       <AnimatePresence>
         {open && (
           <motion.div
-            layoutId="nav"
             className="absolute bottom-full mb-2 inset-x-0 flex flex-col gap-2 items-start"
+            layoutId="nav"
           >
             {items.map((item, idx) => (
               <motion.div
                 key={item.id}
-                initial={{ opacity: 0, y: 10 }}
                 animate={{
                   opacity: 1,
                   y: 0,
@@ -73,17 +74,18 @@ const FloatingDockMobile = ({
                     delay: idx * 0.05,
                   },
                 }}
+                initial={{ opacity: 0, y: 10 }}
                 transition={{ delay: (items.length - 1 - idx) * 0.05 }}
               >
                 {item.href ? (
                   <Link
-                    href={item.href}
                     key={item.id}
                     className={cn(
                       "h-10 w-10 rounded-full flex items-center justify-center shadow-md",
                       item.bgColor,
                       item.isActive && "scale-110"
                     )}
+                    href={item.href}
                   >
                     <div className="h-4 w-4 text-white">
                       {item.icon}
@@ -91,12 +93,12 @@ const FloatingDockMobile = ({
                   </Link>
                 ) : (
                   <button
-                    onClick={item.onClick}
                     className={cn(
                       "h-10 w-10 rounded-full flex items-center justify-center shadow-md",
                       item.bgColor,
                       item.isActive && "scale-110"
                     )}
+                    onClick={item.onClick}
                   >
                     <div className="h-4 w-4 text-white">
                       {item.icon}
@@ -109,8 +111,8 @@ const FloatingDockMobile = ({
         )}
       </AnimatePresence>
       <button
-        onClick={() => setOpen(!open)}
         className="h-10 w-10 rounded-full bg-gray-200/50 backdrop-blur-lg dark:bg-neutral-800/50 flex items-center justify-center"
+        onClick={() => setOpen(!open)}
       >
         <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
       </button>
@@ -126,17 +128,18 @@ const FloatingDockDesktop = ({
   className?: string;
 }) => {
   let mouseX = useMotionValue(Infinity);
+
   return (
     <motion.div
-      onMouseMove={(e) => mouseX.set(e.pageX)}
-      onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
         "mx-auto hidden md:flex h-16 gap-4 items-end rounded-2xl px-4 pb-3 bg-white/20 dark:bg-black/20 backdrop-blur-xl border border-white/30 dark:border-white/10 shadow-lg",
         className
       )}
+      onMouseLeave={() => mouseX.set(Infinity)}
+      onMouseMove={(e) => mouseX.set(e.pageX)}
     >
       {items.map((item) => (
-        <IconContainer mouseX={mouseX} key={item.id} {...item} />
+        <IconContainer key={item.id} mouseX={mouseX} {...item} />
       ))}
     </motion.div>
   );
@@ -170,29 +173,29 @@ const DockIcon = React.forwardRef<HTMLDivElement, DockIconProps>(({
   return (
     <motion.div
       ref={ref}
-      style={{ width, height }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       className={cn(
         "aspect-square rounded-full flex items-center justify-center relative shadow-md",
         bgColor
       )}
+      style={{ width, height }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
       <AnimatePresence>
         {hovered && (
           <motion.div
-            initial={{ opacity: 0, y: 10, x: "-50%" }}
             animate={{ opacity: 1, y: 0, x: "-50%" }}
-            exit={{ opacity: 0, y: 2, x: "-50%" }}
             className="px-2 py-0.5 whitespace-pre rounded-md bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm border dark:border-neutral-700 dark:text-white border-gray-200 text-neutral-700 absolute left-1/2 -translate-x-1/2 -top-8 w-fit text-xs"
+            exit={{ opacity: 0, y: 2, x: "-50%" }}
+            initial={{ opacity: 0, y: 10, x: "-50%" }}
           >
             {label}
           </motion.div>
         )}
       </AnimatePresence>
       <motion.div
-        style={{ width: widthIcon, height: heightIcon }}
         className="flex items-center justify-center text-white"
+        style={{ width: widthIcon, height: heightIcon }}
       >
         {icon}
       </motion.div>
@@ -227,6 +230,7 @@ function IconContainer({
 
   let distance = useTransform(mouseX, (val) => {
     let bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
+
     return val - bounds.x - bounds.width / 2;
   });
 
@@ -270,32 +274,32 @@ function IconContainer({
         <Link href={href}>
           <DockIcon
             ref={ref}
-            width={width}
-            height={height}
-            hovered={hovered}
-            setHovered={setHovered}
-            widthIcon={widthIcon}
-            heightIcon={heightIcon}
-            label={label || title || ''}
-            icon={icon}
             bgColor={bgColor}
+            height={height}
+            heightIcon={heightIcon}
+            hovered={hovered}
+            icon={icon}
             isActive={isActive}
+            label={label || title || ''}
+            setHovered={setHovered}
+            width={width}
+            widthIcon={widthIcon}
           />
         </Link>
       ) : (
         <button onClick={onClick}>
           <DockIcon
             ref={ref}
-            width={width}
-            height={height}
-            hovered={hovered}
-            setHovered={setHovered}
-            widthIcon={widthIcon}
-            heightIcon={heightIcon}
-            label={label || title || ''}
-            icon={icon}
             bgColor={bgColor}
+            height={height}
+            heightIcon={heightIcon}
+            hovered={hovered}
+            icon={icon}
             isActive={isActive}
+            label={label || title || ''}
+            setHovered={setHovered}
+            width={width}
+            widthIcon={widthIcon}
           />
         </button>
       )}

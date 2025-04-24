@@ -34,9 +34,11 @@ export function analyzeModel(scene: THREE.Group): ModelSettings {
   
   // Отримуємо розміри і центр
   const size = new THREE.Vector3();
+
   box.getSize(size);
   
   const center = new THREE.Vector3();
+
   box.getCenter(center);
   
   // Знаходимо найбільший розмір

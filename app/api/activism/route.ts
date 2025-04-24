@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { MongoClient } from 'mongodb';
+
 import { 
   ActivismPost, 
   ActivismInitiative, 
@@ -26,6 +27,7 @@ export async function GET() {
     
     // Підключення до MongoDB
     const client = new MongoClient(MONGODB_URI);
+
     await client.connect();
     console.log('Успішно підключено до MongoDB');
     
@@ -34,8 +36,10 @@ export async function GET() {
     
     // Перевіримо наявність колекції
     const collections = await db.listCollections({ name: MONGODB_COLLECTION }).toArray();
+
     if (collections.length === 0) {
       console.error(`Колекція '${MONGODB_COLLECTION}' не знайдена в базі даних`);
+
       return NextResponse.json({
         success: false,
         error: `Колекція '${MONGODB_COLLECTION}' не знайдена в базі даних`
@@ -44,16 +48,19 @@ export async function GET() {
     
     // Отримуємо дані про активізм з MongoDB
     const totalPosts = await collection.countDocuments();
+
     console.log(`Знайдено ${totalPosts} записів у колекції`);
     
     if (totalPosts === 0) {
       // Якщо записів немає, повертаємо демо-дані
       console.log('Немає даних, повертаємо демо-дані');
+
       return NextResponse.json(getDemoData());
     }
     
     // Отримуємо дані про активізм з MongoDB
     const activismPosts = await collection.find({}).limit(10).toArray();
+
     console.log(`Отримано ${activismPosts.length} постів з MongoDB`);
     
     // Статистика по категоріях активізму
@@ -70,6 +77,7 @@ export async function GET() {
     ];
     
     const categoryStats = await collection.aggregate(statsQuery).toArray();
+
     console.log(`Отримано ${categoryStats.length} категорій активізму`);
     
     // Статистичні дані
@@ -133,6 +141,7 @@ export async function GET() {
     
     // Повертаємо демо-дані в разі помилки
     console.log('Повертаємо демо-дані через помилку');
+
     return NextResponse.json(getDemoData());
   }
 }

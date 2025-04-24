@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { addToast } from "@heroui/react";
-import { MainContent } from '@/components/main-content';
 import { IconChevronUp } from "@tabler/icons-react";
+
+import { MainContent } from '@/components/main-content';
 import { useTranslation } from "@/lib/hooks/useTranslation";
 
 export default function HomePage() {

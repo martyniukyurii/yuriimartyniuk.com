@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+
 import { useLanguage } from "@/components/language-provider";
 import { getTranslation, TranslationKey } from "@/lib/translations";
 

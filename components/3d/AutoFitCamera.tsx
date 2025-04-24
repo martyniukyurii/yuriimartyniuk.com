@@ -32,8 +32,10 @@ export function AutoFitCamera({
     // Створюємо обмежувальну коробку для моделі
     const box = new THREE.Box3().setFromObject(modelRef.current);
     const size = new THREE.Vector3();
+
     box.getSize(size);
     const center = new THREE.Vector3();
+
     box.getCenter(center);
     
     // Зберігаємо центр для використання в OrbitControls
@@ -99,14 +101,14 @@ export function AutoFitCamera({
     <OrbitControls
       ref={controlsRef}
       enableDamping
-      dampingFactor={0.05}
+      makeDefault
       autoRotate={autoRotate}
       autoRotateSpeed={6.0} // Збільшено швидкість обертання до 6
-      enableZoom={enableZoom} // Вимикаємо масштабування
+      dampingFactor={0.05}
       enablePan={false} // Вимикаємо переміщення камери
       enableRotate={false} // Вимикаємо ручне обертання
+      enableZoom={enableZoom} // Вимикаємо масштабування
       target={targetRef.current}
-      makeDefault
     />
   );
 } 

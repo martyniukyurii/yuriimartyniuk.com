@@ -2,11 +2,14 @@
 
 import React, { useEffect, useState, SVGProps } from "react";
 import { IconArticle, IconTag } from "@tabler/icons-react";
+
 import BlogPostCard from "../blog/blog-post-card";
+
 import { IPost } from "@/app/models/Post";
-import Link from "next/link";
+
 import '@/styles/blog.css';
 import { Pagination, PaginationItemType, PaginationItemRenderProps, cn } from "@heroui/react";
+
 import { useTranslation } from "@/lib/hooks/useTranslation";
 
 // Компонент іконки для пагінації
@@ -48,11 +51,13 @@ export function BlogSection() {
     if (typeof window !== 'undefined') {
       const url = new URL(window.location.href);
       const tagParam = url.searchParams.get('tag');
+
       if (tagParam) {
         setSelectedTag(tagParam);
       }
       
       const pageParam = url.searchParams.get('page');
+
       if (pageParam) {
         setPage(parseInt(pageParam, 10));
       }
@@ -75,6 +80,7 @@ export function BlogSection() {
       }
       
       const data = await response.json();
+
       setPosts(data.posts);
       setTotalPages(data.metadata.totalPages);
     } catch (err) {
@@ -94,6 +100,7 @@ export function BlogSection() {
       }
       
       const data = await response.json();
+
       setTags(data.tags);
     } catch (err) {
       console.error('Помилка при завантаженні тегів:', err);
@@ -111,6 +118,7 @@ export function BlogSection() {
     // Оновлюємо URL з новим параметром page
     if (typeof window !== 'undefined') {
       const url = new URL(window.location.href);
+
       url.searchParams.set('page', newPage.toString());
       window.history.pushState({}, '', url.toString());
     }
@@ -122,6 +130,7 @@ export function BlogSection() {
       // Оновлюємо URL, видаляючи параметр tag
       if (typeof window !== 'undefined') {
         const url = new URL(window.location.href);
+
         url.searchParams.delete('tag');
         window.history.pushState({}, '', url.toString());
       }
@@ -130,6 +139,7 @@ export function BlogSection() {
       // Оновлюємо URL з новим параметром tag
       if (typeof window !== 'undefined') {
         const url = new URL(window.location.href);
+
         url.searchParams.set('tag', tag);
         window.history.pushState({}, '', url.toString());
       }
@@ -142,6 +152,7 @@ export function BlogSection() {
     if (selectedTag) {
       return `${t('blog.no.posts.with.tag').replace('{{tag}}', `"${selectedTag}"`)}`;
     }
+
     return t('blog.no.posts.to.display');
   };
   
@@ -205,7 +216,7 @@ export function BlogSection() {
   };
 
   return (
-    <section id="blog" className="min-h-screen flex items-center justify-center">
+    <section className="min-h-screen flex items-center justify-center" id="blog">
       <div className="max-w-7xl mx-auto px-4 py-16 w-full">
         <div className="flex items-center justify-center mb-8">
           <IconArticle className="w-8 h-8 mr-2 text-violet-600 dark:text-violet-400" />
@@ -218,12 +229,12 @@ export function BlogSection() {
             {tags.map(tag => (
               <button
                 key={tag} 
-                onClick={() => handleTagClick(tag)}
                 className={`flex items-center px-3 py-1.5 text-sm rounded-md transition-colors duration-300 ${
                   selectedTag === tag
                     ? 'bg-violet-500 text-white'
                     : 'blog-tag'
                 }`}
+                onClick={() => handleTagClick(tag)}
               >
                 <IconTag className="w-3 h-3 mr-1" />
                 {tag}
@@ -235,8 +246,8 @@ export function BlogSection() {
         {selectedTag && (
           <div className="mb-6 text-center">
             <button
-              onClick={() => handleTagClick(selectedTag)}
               className="px-3 py-1.5 blog-nav-button rounded-md text-sm"
+              onClick={() => handleTagClick(selectedTag)}
             >
               {t('blog.clear.filter')} "{selectedTag}"
             </button>
@@ -245,7 +256,7 @@ export function BlogSection() {
         
         {loading ? (
           <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-violet-700"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-violet-700" />
           </div>
         ) : error ? (
           <div className="text-center text-red-500 p-4 bg-red-100 dark:bg-red-900/20 rounded-lg">
@@ -276,8 +287,8 @@ export function BlogSection() {
               radius="full"
               renderItem={renderItem}
               total={totalPages}
-              onChange={handlePageChange}
               variant="light"
+              onChange={handlePageChange}
             />
           </div>
         )}

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+
 import SimplifiedModelViewer from "@/components/3d/SimplifiedModelViewer";
 
 // Список всіх наших моделей
@@ -65,11 +66,11 @@ export default function ModelDemoPage() {
             {/* Контейнер для 3D-моделі */}
             <div className="h-80 bg-gray-100">
               <SimplifiedModelViewer
-                modelPath={model.path}
                 autoRotate={true}
                 backgroundColor="transparent"
-                fitOffset={model.fitOffset}
                 environmentPreset="studio"
+                fitOffset={model.fitOffset}
+                modelPath={model.path}
               />
             </div>
             
@@ -105,10 +106,10 @@ export default function ModelDemoPage() {
             
             <div className="h-64 bg-gray-100">
               <SimplifiedModelViewer
-                modelPath="/3D_models/bicycle.glb"
                 autoRotate={true}
                 backgroundColor="transparent"
                 fitOffset={offset}
+                modelPath="/3D_models/bicycle.glb"
               />
             </div>
           </div>

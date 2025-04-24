@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
+
 import { cn } from "@/lib/utils";
 
 export const ParallaxScrollFocus = ({
@@ -23,6 +24,7 @@ export const ParallaxScrollFocus = ({
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
         const scrollPercentage = 1 - Math.max(0, Math.min(1, rect.top / window.innerHeight));
+
         setScrollPosition(scrollPercentage);
       }
     };
@@ -41,6 +43,7 @@ export const ParallaxScrollFocus = ({
   
   images.forEach((image, index) => {
     const columnIndex = index % columns;
+
     columnImages[columnIndex].push(image);
   });
 
@@ -58,7 +61,7 @@ export const ParallaxScrollFocus = ({
       <div className="w-full py-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto px-4">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="w-full h-[300px] bg-gray-200 dark:bg-gray-800 animate-pulse rounded-lg mb-6"></div>
+            <div key={i} className="w-full h-[300px] bg-gray-200 dark:bg-gray-800 animate-pulse rounded-lg mb-6" />
           ))}
         </div>
       </div>
@@ -72,6 +75,7 @@ export const ParallaxScrollFocus = ({
       200 * scrollPercentage,  // друга колонка рухається вниз
       -400 * scrollPercentage  // третя колонка рухається вгору більше
     ];
+
     return transforms[columnIndex];
   };
 
@@ -92,6 +96,7 @@ export const ParallaxScrollFocus = ({
     
     useEffect(() => {
       const img = new Image();
+
       img.onload = () => {
         setIsHorizontal(img.width > img.height);
         setIsLoaded(true);
@@ -117,15 +122,15 @@ export const ParallaxScrollFocus = ({
             )}
           >
             <img
-              src={src}
+              alt="галерея активізму"
               className={cn(
                 "w-full h-full",
                 isHorizontal 
                   ? "object-cover object-center" 
                   : "object-cover object-center"
               )}
-              alt="галерея активізму"
               loading="lazy"
+              src={src}
             />
             <div
               className={cn(
@@ -141,7 +146,7 @@ export const ParallaxScrollFocus = ({
             </div>
           </div>
         ) : (
-          <div className="w-full h-[300px] bg-gray-200 dark:bg-gray-800 animate-pulse rounded-lg"></div>
+          <div className="w-full h-[300px] bg-gray-200 dark:bg-gray-800 animate-pulse rounded-lg" />
         )}
       </div>
     );
@@ -166,8 +171,8 @@ export const ParallaxScrollFocus = ({
               return (
                 <ImageItem 
                   key={`img-${globalIndex}`} 
-                  imageData={imageData}
                   columnIndex={colIndex}
+                  imageData={imageData}
                 />
               );
             })}

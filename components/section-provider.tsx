@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode, useCallback, useEffect } from "react";
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 
 // Типи секцій, які ми будемо використовувати
 export type SectionType = 
@@ -76,6 +76,7 @@ export function SectionProvider({ children }: SectionProviderProps) {
     if (typeof window !== 'undefined') {
       // Створюємо та відправляємо подію для оновлення моделей
       const event = new CustomEvent(MODEL_RESET_EVENT);
+
       window.dispatchEvent(event);
     }
   };

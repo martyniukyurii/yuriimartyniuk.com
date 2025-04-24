@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { IconArrowLeft, IconCalendar, IconChevronLeft, IconChevronRight, IconEye, IconLink, IconTag } from '@tabler/icons-react';
 import Link from 'next/link';
+
 import { formatDate } from '@/lib/utils';
 import { IPost, Media } from '@/app/models/Post';
 import '@/styles/blog.css';
-import { getImageUrl, getVideoUrl, getVideoPosterUrl, getYoutubeThumbnail, getFileUrl } from '@/lib/media-utils';
+import { getImageUrl, getVideoUrl, getVideoPosterUrl, getFileUrl } from '@/lib/media-utils';
 import { useTranslation } from "@/lib/hooks/useTranslation";
 
 // Компонент для відображення медіа карусель
@@ -30,16 +31,16 @@ const MediaCarousel = ({ media }: { media: Media[] }) => {
       {media.length > 1 && (
         <>
           <button 
-            onClick={handlePrev} 
+            aria-label="Попереднє зображення" 
             className="blog-carousel-nav blog-carousel-prev"
-            aria-label="Попереднє зображення"
+            onClick={handlePrev}
           >
             <IconChevronLeft className="w-5 h-5" />
           </button>
           <button 
-            onClick={handleNext} 
+            aria-label="Наступне зображення" 
             className="blog-carousel-nav blog-carousel-next"
-            aria-label="Наступне зображення"
+            onClick={handleNext}
           >
             <IconChevronRight className="w-5 h-5" />
           </button>
@@ -49,9 +50,9 @@ const MediaCarousel = ({ media }: { media: Media[] }) => {
       {currentMedia.type === 'photo' && (
         <div>
           <img 
-            src={getImageUrl(currentMedia)}
             alt={currentMedia.caption || ''}
             className="blog-media w-full max-h-[70vh] object-contain"
+            src={getImageUrl(currentMedia)}
           />
           {currentMedia.caption && (
             <p className="blog-meta text-sm mt-2">{currentMedia.caption}</p>
@@ -64,19 +65,19 @@ const MediaCarousel = ({ media }: { media: Media[] }) => {
           {currentMedia.isExternal && currentMedia.mimeType === 'video/youtube' ? (
             <div className="relative pb-[56.25%] h-0 overflow-hidden">
               <iframe 
-                src={getVideoUrl(currentMedia)}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 className="absolute top-0 left-0 w-full h-full rounded-lg"
+                src={getVideoUrl(currentMedia)}
                 title={currentMedia.caption || 'YouTube відео'}
               />
             </div>
           ) : (
             <video 
-              src={getVideoUrl(currentMedia)}
               controls
               className="blog-media w-full max-h-[70vh]"
               poster={getVideoPosterUrl(currentMedia)}
+              src={getVideoUrl(currentMedia)}
             />
           )}
           {currentMedia.caption && (
@@ -88,10 +89,10 @@ const MediaCarousel = ({ media }: { media: Media[] }) => {
       {currentMedia.type === 'document' && (
         <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
           <a 
+            className="blog-link flex items-center hover:underline" 
             href={getFileUrl(currentMedia)} 
-            target="_blank" 
             rel="noopener noreferrer"
-            className="blog-link flex items-center hover:underline"
+            target="_blank"
           >
             <IconLink className="w-5 h-5 mr-2" />
             Завантажити документ {currentMedia.fileName && `(${currentMedia.fileName})`}
@@ -107,13 +108,13 @@ const MediaCarousel = ({ media }: { media: Media[] }) => {
           {media.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentIndex(index)}
+              aria-label={`Перейти до зображення ${index + 1}`}
               className={`w-2 h-2 rounded-full ${
                 index === currentIndex
                   ? 'bg-violet-600'
                   : 'bg-gray-300 dark:bg-gray-600'
               }`}
-              aria-label={`Перейти до зображення ${index + 1}`}
+              onClick={() => setCurrentIndex(index)}
             />
           ))}
         </div>
@@ -128,9 +129,9 @@ const PostMedia = ({ media }: { media: Media }) => {
     return (
       <div className="mb-6">
         <img 
-          src={getImageUrl(media)}
           alt={media.caption || ''}
           className="blog-media w-full max-h-[70vh] object-contain"
+          src={getImageUrl(media)}
         />
         {media.caption && (
           <p className="blog-meta text-sm mt-2">{media.caption}</p>
@@ -146,10 +147,10 @@ const PostMedia = ({ media }: { media: Media }) => {
         <div className="mb-6">
           <div className="relative pb-[56.25%] h-0 overflow-hidden">
             <iframe 
-              src={getVideoUrl(media)}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               className="absolute top-0 left-0 w-full h-full rounded-lg"
+              src={getVideoUrl(media)}
               title={media.caption || 'YouTube відео'}
             />
           </div>
@@ -164,10 +165,10 @@ const PostMedia = ({ media }: { media: Media }) => {
     return (
       <div className="mb-6">
         <video 
-          src={getVideoUrl(media)}
           controls
           className="blog-media w-full max-h-[70vh]"
           poster={getVideoPosterUrl(media)}
+          src={getVideoUrl(media)}
         />
         {media.caption && (
           <p className="blog-meta text-sm mt-2">{media.caption}</p>
@@ -180,10 +181,10 @@ const PostMedia = ({ media }: { media: Media }) => {
     return (
       <div className="mb-6 p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
         <a 
+          className="blog-link flex items-center hover:underline" 
           href={getFileUrl(media)} 
-          target="_blank" 
           rel="noopener noreferrer"
-          className="blog-link flex items-center hover:underline"
+          target="_blank"
         >
           <IconLink className="w-5 h-5 mr-2" />
           Завантажити документ {media.fileName && `(${media.fileName})`}
@@ -224,8 +225,8 @@ export default function BlogPostClient({ post }: { post: IPost | null }) {
       <div className="min-h-screen py-20 px-4">
         <div className="max-w-3xl mx-auto">
           <Link 
-            href={getBlogAnchorUrl()} 
-            className="blog-link flex items-center mb-8 hover:underline"
+            className="blog-link flex items-center mb-8 hover:underline" 
+            href={getBlogAnchorUrl()}
           >
             <IconArrowLeft className="w-5 h-5 mr-2" />
             {t('blog.return.to.blog')}
@@ -246,8 +247,8 @@ export default function BlogPostClient({ post }: { post: IPost | null }) {
     <div className="min-h-screen py-20 px-4">
       <div className="max-w-3xl mx-auto">
         <Link 
-          href={getBlogAnchorUrl()} 
-          className="blog-link flex items-center mb-8 hover:underline"
+          className="blog-link flex items-center mb-8 hover:underline" 
+          href={getBlogAnchorUrl()}
         >
           <IconArrowLeft className="w-5 h-5 mr-2" />
           {t('blog.return.to.blog')}
@@ -255,7 +256,7 @@ export default function BlogPostClient({ post }: { post: IPost | null }) {
         
         {loading ? (
           <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-violet-700"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-violet-700" />
           </div>
         ) : error ? (
           <div className="text-center text-red-500 p-4 bg-red-100 dark:bg-red-900/20 rounded-lg">
@@ -282,10 +283,10 @@ export default function BlogPostClient({ post }: { post: IPost | null }) {
               
               {post.url && (
                 <a 
+                  className="blog-link hover:underline text-sm" 
                   href={post.url} 
-                  target="_blank" 
                   rel="noopener noreferrer"
-                  className="blog-link hover:underline text-sm"
+                  target="_blank"
                 >
                   {t('blog.original.in.telegram')}
                 </a>
@@ -297,8 +298,8 @@ export default function BlogPostClient({ post }: { post: IPost | null }) {
                 {post.tags.map((tag) => (
                   <Link 
                     key={tag} 
-                    href={`${getBlogAnchorUrl()}?tag=${tag}`}
                     className="blog-tag flex items-center px-2 py-1 text-xs rounded-md"
+                    href={`${getBlogAnchorUrl()}?tag=${tag}`}
                   >
                     <IconTag className="w-3 h-3 mr-1" />
                     {tag}
@@ -322,8 +323,8 @@ export default function BlogPostClient({ post }: { post: IPost | null }) {
             
             {/* Відображення тексту поста */}
             <div 
-              className="blog-content prose prose-lg dark:prose-invert prose-violet max-w-none"
               dangerouslySetInnerHTML={{ __html: formatPostText(post.text) }}
+              className="blog-content prose prose-lg dark:prose-invert prose-violet max-w-none"
             />
           </article>
         )}

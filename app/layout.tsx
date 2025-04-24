@@ -1,10 +1,5 @@
 import "./globals.css";
 import { Metadata } from "next";
-import { Providers } from "./providers";
-import { fontSans } from "@/config/fonts";
-import { SectionProvider } from "@/components/section-provider";
-import { FloatingDockDemo } from "@/components/floating-dock-demo";
-import { PageTransition } from "@/components/page-transition";
 import { 
   IconBrandFacebook, 
   IconBrandGithub,
@@ -15,6 +10,14 @@ import {
 } from "@tabler/icons-react";
 import Link from "next/link";
 import Script from "next/script";
+
+import { Providers } from "./providers";
+
+import { fontSans } from "@/config/fonts";
+import { SectionProvider } from "@/components/section-provider";
+import { FloatingDockDemo } from "@/components/floating-dock-demo";
+import { PageTransition } from "@/components/page-transition";
+import { PreloadingScreen } from "@/components/PreloadingScreen";
 import { TranslatedText } from "@/components/ui/translated-text";
 
 export const metadata: Metadata = {
@@ -105,7 +108,7 @@ export default function RootLayout({
             }
           `}
         </Script>
-        <Script id="gtag-manager" strategy="afterInteractive" async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR-GA-ID" />
+        <Script async id="gtag-manager" src="https://www.googletagmanager.com/gtag/js?id=G-YOUR-GA-ID" strategy="afterInteractive" />
         <Script id="gtag-config" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
@@ -116,16 +119,16 @@ export default function RootLayout({
         </Script>
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <SectionProvider>
+            <PreloadingScreen />
             <div className="relative flex flex-col min-h-screen">
               <main className="flex-grow">
                 {children}
               </main>
-              <FloatingDockDemo />
+              <FloatingDockDemo id="main-floating-dock" />
               <PageTransition />
               <footer className="w-full flex items-center py-3 px-4 md:px-10 bg-black/30 backdrop-blur-sm border-t border-gray-800/20">
                 <div className="w-full flex flex-col md:flex-row md:items-center">
-                  <div className="w-full md:w-1/3 flex justify-start md:justify-start">
-                  </div>
+                  <div className="w-full md:w-1/3 flex justify-start md:justify-start" />
                   <div className="w-full md:w-1/3 flex justify-start md:justify-center mb-2 md:mb-0">
                     <p className="text-gray-400 dark:text-white font-medium">
                       © {new Date().getFullYear()} Yurii Martyniuk. <TranslatedText translationKey="footer.rights" />
@@ -133,23 +136,23 @@ export default function RootLayout({
                   </div>
                   <div className="w-full md:w-1/3 flex justify-start md:justify-end mt-3 md:mt-0">
                     <div className="flex items-center gap-4">
-                      <Link href="https://github.com/martyniukyurii" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                        <IconBrandGithub size={20} className="text-gray-400 dark:text-white hover:opacity-70 transition-opacity" />
+                      <Link aria-label="GitHub" href="https://github.com/martyniukyurii" rel="noopener noreferrer" target="_blank">
+                        <IconBrandGithub className="text-gray-400 dark:text-white hover:opacity-70 transition-opacity" size={20} />
                       </Link>
-                      <Link href="https://www.linkedin.com/in/yurii-martyniuk-488a72326/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                        <IconBrandLinkedin size={20} className="text-gray-400 dark:text-white hover:opacity-70 transition-opacity" />
+                      <Link aria-label="LinkedIn" href="https://www.linkedin.com/in/yurii-martyniuk-488a72326/" rel="noopener noreferrer" target="_blank">
+                        <IconBrandLinkedin className="text-gray-400 dark:text-white hover:opacity-70 transition-opacity" size={20} />
                       </Link>
-                      <Link href="https://www.instagram.com/georg6262/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                        <IconBrandInstagram size={20} className="text-gray-400 dark:text-white hover:opacity-70 transition-opacity" />
+                      <Link aria-label="Instagram" href="https://www.instagram.com/georg6262/" rel="noopener noreferrer" target="_blank">
+                        <IconBrandInstagram className="text-gray-400 dark:text-white hover:opacity-70 transition-opacity" size={20} />
                       </Link>
-                      <Link href="https://www.facebook.com/yuriimartyniukofficial/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                        <IconBrandFacebook size={20} className="text-gray-400 dark:text-white hover:opacity-70 transition-opacity" />
+                      <Link aria-label="Facebook" href="https://www.facebook.com/yuriimartyniukofficial/" rel="noopener noreferrer" target="_blank">
+                        <IconBrandFacebook className="text-gray-400 dark:text-white hover:opacity-70 transition-opacity" size={20} />
                       </Link>
-                      <Link href="https://t.me/gay_control" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
-                        <IconBrandTelegram size={20} className="text-gray-400 dark:text-white hover:opacity-70 transition-opacity" />
+                      <Link aria-label="Telegram" href="https://t.me/gay_control" rel="noopener noreferrer" target="_blank">
+                        <IconBrandTelegram className="text-gray-400 dark:text-white hover:opacity-70 transition-opacity" size={20} />
                       </Link>
-                      <Link href="mailto:yura.martin@icloud.com" aria-label="Email">
-                        <IconMail size={20} className="text-gray-400 dark:text-white hover:opacity-70 transition-opacity" />
+                      <Link aria-label="Email" href="mailto:yura.martin@icloud.com">
+                        <IconMail className="text-gray-400 dark:text-white hover:opacity-70 transition-opacity" size={20} />
                       </Link>
                     </div>
                   </div>

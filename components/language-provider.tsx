@@ -31,6 +31,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     if (typeof window !== 'undefined') {
       // Зчитуємо мову з localStorage при ініціалізації
       const savedLanguage = localStorage.getItem("language") as Language | null;
+
       console.log("Initial language from localStorage:", savedLanguage);
       
       if (savedLanguage && (savedLanguage === "uk" || savedLanguage === "en")) {
@@ -52,6 +53,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       
       // Додатково викликаємо подію для перезавантаження компонентів, які реагують на зміну мови
       const languageChangeEvent = new CustomEvent('languagechange', { detail: { language } });
+
       window.dispatchEvent(languageChangeEvent);
     }
   }, [language]);

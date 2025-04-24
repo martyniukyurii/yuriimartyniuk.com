@@ -2,35 +2,27 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { 
-  IconBrandReact, 
-  IconBrandNodejs, 
-  IconBrandTypescript, 
-  IconDatabase, 
-  IconBrandDocker,
+import {
   IconCoffee,
-  IconMountain,
-  IconCamera,
-  IconBook,
-  IconMusic,
   IconSchool,
   IconBriefcase,
   IconHeartHandshake,
   IconTrophy,
-  IconBrandPython,
-  IconBrandMongodb,
   IconCode,
-  IconBrandFlutter,
   IconScissors,
   IconBike,
   IconChess
 } from "@tabler/icons-react";
-import { FlipWords } from "../ui/flip-words";
 import Link from "next/link";
-import { useSection, SectionType } from "../section-provider";
 import { Link as HeroLink } from "@heroui/link";
+import { motion } from "framer-motion";
+
+import { FlipWords } from "../ui/flip-words";
+import { useSection, SectionType } from "../section-provider";
 import { HobbyModel } from "../3d/HobbyModel";
+
 import { useTranslation } from "@/lib/hooks/useTranslation";
+
 
 // Додаємо оголошення типу для window
 declare global {
@@ -103,7 +95,7 @@ export function AboutSection() {
     { 
       name: t('about.skills.python.name'), 
       level: 98, 
-      icon: <Image src="/tech_icons/python.svg" width={24} height={24} alt="Python" />,
+      icon: <Image alt="Python" height={24} src="/tech_icons/python.svg" width={24} />,
       coffeeCount: 1247,
       projects: 21,
       description: t('about.skills.python.desc')
@@ -111,7 +103,7 @@ export function AboutSection() {
     { 
       name: t('about.skills.react.name'), 
       level: 85, 
-      icon: <Image src="/tech_icons/react.svg" width={24} height={24} alt="React" />,
+      icon: <Image alt="React" height={24} src="/tech_icons/react.svg" width={24} />,
       coffeeCount: 978,
       projects: 15,
       description: t('about.skills.react.desc')
@@ -119,7 +111,7 @@ export function AboutSection() {
     { 
       name: t('about.skills.mongodb.name'), 
       level: 90, 
-      icon: <Image src="/tech_icons/mongodb.svg" width={24} height={24} alt="MongoDB" />,
+      icon: <Image alt="MongoDB" height={24} src="/tech_icons/mongodb.svg" width={24} />,
       coffeeCount: 865,
       projects: 18, 
       description: t('about.skills.mongodb.desc') 
@@ -127,7 +119,7 @@ export function AboutSection() {
     { 
       name: t('about.skills.typescript.name'), 
       level: 82, 
-      icon: <Image src="/tech_icons/typescript.svg" width={24} height={24} alt="TypeScript" />,
+      icon: <Image alt="TypeScript" height={24} src="/tech_icons/typescript.svg" width={24} />,
       coffeeCount: 712,
       projects: 14,
       description: t('about.skills.typescript.desc')
@@ -135,7 +127,7 @@ export function AboutSection() {
     { 
       name: t('about.skills.devops.name'), 
       level: 70, 
-      icon: <Image src="/tech_icons/docker.svg" width={24} height={24} alt="Docker" />,
+      icon: <Image alt="Docker" height={24} src="/tech_icons/docker.svg" width={24} />,
       coffeeCount: 493,
       projects: 8,
       description: t('about.skills.devops.desc')
@@ -143,7 +135,7 @@ export function AboutSection() {
     { 
       name: t('about.skills.flutter.name'), 
       level: 45, 
-      icon: <Image src="/tech_icons/flutter.svg" width={24} height={24} alt="Flutter" />,
+      icon: <Image alt="Flutter" height={24} src="/tech_icons/flutter.svg" width={24} />,
       coffeeCount: 186,
       projects: 2,
       description: t('about.skills.flutter.desc')
@@ -188,24 +180,24 @@ export function AboutSection() {
       <section className="min-h-screen flex flex-col md:flex-row items-center py-0 relative overflow-hidden">
         <div className="w-full md:w-1/2 mb-10 md:mb-0 flex flex-col justify-between items-center md:items-start px-4 md:px-10 z-10 h-full pt-20 md:pt-0 pb-10 md:pb-24">
           <div className="md:transform-none text-center md:text-left">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 md:mb-8 tracking-tight" 
-                dangerouslySetInnerHTML={{ 
+            <h1 dangerouslySetInnerHTML={{ 
                   __html: language === 'uk' 
                     ? 'Привіт,<br/>я Юрій Мартинюк' 
                     : 'Hello,<br/>I\'m Yurii Martyniuk' 
-                }}
+                }} 
+                className="text-4xl md:text-6xl font-bold mb-6 md:mb-8 tracking-tight"
             />
             <div className="text-2xl md:text-4xl font-bold mb-6">
               <FlipWords 
-                words={flipWords.slice(1)}
-                useGradient={true}
                 duration={2000}
+                useGradient={true}
+                words={flipWords.slice(1)}
               />
             </div>
           </div>
           
           <div className="w-full md:w-3/4 text-center md:text-left">
-            <div className="w-16 h-px bg-blue-400 opacity-60 mb-6 mx-auto md:mx-0"></div>
+            <div className="w-16 h-px bg-blue-400 opacity-60 mb-6 mx-auto md:mx-0" />
             <p className="text-lg md:text-2xl text-gray-300 leading-relaxed">
               {t('about.introduction')}
             </p>
@@ -213,7 +205,8 @@ export function AboutSection() {
         </div>
         
         <div className="w-full md:w-1/2 md:absolute md:right-0 md:top-0 md:bottom-0 h-[60vh] md:h-full">
-          {[0, 1, 2, 3, 4].map((index) => (
+          {/* Закоментовано зміну фотографій, залишаємо тільки image2.png */}
+          {/* {[0, 1, 2, 3, 4].map((index) => (
             <div 
               key={index}
               className="absolute inset-0 transition-all duration-1000 ease-in-out transform h-full"
@@ -224,32 +217,31 @@ export function AboutSection() {
                 height: "100%"
               }}
             >
-              <div className="h-full flex justify-center md:justify-end overflow-hidden relative">
+              <div className="h-full flex justify-center md:justify-end overflow-hidden relative"> */}
                 {/* Фонове зображення */}
                 <div className="absolute bottom-0 z-0 flex justify-center w-full h-full">
                   <div className="relative w-full h-full">
                     <Image
-                      src="/main_my_photos/image_background.png?v=1"
-                      alt="Фон"
                       fill
+                      alt="Фон"
                       className="object-contain object-bottom"
+                      priority={true}
                       sizes="(max-width: 768px) 100vw, 50vw"
+                      src="/main_my_photos/image_background.png?v=1"
                       style={{
                         scale: "1.25",
                         transform: "translateY(-15%) translateX(3%)"
                       }}
-                      priority={index === 0}
                     />
                   </div>
                 </div>
                 {/* Основне фото */}
                 <Image
-                  src={`/main_my_photos/image${index + 1}.png?v=1`}
-                  alt={`Юрій Мартинюк фото ${index + 1}`}
-                  width={1000}
-                  height={1500}
-                  priority={index === 0}
+                  alt="Юрій Мартинюк фото"
                   className="z-10 relative h-full"
+                  height={1500}
+                  priority={true}
+                  src="/main_my_photos/image2.png?v=1"
                   style={{
                     width: "auto",
                     objectFit: "contain",
@@ -257,29 +249,97 @@ export function AboutSection() {
                     maxHeight: "100%",
                     marginBottom: "-15px"
                   }}
+                  width={1000}
                 />
-              </div>
+              {/* </div>
             </div>
-          ))}
+          ))} */}
         </div>
         
         {/* Градієнтне розмежування між секціями */}
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-blue-900/20 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-blue-900/20 to-transparent" />
       </section>
       
       {/* Секція 2: Коротка інформація */}
       <section className="min-h-screen py-0 px-4 md:px-10 backdrop-blur-lg flex items-center">
         <div className="max-w-5xl mx-auto py-12 md:py-24 w-full">
-          <h2 className="text-2xl md:text-4xl font-bold mb-6 md:mb-12 text-center">{t('about.description')}</h2>
+          <h2 className="text-2xl md:text-4xl font-bold mb-8 md:mb-12 text-center">{t('about.description')}</h2>
           
-          <div className="space-y-6 md:space-y-10">
-            {/* Основна інформація */}
-            <div className="text-sm md:text-lg text-gray-200 leading-relaxed space-y-3 md:space-y-4">
-              <p>{t('about.description.1')}</p>
+          <div className="space-y-8 md:space-y-12">
+            {/* Абзац 1: фото зліва, текст справа */}
+            <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+              <motion.div 
+                animate={{ opacity: 1, x: 0 }}
+                className="w-full md:w-1/3 relative rounded-xl overflow-hidden shadow-lg bg-white/5 backdrop-blur-md aspect-[4/3]"
+                initial={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.5 }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <Image 
+                  fill
+                  alt="Фото Юрія Мартинюка"
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  src="/short_about_me/image1.png"
+                />
+              </motion.div>
+              <div className="w-full md:w-2/3 text-sm md:text-lg text-gray-200 leading-relaxed">
+                <p>{t('about.description.1')}</p>
+              </div>
+            </div>
+            
+            {/* Абзац 2: тільки текст */}
+            <div className="text-sm md:text-lg text-gray-200 leading-relaxed">
               <p>{t('about.description.2')}</p>
-              <p dangerouslySetInnerHTML={{ __html: t('about.description.3') }} />
+            </div>
+            
+            {/* Абзац 3: текст зліва, фото справа */}
+            <div className="flex flex-col md:flex-row-reverse items-center gap-6 md:gap-8">
+              <motion.div 
+                animate={{ opacity: 1, x: 0 }}
+                className="w-full md:w-1/3 relative rounded-xl overflow-hidden shadow-lg bg-white/5 backdrop-blur-md aspect-[4/3]"
+                initial={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.5 }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <Image 
+                  fill
+                  alt="Фото Юрія Мартинюка"
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  src="/short_about_me/image2.png"
+                />
+              </motion.div>
+              <div className="w-full md:w-2/3 text-sm md:text-lg text-gray-200 leading-relaxed">
+                <p dangerouslySetInnerHTML={{ __html: t('about.description.3') }} />
+              </div>
+            </div>
+            
+            {/* Абзац 4: тільки текст */}
+            <div className="text-sm md:text-lg text-gray-200 leading-relaxed">
               <p dangerouslySetInnerHTML={{ __html: t('about.description.4') }} />
-              <p>{t('about.description.5')}</p>
+            </div>
+            
+            {/* Абзац 5: фото зліва, текст справа */}
+            <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+              <motion.div 
+                animate={{ opacity: 1, x: 0 }}
+                className="w-full md:w-1/3 relative rounded-xl overflow-hidden shadow-lg bg-white/5 backdrop-blur-md aspect-[4/3]"
+                initial={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.5 }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <Image 
+                  fill
+                  alt="Фото Юрій Мартинюк"
+                  className="object-cover object-top"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  src="/short_about_me/image3.png"
+                />
+              </motion.div>
+              <div className="w-full md:w-2/3 text-sm md:text-lg text-gray-200 leading-relaxed">
+                <p>{t('about.description.5')}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -290,7 +350,7 @@ export function AboutSection() {
         <div className="max-w-5xl mx-auto py-16 md:py-24 w-full">
           <h2 className="text-3xl md:text-4xl font-bold mb-8 md:mb-12 text-center">{t('about.tech.stack')}</h2>
           
-          <div className="grid grid-cols-1 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {skills.map((skill) => (
               <div key={skill.name} className="bg-white/5 backdrop-blur-md p-5 md:p-6 rounded-xl hover:bg-white/10 transition-all duration-300">
                 <div className="flex flex-col md:flex-row md:items-center gap-4">
@@ -340,7 +400,7 @@ export function AboutSection() {
       <section className="py-2 px-4 md:px-10 backdrop-blur-lg flex items-center">
         <div className="max-w-5xl mx-auto w-full">
               <div className="flex items-center gap-3 mb-3 md:mb-4">
-                <IconBriefcase size={24} className="text-blue-400" />
+                <IconBriefcase className="text-blue-400" size={24} />
                 <h3 className="text-lg md:text-2xl font-semibold">{t('about.professional.experience')}</h3>
               </div>
           
@@ -350,11 +410,11 @@ export function AboutSection() {
                   <div className="flex items-start gap-3">
                     <div className="mt-1 w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-white">
                       <Image
-                        src="/logos_job/logo_ugb.jpg"
-                        width={40}
-                        height={40}
                         alt="Логотип УкрГазБанк"
                         className="object-contain w-full h-full"
+                        height={40}
+                        src="/logos_job/logo_ugb.jpg"
+                        width={40}
                       />
                     </div>
                     <div>
@@ -367,7 +427,7 @@ export function AboutSection() {
                         <li>{t('about.ugb.responsibilities.3')}</li>
                       </ul>
                       <p className="mt-2">
-                        <HeroLink isExternal showAnchorIcon href="https://www.ukrgasbank.com/" className="text-blue-400 text-sm">
+                        <HeroLink isExternal showAnchorIcon className="text-blue-400 text-sm" href="https://www.ukrgasbank.com/">
                           {t('about.more.about')} ukrgasbank.com
                         </HeroLink>
                       </p>
@@ -380,11 +440,11 @@ export function AboutSection() {
                   <div className="flex items-start gap-3">
                     <div className="mt-1 w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-white">
                       <Image
-                        src="/logos_job/logo_mediamood.png"
-                        width={40}
-                        height={40}
                         alt="Логотип MediaMood"
                         className="object-contain w-full h-full"
+                        height={40}
+                        src="/logos_job/logo_mediamood.png"
+                        width={40}
                       />
                     </div>
                     <div>
@@ -399,7 +459,7 @@ export function AboutSection() {
                         <li>{t('about.mediamood.responsibilities.5')}</li>
                       </ul>
                       <p className="mt-2">
-                        <HeroLink isExternal showAnchorIcon href="https://mediamood.today" className="text-blue-400 text-sm">
+                        <HeroLink isExternal showAnchorIcon className="text-blue-400 text-sm" href="https://mediamood.today">
                           {t('about.more.about')} mediamood.today
                         </HeroLink>
                       </p>
@@ -424,7 +484,7 @@ export function AboutSection() {
                         <li>{t('about.mindex.responsibilities.4')}</li>
                       </ul>
                       <p className="mt-2">
-                        <HeroLink isExternal showAnchorIcon href="https://mindex.it.com" className="text-blue-400 text-sm">
+                        <HeroLink isExternal showAnchorIcon className="text-blue-400 text-sm" href="https://mindex.it.com">
                           {t('about.more.about')} mindex.it.com
                         </HeroLink>
                       </p>
@@ -437,11 +497,11 @@ export function AboutSection() {
                   <div className="flex items-start gap-3">
                     <div className="mt-1 w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-white">
                       <Image
-                        src="/logos_job/logo_vishunka.png"
-                        width={40}
-                        height={40}
                         alt="Логотип Vishunka"
                         className="object-contain w-full h-full"
+                        height={40}
+                        src="/logos_job/logo_vishunka.png"
+                        width={40}
                       />
                     </div>
                     <div>
@@ -455,7 +515,7 @@ export function AboutSection() {
                         <li>{t('about.vishunka.responsibilities.4')}</li>
                       </ul>
                       <p className="mt-2">
-                        <HeroLink isExternal showAnchorIcon href="https://vishunka.com" className="text-blue-400 text-sm">
+                        <HeroLink isExternal showAnchorIcon className="text-blue-400 text-sm" href="https://vishunka.com">
                           {t('about.more.about')} vishunka.com
                         </HeroLink>
                       </p>
@@ -470,7 +530,7 @@ export function AboutSection() {
       <section className="py-2 px-4 md:px-10 backdrop-blur-lg flex items-center">
         <div className="max-w-5xl mx-auto w-full">
               <div className="flex items-center gap-3 mb-3 md:mb-4">
-                <IconHeartHandshake size={24} className="text-blue-400" />
+                <IconHeartHandshake className="text-blue-400" size={24} />
                 <h3 className="text-lg md:text-2xl font-semibold">{t('about.volunteering')}</h3>
               </div>
           
@@ -478,11 +538,11 @@ export function AboutSection() {
                 <div className="flex items-start gap-3">
                   <div className="mt-1 w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-white">
                     <Image
-                      src="/logos_job/logo_fsymvoly.jpeg"
-                      width={40}
-                      height={40}
                       alt="Логотип Фонд Символи"
                       className="object-contain w-full h-full"
+                      height={40}
+                      src="/logos_job/logo_fsymvoly.jpeg"
+                      width={40}
                     />
                   </div>
                   <div>
@@ -496,7 +556,7 @@ export function AboutSection() {
                       <li>{t('about.fsymvoly.responsibilities.4')}</li>
                     </ul>
                     <p className="mt-2">
-                      <HeroLink isExternal showAnchorIcon href="https://fsymvoly.org" className="text-blue-400 text-sm">
+                      <HeroLink isExternal showAnchorIcon className="text-blue-400 text-sm" href="https://fsymvoly.org">
                         {t('about.more.about')} fsymvoly.org
                       </HeroLink>
                     </p>
@@ -510,7 +570,7 @@ export function AboutSection() {
       <section className="py-2 px-4 md:px-10 backdrop-blur-lg flex items-center">
         <div className="max-w-5xl mx-auto w-full">
               <div className="flex items-center gap-3 mb-3 md:mb-4">
-                <IconTrophy size={24} className="text-blue-400" />
+                <IconTrophy className="text-blue-400" size={24} />
                 <h3 className="text-lg md:text-2xl font-semibold">{t('about.achievements')}</h3>
               </div>
           
@@ -520,22 +580,22 @@ export function AboutSection() {
                   <li>
                     {t('about.achievements.vishunka.rotary')}
                     {' '}
-                    <Link href="https://vishunka.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">Vishunka</Link>
+                    <Link className="text-blue-400 hover:underline" href="https://vishunka.com" rel="noopener noreferrer" target="_blank">Vishunka</Link>
                     {' '}
                     {t('about.present').includes('Теперішній') ? 'на' : 'at'}
                     {' '}
-                    <Link href="https://lpnu.ua/news/lvivski-politekhniky-z-rd-tsentru-doluchylysia-do-rotariiskoho-dilovoho-forumu-innovatsii" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                    <Link className="text-blue-400 hover:underline" href="https://lpnu.ua/news/lvivski-politekhniky-z-rd-tsentru-doluchylysia-do-rotariiskoho-dilovoho-forumu-innovatsii" rel="noopener noreferrer" target="_blank">
                       {t('about.present').includes('Теперішній') ? 'Ротарійському діловому форумі інновацій' : 'Rotary Business Innovation Forum'}
                     </Link>
                   </li>
                   <li>
                     {t('about.achievements.vishunka.startup2023')}
                     {' '}
-                    <Link href="https://vishunka.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">Vishunka</Link>
+                    <Link className="text-blue-400 hover:underline" href="https://vishunka.com" rel="noopener noreferrer" target="_blank">Vishunka</Link>
                     {' '}
                     {t('about.present').includes('Теперішній') ? 'у конкурсі' : 'in the'}
                     {' '}
-                    <Link href="https://www.instagram.com/tech_startup_school/p/C1JioXjuDwM/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                    <Link className="text-blue-400 hover:underline" href="https://www.instagram.com/tech_startup_school/p/C1JioXjuDwM/" rel="noopener noreferrer" target="_blank">
                       {t('about.present').includes('Теперішній') ? 'STARTUP ПРОРИВ 2023' : 'STARTUP BREAKTHROUGH 2023'}
                     </Link>
                   </li>
@@ -546,25 +606,25 @@ export function AboutSection() {
                     {' '}
                     {t('about.present').includes('Теперішній') ? 'на хакатоні' : 'at the'}
                     {' '}
-                    <Link href="https://ain.ua/2024/11/21/yak-proisov-studentskii-xakaton-hack4innovation/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">Hack4Innovation</Link>
+                    <Link className="text-blue-400 hover:underline" href="https://ain.ua/2024/11/21/yak-proisov-studentskii-xakaton-hack4innovation/" rel="noopener noreferrer" target="_blank">Hack4Innovation</Link>
                   </li>
                   <li>
                     {t('about.achievements.mindex.accelerator')}
                     {' '}
-                    <Link href="https://mindex.it.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">Mindex</Link>
+                    <Link className="text-blue-400 hover:underline" href="https://mindex.it.com" rel="noopener noreferrer" target="_blank">Mindex</Link>
                     {' '}
                     {t('about.present').includes('Теперішній') ? 'відібраний на акселераційну програму' : 'selected for the'}
                     {' '}
-                    <Link href="https://www.opendatatech.org/accelerator" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">OpenDataAccelerator</Link>
+                    <Link className="text-blue-400 hover:underline" href="https://www.opendatatech.org/accelerator" rel="noopener noreferrer" target="_blank">OpenDataAccelerator</Link>
                   </li>
                   <li>
                     {t('about.achievements.mindex.hackathon')}
                     {' '}
-                    <Link href="https://mindex.it.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">Mindex</Link>
+                    <Link className="text-blue-400 hover:underline" href="https://mindex.it.com" rel="noopener noreferrer" target="_blank">Mindex</Link>
                     {' '}
                     {t('about.present').includes('Теперішній') ? 'на хакатоні' : 'at the'}
                     {' '}
-                    <Link href="https://city.cv.ua/press-center/novyny/u-chernivtsyakh-13-grudnya-vidbuvsya-khakaton-vidkritikh-danikh-14625#1" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">ChernivtsiOpenDataHackathon</Link>
+                    <Link className="text-blue-400 hover:underline" href="https://city.cv.ua/press-center/novyny/u-chernivtsyakh-13-grudnya-vidbuvsya-khakaton-vidkritikh-danikh-14625#1" rel="noopener noreferrer" target="_blank">ChernivtsiOpenDataHackathon</Link>
                   </li>
                 </ul>
           </div>
@@ -575,14 +635,14 @@ export function AboutSection() {
       <section className="py-2 px-4 md:px-10 backdrop-blur-lg flex items-center">
         <div className="max-w-5xl mx-auto w-full">
           <div className="flex items-center gap-3 mb-3 md:mb-4">
-            <IconSchool size={24} className="text-blue-400" />
+            <IconSchool className="text-blue-400" size={24} />
             <h3 className="text-lg md:text-2xl font-semibold">{t('about.education')}</h3>
           </div>
           
           <div className="bg-white/5 backdrop-blur-md rounded-xl p-4 md:p-5 space-y-3 md:space-y-4">
             <div>
               <h4 className="text-base md:text-lg font-medium">
-                <HeroLink isExternal showAnchorIcon href="https://www.chnu.edu.ua/" className="hover:text-blue-400">
+                <HeroLink isExternal showAnchorIcon className="hover:text-blue-400" href="https://www.chnu.edu.ua/">
                   {t('about.education.chnu')}
                 </HeroLink>
               </h4>
@@ -590,7 +650,7 @@ export function AboutSection() {
                     </div>
             <div>
               <h4 className="text-base md:text-lg font-medium">
-                <HeroLink isExternal showAnchorIcon href="https://polytech.cv.ua/" className="hover:text-blue-400">
+                <HeroLink isExternal showAnchorIcon className="hover:text-blue-400" href="https://polytech.cv.ua/">
                   {t('about.education.polytech')}
                 </HeroLink>
               </h4>
@@ -598,7 +658,7 @@ export function AboutSection() {
                   </div>
             <div>
               <h4 className="text-base md:text-lg font-medium">
-                <HeroLink isExternal showAnchorIcon href="https://lyceum16.cv.ua/" className="hover:text-blue-400">
+                <HeroLink isExternal showAnchorIcon className="hover:text-blue-400" href="https://lyceum16.cv.ua/">
                   {t('about.education.school')}
                 </HeroLink>
               </h4>
@@ -626,9 +686,9 @@ export function AboutSection() {
             {hobbies.map((hobby) => (
               <HobbyModel
                 key={hobby.name} 
-                hobbyName={hobby.name}
-                description={hobby.description}
                 category={hobby.category}
+                description={hobby.description}
+                hobbyName={hobby.name}
                 modelPath={hobby.modelPath}
               />
             ))}

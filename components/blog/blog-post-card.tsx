@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { IconCalendar, IconEye, IconTag, IconPlayerPlay, IconFileText } from '@tabler/icons-react';
+import { IconCalendar, IconEye, IconTag } from '@tabler/icons-react';
 import Link from 'next/link';
+
 import { formatDate } from '@/lib/utils';
 import { IPost, Media } from '@/app/models/Post';
+
 import '@/styles/blog.css';
-import Image from 'next/image';
-import { getImageUrl, getVideoUrl, getVideoPosterUrl, getYoutubeThumbnail } from '@/lib/media-utils';
+import { getImageUrl, getVideoPosterUrl } from '@/lib/media-utils';
+
 import { Skeleton } from '@heroui/react';
+
 import { useTranslation } from "@/lib/hooks/useTranslation";
 
 interface BlogPostCardProps {
@@ -25,6 +28,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
   const getMediaType = () => {
     if (!post.media || post.media.length === 0) return 'none';
     if (post.media.length > 1) return 'album';
+
     return post.media[0].type;
   };
   
@@ -40,9 +44,11 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
   const getYouTubeThumbUrl = (youtubeUrl: string) => {
     // Витягаємо id відео з різних форматів YouTube посилань
     const match = youtubeUrl.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+
     if (match && match[1]) {
       return `https://img.youtube.com/vi/${match[1]}/hqdefault.jpg`;
     }
+
     return undefined;
   };
 
@@ -79,11 +85,11 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
               <div className="h-full w-full rounded-lg bg-default-300" />
             </Skeleton>
             <img 
-              src={getImageUrl(featuredMedia)} 
-              alt={post.text.substring(0, 50)}
+              alt={post.text.substring(0, 50)} 
               className={`blog-media w-full h-full object-cover absolute inset-0 transition-opacity duration-300 ${imageLoaded && !imageError ? 'opacity-100' : 'opacity-0'}`}
-              onLoad={() => setImageLoaded(true)}
+              src={getImageUrl(featuredMedia)}
               onError={() => setImageError(true)}
+              onLoad={() => setImageLoaded(true)}
             />
           </div>
         );
@@ -94,15 +100,15 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
               <div className="h-full w-full rounded-lg bg-default-300" />
             </Skeleton>
             <img 
-              src={getVideoPosterUrl(featuredMedia)} 
-              alt="Відео превью"
+              alt="Відео превью" 
               className={`blog-media w-full h-full object-cover absolute inset-0 transition-opacity duration-300 ${imageLoaded && !imageError ? 'opacity-100' : 'opacity-0'}`}
-              onLoad={() => setImageLoaded(true)}
+              src={getVideoPosterUrl(featuredMedia)}
               onError={() => setImageError(true)}
+              onLoad={() => setImageLoaded(true)}
             />
             <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 z-10">
               <div className="w-16 h-16 rounded-full bg-white bg-opacity-80 flex items-center justify-center">
-                <div className="w-0 h-0 border-t-8 border-t-transparent border-l-16 border-l-violet-600 border-b-8 border-b-transparent ml-1"></div>
+                <div className="w-0 h-0 border-t-8 border-t-transparent border-l-16 border-l-violet-600 border-b-8 border-b-transparent ml-1" />
               </div>
             </div>
           </div>
@@ -172,8 +178,8 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
             {post.tags.map((tag) => (
               <Link 
                 key={tag} 
-                href={`${getBlogAnchorUrl()}?tag=${tag}`}
                 className="blog-tag flex items-center px-2 py-1 text-xs rounded-md"
+                href={`${getBlogAnchorUrl()}?tag=${tag}`}
               >
                 <IconTag className="w-3 h-3 mr-1" />
                 {tag}
@@ -184,8 +190,8 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
                 
         <div className="mt-auto">
           <Link 
-            href={`/blog/${post.slug}`} 
-            className="blog-nav-button inline-block px-4 py-2 rounded-md transition-colors duration-300"
+            className="blog-nav-button inline-block px-4 py-2 rounded-md transition-colors duration-300" 
+            href={`/blog/${post.slug}`}
           >
             {t('blog.read.more')}
           </Link>

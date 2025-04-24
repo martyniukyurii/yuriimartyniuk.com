@@ -3,9 +3,10 @@
 import { Suspense, useState, useEffect, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera, Environment, ContactShadows, useGLTF, Stats } from "@react-three/drei";
-import { Model3D } from "./Model3D";
 import { ErrorBoundary } from "react-error-boundary";
 import * as THREE from "three";
+
+import { Model3D } from "./Model3D";
 import { getModelSettings, analyzeModel, ModelSettings } from "./utils/model-analysis";
 
 interface ModelViewerProps {
@@ -167,60 +168,60 @@ export default function ModelViewer({
               fallback={
                 <mesh position={[0, 0, 0]}>
                   <boxGeometry args={[1, 1, 1]} />
-                  <meshBasicMaterial color="gray" wireframe />
+                  <meshBasicMaterial wireframe color="gray" />
                 </mesh>
               }
             >
               {scale && position && rotation ? (
                 <Model3D
+                  hovered={isHovered}
                   path={modelPath}
-                  scale={scale}
                   position={position}
                   rotation={rotation}
-                  hovered={isHovered}
+                  scale={scale}
                 />
               ) : (
-                <AutoFitModel modelPath={modelPath} hovered={isHovered} autoFit={autoFit} />
+                <AutoFitModel autoFit={autoFit} hovered={isHovered} modelPath={modelPath} />
               )}
               <Environment preset={environmentPreset} />
             </Suspense>
 
             <PerspectiveCamera 
               makeDefault 
-              position={cameraSettings.position}
               fov={cameraSettings.fov}
+              position={cameraSettings.position}
             />
             <OrbitControls
               autoRotate={autoRotate}
               autoRotateSpeed={0.5}
-              enableZoom={enableZoom}
               enablePan={enablePan}
-              minDistance={1}
+              enableZoom={enableZoom}
               maxDistance={100}
+              minDistance={1}
               target={[0, 0, 0]}
             />
 
             {showGrid && <gridHelper args={[20, 20, 0x888888, 0x444444]} />}
 
             <ContactShadows 
-              position={[0, -10, 0]}
-              opacity={0.4}
-              scale={40}
-              blur={2} 
-              far={40}
-              resolution={256}
+              blur={2}
               color="#000000"
+              far={40}
+              opacity={0.4} 
+              position={[0, -10, 0]}
+              resolution={256}
+              scale={40}
             />
             
             <ambientLight intensity={0.5} />
             <spotLight
-              position={[10, 15, 10]}
-              angle={0.3}
-              penumbra={1}
-              intensity={1}
               castShadow
-              shadow-mapSize-width={2048}
+              angle={0.3}
+              intensity={1}
+              penumbra={1}
+              position={[10, 15, 10]}
               shadow-mapSize-height={2048}
+              shadow-mapSize-width={2048}
             />
         </Canvas>
       </ErrorBoundary>
@@ -256,8 +257,10 @@ function AutoFitModel({ modelPath, hovered, autoFit = true }: { modelPath: strin
       // Створюємо обмежувальну коробку для аналізу моделі
       const box = new THREE.Box3().setFromObject(groupRef.current);
       const size = new THREE.Vector3();
+
       box.getSize(size);
       const center = new THREE.Vector3();
+
       box.getCenter(center);
       
       // Логуємо інформацію про модель для налагодження

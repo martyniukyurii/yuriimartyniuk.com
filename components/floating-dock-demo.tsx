@@ -1,9 +1,7 @@
 "use client";
 
-import React, { useEffect, useState, useRef, useCallback } from "react";
-import { FloatingDock } from "@/components/ui/floating-dock";
+import React, { useEffect, useState, useRef } from "react";
 import {
-  IconBrandGithub,
   IconUser,
   IconCode,
   IconArticle,
@@ -11,10 +9,13 @@ import {
   IconMail,
   IconChevronUp
 } from "@tabler/icons-react";
-import { SectionType, useSection } from "./section-provider";
 import { AnimatePresence, motion } from "framer-motion";
-import { ThemeSwitch } from "@/components/theme-switch";
 import { useTheme } from "next-themes";
+
+import { SectionType, useSection } from "./section-provider";
+
+import { ThemeSwitch } from "@/components/theme-switch";
+import { FloatingDock } from "@/components/ui/floating-dock";
 import { LanguageSwitch } from "@/components/language-switch";
 import { useTranslation } from "@/lib/hooks/useTranslation";
 
@@ -33,7 +34,7 @@ const iconColors = {
   active: "text-white"
 };
 
-export function FloatingDockDemo() {
+export function FloatingDockDemo({ id }: { id?: string }) {
   const { activeSection, setActiveSection } = useSection();
   const [currentSection, setCurrentSection] = useState<SectionType>("about");
   const [showDock, setShowDock] = useState(false);
@@ -76,6 +77,7 @@ export function FloatingDockDemo() {
     };
     
     document.addEventListener('mousedown', handleClickOutside);
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
@@ -115,6 +117,7 @@ export function FloatingDockDemo() {
     const timeout = setTimeout(() => {
       setShowDock(false);
     }, 300); // Швидке зникнення при відведенні курсора
+
     indicatorTimer.current = timeout;
   };
 
@@ -168,48 +171,48 @@ export function FloatingDockDemo() {
       <div className="fixed top-4 right-4 z-50 flex gap-2">
         <motion.div 
           className="p-2.5 bg-white/10 backdrop-blur-md rounded-full shadow-lg h-10 w-10 flex items-center justify-center"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
           transition={{ 
             type: "spring", 
             stiffness: 400, 
             damping: 17 
           }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
         >
           <LanguageSwitch />
         </motion.div>
         <motion.div 
           className="p-2.5 bg-white/10 backdrop-blur-md rounded-full shadow-lg h-10 w-10 flex items-center justify-center"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
           transition={{ 
             type: "spring", 
             stiffness: 400, 
             damping: 17 
           }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
         >
           <ThemeSwitch />
         </motion.div>
       </div>
       
-      <div className="fixed bottom-0 left-0 right-0 h-40 z-50 pointer-events-none">
+      <div className="fixed bottom-0 left-0 right-0 h-40 z-50 pointer-events-none" id={id}>
         <AnimatePresence>
           {showIndicator && !isMobile && !showDock && (
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
               className="absolute bottom-5 left-1/2 -translate-x-1/2 w-8 h-8 flex items-center justify-center cursor-pointer pointer-events-auto"
+              exit={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 20 }}
               onMouseEnter={handleIndicatorMouseEnter}
             >
               <motion.div 
                 animate={{ y: [2, -2, 2] }}
+                className={isMounted ? `${theme === 'light' ? 'bg-blue-600/50' : 'bg-white/20'} backdrop-blur-md rounded-full p-1.5 shadow-lg` : 'bg-white/20 backdrop-blur-md rounded-full p-1.5 shadow-lg'}
                 transition={{ 
                   duration: 1.5, 
                   repeat: Infinity, 
                   ease: "easeInOut" 
                 }}
-                className={isMounted ? `${theme === 'light' ? 'bg-blue-600/50' : 'bg-white/20'} backdrop-blur-md rounded-full p-1.5 shadow-lg` : 'bg-white/20 backdrop-blur-md rounded-full p-1.5 shadow-lg'}
               >
                 <IconChevronUp className={isMounted ? `h-3 w-3 ${theme === 'light' ? 'text-blue-100' : 'text-white'}` : 'h-3 w-3 text-white'} />
               </motion.div>
@@ -222,21 +225,21 @@ export function FloatingDockDemo() {
           {(showDock || isMobile) && (
             <motion.div 
               ref={dockRef}
-              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
+              className={`absolute bottom-8 pointer-events-auto ${isMobile ? 'left-4 right-auto' : 'left-0 right-0 flex justify-center'}`}
               exit={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 20 }}
               transition={{ 
                 type: "spring", 
                 damping: 25, 
                 stiffness: 300 
               }}
-              className={`absolute bottom-8 pointer-events-auto ${isMobile ? 'left-4 right-auto' : 'left-0 right-0 flex justify-center'}`}
               onMouseEnter={handleDockMouseEnter}
               onMouseLeave={handleDockMouseLeave}
             >
               <FloatingDock
-                mobileClassName="translate-y-0 flex justify-start"
                 items={links}
+                mobileClassName="translate-y-0 flex justify-start"
               />
             </motion.div>
           )}

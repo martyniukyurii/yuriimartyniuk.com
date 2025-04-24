@@ -98,10 +98,10 @@ export const ukTranslations: Translations = {
   'about.hobby.quote.author': '— Народна мудрість програмістів - шахістів',
   
   'about.skills.python.name': 'Python',
-  'about.skills.react.name': 'React / Next.js',
+  'about.skills.react.name': 'React',
   'about.skills.mongodb.name': 'MongoDB',
-  'about.skills.typescript.name': 'TypeScript / JavaScript',
-  'about.skills.devops.name': 'DevOps / Docker',
+  'about.skills.typescript.name': 'TypeScript',
+  'about.skills.devops.name': 'DevOps',
   'about.skills.flutter.name': 'Flutter',
   
   'about.hobbies.origami.name': 'Орігамі',

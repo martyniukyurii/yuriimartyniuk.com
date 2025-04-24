@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { useScroll, useTransform, motion } from "motion/react";
+
 import { useTranslation } from "@/lib/hooks/useTranslation";
 import { TranslationKey } from "@/lib/translations";
 
@@ -48,18 +49,21 @@ export const ParallaxScrollFocusSimple = ({
   // Отримання опису для фото за індексом з перекладів
   const getPhotoDescription = (index: number): string => {
     const translationKey = `gallery.photo.${index + 1}` as TranslationKey;
+
     return t(translationKey) || `Фото ${index + 1}`;
   };
 
   // Організуємо зображення у три колонки
   const getImages = () => {
     const columns: ImageItem[][] = [[], [], []];
+
     images.forEach((image, index) => {
       columns[index % 3].push({
         src: image,
         index
       });
     });
+
     return columns;
   };
 
@@ -68,7 +72,7 @@ export const ParallaxScrollFocusSimple = ({
       <div className="w-full py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto px-4">
           {[...Array(6)].map((_, i) => (
-            <div key={i} className="w-full h-[300px] bg-gray-200 dark:bg-gray-800 animate-pulse rounded-lg"></div>
+            <div key={i} className="w-full h-[300px] bg-gray-200 dark:bg-gray-800 animate-pulse rounded-lg" />
           ))}
         </div>
       </div>
@@ -78,7 +82,7 @@ export const ParallaxScrollFocusSimple = ({
   const imageColumns = getImages();
 
   return (
-    <div className={`w-full ${className || ''}`} ref={containerRef}>
+    <div ref={containerRef} className={`w-full ${className || ''}`}>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 py-10">
         {imageColumns.map((column, colIndex) => {
           // Обираємо відповідне трансформування для колонки
@@ -106,14 +110,14 @@ export const ParallaxScrollFocusSimple = ({
                     ${hovered !== null && hovered !== item.index ? 'blur-sm scale-95 opacity-60' : ''}
                   `}>
                     <img 
-                      src={item.src}
                       alt={getPhotoDescription(item.index)}
                       className="w-full h-auto rounded-lg object-cover"
+                      loading="lazy"
+                      src={item.src}
                       style={{
                         minHeight: "280px", 
                         maxHeight: "400px"
                       }}
-                      loading="lazy"
                     />
                   </div>
                   

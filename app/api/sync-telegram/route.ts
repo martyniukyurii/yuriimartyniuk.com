@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+
 import { parseMessages } from '../../../scripts/telegram-parser';
 
 export const dynamic = 'force-dynamic';
@@ -29,6 +30,7 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     console.error('Помилка при синхронізації з Telegram:', error);
+
     return NextResponse.json(
       { error: 'Сталася помилка при синхронізації з Telegram' },
       { status: 500 }

@@ -1,6 +1,4 @@
-import { use } from 'react';
 import BlogPostClient from '@/components/blog/blog-post-client';
-import { IPost } from '@/app/models/Post';
 
 async function getPost(slug: string) {
   try {
@@ -34,6 +32,7 @@ async function getPost(slug: string) {
     return post;
   } catch (error) {
     console.error('Помилка при завантаженні поста:', error);
+
     return null;
   }
 }

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+
 import { connectToDatabase } from '../../../lib/mongodb';
 import Post from '../../models/Post';
 
@@ -18,6 +19,7 @@ export async function GET() {
     });
   } catch (error) {
     console.error('Помилка при отриманні тегів:', error);
+
     return NextResponse.json(
       { error: 'Не вдалося отримати теги' },
       { status: 500 }

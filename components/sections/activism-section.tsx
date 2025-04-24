@@ -5,8 +5,7 @@ import {
   IconHeartHandshake, 
   IconChevronRight,
   IconBrandYoutube,
-  IconBrandFacebook,
-  IconX
+  IconBrandFacebook
 } from "@tabler/icons-react";
 import {
   Modal,
@@ -17,6 +16,7 @@ import {
   Button,
   useDisclosure,
 } from "@heroui/react";
+
 import '@/styles/activism.css';
 import { ParallaxScrollFocusSimple } from "@/components/ui/parallax-scroll-focus-simple";
 import { useTranslation } from "@/lib/hooks/useTranslation";
@@ -84,6 +84,7 @@ export function ActivismSection() {
     if (typeof window !== 'undefined') {
       // Перевіряємо, чи встановлена темна тема
       const isDark = document.documentElement.classList.contains('dark');
+
       setIsDarkMode(isDark);
       
       // Слухаємо зміни теми
@@ -91,6 +92,7 @@ export function ActivismSection() {
         mutations.forEach((mutation) => {
           if (mutation.attributeName === 'class') {
             const isDarkNow = document.documentElement.classList.contains('dark');
+
             setIsDarkMode(isDarkNow);
           }
         });
@@ -126,8 +128,8 @@ export function ActivismSection() {
       </div>
       {category === CATEGORIES.MEDIA && (
         <button 
-          onClick={onOpen}
           className="activism-nav-button rounded-md px-4 py-2 mt-4 w-full flex items-center justify-center"
+          onClick={onOpen}
         >
           <span>{t('activism.view' as TranslationKey)}</span>
           <IconChevronRight className="w-5 h-5 ml-1" />
@@ -158,10 +160,10 @@ export function ActivismSection() {
   const renderMediaLink = (link: {url: string, title: TranslationKey, type: string}, index: number) => (
     <a 
       key={index}
-      href={link.url}
-      target="_blank"
-      rel="noopener noreferrer"
       className="flex items-center p-4 bg-white/5 dark:bg-gray-700/20 border border-pink-500/10 dark:border-pink-300/10 rounded-lg hover:bg-pink-500/5 dark:hover:bg-pink-300/5 transition-colors backdrop-blur-sm"
+      href={link.url}
+      rel="noopener noreferrer"
+      target="_blank"
     >
       {link.type === 'youtube' ? (
         <IconBrandYoutube className="w-6 h-6 text-red-600 mr-3 flex-shrink-0" />
@@ -173,7 +175,7 @@ export function ActivismSection() {
   );
 
   return (
-    <section id="activism" className="min-h-screen flex items-center justify-center">
+    <section className="min-h-screen flex items-center justify-center" id="activism">
       <div className="max-w-5xl mx-auto px-4 py-16">
         <div className="flex items-center justify-center mb-12">
           <IconHeartHandshake className="w-8 h-8 mr-2 text-pink-500 dark:text-pink-300" />
@@ -209,10 +211,10 @@ export function ActivismSection() {
           
           <div className="mt-16 text-center">
             <a 
-              href="https://www.facebook.com/fsymvoly" 
-              target="_blank"
+              className="bg-pink-500 hover:bg-pink-600 text-white font-medium rounded-md px-6 py-3 inline-flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95" 
+              href="https://www.facebook.com/fsymvoly"
               rel="noopener noreferrer"
-              className="bg-pink-500 hover:bg-pink-600 text-white font-medium rounded-md px-6 py-3 inline-flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
+              target="_blank"
             >
               <IconHeartHandshake className="w-5 h-5 mr-2" />
               <span>{t('activism.join.initiatives' as TranslationKey)}</span>
@@ -222,14 +224,7 @@ export function ActivismSection() {
         
         {/* Модальне вікно з медіа-посиланнями через HeroUI */}
         <Modal 
-          isOpen={isOpen} 
-          onOpenChange={onOpenChange}
-          backdrop="blur"
-          isDismissable={true}
-          size="3xl" 
-          style={{
-            background: isDarkMode ? 'rgba(17, 24, 39, 0.9)' : 'rgba(255, 255, 255, 0.9)'
-          }}
+          backdrop="blur" 
           classNames={{
             base: isDarkMode 
               ? "!bg-gray-900 !text-white border border-pink-300/20 backdrop-blur-md w-full max-w-4xl"
@@ -240,6 +235,13 @@ export function ActivismSection() {
             footer: "border-t-0 bg-transparent",
             closeButton: isDarkMode ? "!text-white" : "text-gray-800"
           }}
+          isDismissable={true}
+          isOpen={isOpen}
+          size="3xl" 
+          style={{
+            background: isDarkMode ? 'rgba(17, 24, 39, 0.9)' : 'rgba(255, 255, 255, 0.9)'
+          }}
+          onOpenChange={onOpenChange}
         >
           <ModalContent 
             style={{
@@ -266,17 +268,17 @@ export function ActivismSection() {
                   }}
                 >
                   <Button 
+                    className={isDarkMode 
+                      ? "bg-pink-300/10 text-pink-300 hover:bg-pink-300/20" 
+                      : "bg-pink-500/10 text-pink-500 hover:bg-pink-500/20"
+                    } 
                     color="danger" 
-                    variant="light" 
-                    onPress={onClose}
                     style={{
                       background: isDarkMode ? 'rgba(244, 114, 182, 0.1)' : 'rgba(236, 72, 153, 0.1)',
                       color: isDarkMode ? '#f9a8d4' : '#ec4899'
                     }}
-                    className={isDarkMode 
-                      ? "bg-pink-300/10 text-pink-300 hover:bg-pink-300/20" 
-                      : "bg-pink-500/10 text-pink-500 hover:bg-pink-500/20"
-                    }
+                    variant="light"
+                    onPress={onClose}
                   >
                     {t('activism.close' as TranslationKey)}
                   </Button>
