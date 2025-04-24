@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { IconArrowLeft, IconCalendar, IconChevronLeft, IconChevronRight, IconEye, IconLink, IconTag } from '@tabler/icons-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import { formatDate } from '@/lib/utils';
 import { IPost, Media } from '@/app/models/Post';
@@ -49,11 +50,15 @@ const MediaCarousel = ({ media }: { media: Media[] }) => {
       
       {currentMedia.type === 'photo' && (
         <div>
-          <img 
-            alt={currentMedia.caption || ''}
-            className="blog-media w-full max-h-[70vh] object-contain"
-            src={getImageUrl(currentMedia)}
-          />
+          <div className="relative w-full" style={{ height: '70vh', maxHeight: '70vh' }}>
+            <Image 
+              alt={currentMedia.caption || ''}
+              className="blog-media object-contain"
+              fill
+              sizes="100vw"
+              src={getImageUrl(currentMedia)}
+            />
+          </div>
           {currentMedia.caption && (
             <p className="blog-meta text-sm mt-2">{currentMedia.caption}</p>
           )}
@@ -78,7 +83,16 @@ const MediaCarousel = ({ media }: { media: Media[] }) => {
               className="blog-media w-full max-h-[70vh]"
               poster={getVideoPosterUrl(currentMedia)}
               src={getVideoUrl(currentMedia)}
-            />
+            >
+              <track
+                default
+                kind="captions"
+                label="Ukrainian captions"
+                src=""
+                srcLang="uk"
+              />
+              Ваш браузер не підтримує відео тег.
+            </video>
           )}
           {currentMedia.caption && (
             <p className="blog-meta text-sm mt-2">{currentMedia.caption}</p>
@@ -128,11 +142,15 @@ const PostMedia = ({ media }: { media: Media }) => {
   if (media.type === 'photo') {
     return (
       <div className="mb-6">
-        <img 
-          alt={media.caption || ''}
-          className="blog-media w-full max-h-[70vh] object-contain"
-          src={getImageUrl(media)}
-        />
+        <div className="relative w-full" style={{ height: '70vh', maxHeight: '70vh' }}>
+          <Image 
+            alt={media.caption || ''}
+            className="blog-media object-contain"
+            fill
+            sizes="100vw"
+            src={getImageUrl(media)}
+          />
+        </div>
         {media.caption && (
           <p className="blog-meta text-sm mt-2">{media.caption}</p>
         )}
@@ -169,7 +187,16 @@ const PostMedia = ({ media }: { media: Media }) => {
           className="blog-media w-full max-h-[70vh]"
           poster={getVideoPosterUrl(media)}
           src={getVideoUrl(media)}
-        />
+        >
+          <track
+            default
+            kind="captions"
+            label="Ukrainian captions"
+            src=""
+            srcLang="uk"
+          />
+          Ваш браузер не підтримує відео тег.
+        </video>
         {media.caption && (
           <p className="blog-meta text-sm mt-2">{media.caption}</p>
         )}
@@ -200,8 +227,9 @@ const PostMedia = ({ media }: { media: Media }) => {
 };
 
 export default function BlogPostClient({ post }: { post: IPost | null }) {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  // Створюємо змінні без useState для використання з умовною логікою
+  const loading = false;
+  const error = null;
   const { t } = useTranslation();
 
   // Функція, що повертає URL якірного посилання на блог

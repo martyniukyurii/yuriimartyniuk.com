@@ -10,7 +10,6 @@ import { useTranslation } from "@/lib/hooks/useTranslation";
 
 export function ProjectsSection() {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
   const animationFrameRef = useRef<number | null>(null);
   const { t } = useTranslation();
@@ -41,8 +40,6 @@ export function ProjectsSection() {
 
   // Оптимізована функція для обробки руху миші
   const handleMouseMove = useCallback((e: MouseEvent) => {
-    setMousePosition({ x: e.clientX, y: e.clientY });
-
     if (animationFrameRef.current) {
       cancelAnimationFrame(animationFrameRef.current);
     }
@@ -357,7 +354,7 @@ export function ProjectsSection() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .glow-card:hover::before,
         .glow-card:hover::after {
           opacity: 1;

@@ -3,11 +3,12 @@ import { NextResponse } from 'next/server';
 import { connectToDatabase } from '../../../../lib/mongodb';
 import Post from '../../../models/Post';
 
-export async function GET(request: Request, { params }: { params: { slug: string } }) {
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ slug: string }> }
+) {
   try {
-    // Використовуємо await для отримання параметрів
-    const resolvedParams = await Promise.resolve(params);
-    const { slug } = resolvedParams;
+    const { slug } = await params;
     
     if (!slug) {
       return NextResponse.json(

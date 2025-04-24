@@ -2,13 +2,13 @@
 
 import React, { useEffect, useState, SVGProps } from "react";
 import { IconArticle, IconTag } from "@tabler/icons-react";
+import { Pagination, PaginationItemType, PaginationItemRenderProps, cn } from "@heroui/react";
 
 import BlogPostCard from "../blog/blog-post-card";
 
 import { IPost } from "@/app/models/Post";
 
 import '@/styles/blog.css';
-import { Pagination, PaginationItemType, PaginationItemRenderProps, cn } from "@heroui/react";
 
 import { useTranslation } from "@/lib/hooks/useTranslation";
 
@@ -84,7 +84,7 @@ export function BlogSection() {
       setPosts(data.posts);
       setTotalPages(data.metadata.totalPages);
     } catch (err) {
-      console.error('Помилка при завантаженні постів:', err);
+      // console.error('Помилка при завантаженні постів:', err);
       setError('Не вдалося завантажити пости');
     } finally {
       setLoading(false);
@@ -103,7 +103,7 @@ export function BlogSection() {
 
       setTags(data.tags);
     } catch (err) {
-      console.error('Помилка при завантаженні тегів:', err);
+      // console.error('Помилка при завантаженні тегів:', err);
     }
   };
 
@@ -150,7 +150,7 @@ export function BlogSection() {
   // Функція для відображення повідомлення про відсутність постів з вибраним тегом
   const getNoPostsMessage = () => {
     if (selectedTag) {
-      return `${t('blog.no.posts.with.tag').replace('{{tag}}', `"${selectedTag}"`)}`;
+      return `${t('blog.no.posts.with.tag').replace('{{tag}}', `&quot;${selectedTag}&quot;`)}`;
     }
 
     return t('blog.no.posts.to.display');
@@ -249,7 +249,7 @@ export function BlogSection() {
               className="px-3 py-1.5 blog-nav-button rounded-md text-sm"
               onClick={() => handleTagClick(selectedTag)}
             >
-              {t('blog.clear.filter')} "{selectedTag}"
+              {t('blog.clear.filter')} &quot;{selectedTag}&quot;
             </button>
           </div>
         )}

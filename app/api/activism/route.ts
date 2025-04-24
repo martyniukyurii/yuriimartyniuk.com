@@ -115,7 +115,11 @@ export async function GET() {
         author: post.author || 'Активіст',
         imageUrl: post.images && post.images.length > 0 ? post.images[0] : 'https://via.placeholder.com/600x400',
         videoUrl: post.videos && post.videos.length > 0 ? post.videos[0] : '',
-        url: post.url || ''
+        url: post.url || '',
+        text: post.text,
+        images: post.images,
+        videos: post.videos,
+        activism_categories: post.activism_categories
       };
     });
     
@@ -174,7 +178,8 @@ function getDemoData(): ActivismApiResponse {
       categories: "волонтерський, соціальний",
       author: "Андрій Гевюк",
       imageUrl: "https://via.placeholder.com/600x400",
-      url: "https://www.facebook.com/agevyuk"
+      url: "https://www.facebook.com/agevyuk",
+      text: "Запрошуємо долучитися до волонтерської ініціативи. Збираємо кошти на допомогу дітям, які постраждали від війни. Кожна гривня важлива. м. Чернівці, 01.05.2023. Разом ми можемо зробити більше!"
     },
     {
       id: 2,
@@ -185,7 +190,8 @@ function getDemoData(): ActivismApiResponse {
       categories: "освітній, цифровий",
       author: "Фонд Символи",
       imageUrl: "https://via.placeholder.com/600x400",
-      url: "https://www.facebook.com/fsymvoly"
+      url: "https://www.facebook.com/fsymvoly",
+      text: "Кібербезпека для всіх. Освітній курс з кібербезпеки для всіх бажаючих. Навчимо основам захисту інформації, безпечному використанню інтернету та захисту від фішингу. 15.06.2023."
     },
     {
       id: 3,
@@ -196,7 +202,8 @@ function getDemoData(): ActivismApiResponse {
       categories: "екологічний, соціальний",
       author: "Активіст",
       imageUrl: "https://via.placeholder.com/600x400",
-      url: ""
+      url: "",
+      text: "Екологічний проект CleanCity. Ініціатива із прибирання міських парків та популяризації сортування сміття серед мешканців міста. м. Київ, 10.07.2023."
     }
   ];
   

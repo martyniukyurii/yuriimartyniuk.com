@@ -6,7 +6,7 @@ import { Kbd } from "@heroui/kbd";
 import Link from "next/link";
 import { Input } from "@heroui/input";
 import { usePathname } from "next/navigation";
-
+import { ThemeSwitch } from "./theme-switch";
 import {
   SearchIcon,
 } from "@/components/icons";
@@ -51,23 +51,27 @@ export function Navbar() {
             Yurii Martyniuk
           </Link>
           
-          <div className="hidden md:flex space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                className={`${
-                  pathname === item.href
-                    ? "text-blue-600 dark:text-blue-400"
-                    : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                } transition-colors duration-200`}
-                href={item.href}
-              >
-                {item.label}
-              </Link>
-            ))}
+          <div className="hidden md:flex items-center">
+            <div className="flex space-x-8 mr-4">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  className={`${
+                    pathname === item.href
+                      ? "text-blue-600 dark:text-blue-400"
+                      : "text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                  } transition-colors duration-200`}
+                  href={item.href}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+            <ThemeSwitch />
           </div>
 
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center">
+            <ThemeSwitch className="mr-2" />
             {/* Тут можна додати мобільне меню */}
             <button className="text-gray-600 dark:text-gray-300">
               <svg

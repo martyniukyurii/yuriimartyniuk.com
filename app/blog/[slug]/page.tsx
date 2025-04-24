@@ -37,10 +37,9 @@ async function getPost(slug: string) {
   }
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  // Отримуємо params як проміс і очікуємо його вирішення
-  const resolvedParams = await Promise.resolve(params);
-  const slug = resolvedParams.slug;
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  // Отримуємо slug з params, очікуючи вирішення промісу
+  const { slug } = await params;
   
   const postData = await getPost(slug);
   

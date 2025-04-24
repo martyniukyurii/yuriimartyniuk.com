@@ -39,7 +39,7 @@ const filesToPreload = [
 export function PreloadingScreen() {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
-  const { _t, language } = useTranslation();
+  const { language } = useTranslation();
   
   useEffect(() => {
     // Функція для попереднього завантаження зображень

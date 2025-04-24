@@ -28,7 +28,7 @@ export interface ActivismInitiative {
   imageUrl: string;
   videoUrl?: string;
   url: string;
-  text: string;
+  text?: string;
   images?: string[];
   videos?: string[];
   activism_categories?: string[];

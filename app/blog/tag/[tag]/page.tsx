@@ -2,10 +2,12 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { use } from 'react';
 
-export default function TagRedirect({ params }: { params: { tag: string } }) {
+export default function TagRedirect({ params }: { params: Promise<{ tag: string }> }) {
   const router = useRouter();
-  const { tag } = params;
+  // Використовуємо use() для клієнтського компоненту замість await (який не можна використовувати напряму в клієнтському компоненті)
+  const { tag } = use(params);
   
   useEffect(() => {
     // Перенаправляємо на головну сторінку з параметром тегу

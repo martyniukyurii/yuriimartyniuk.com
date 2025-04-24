@@ -335,6 +335,7 @@ export function AboutSection() {
                   className="object-cover object-top"
                   sizes="(max-width: 768px) 100vw, 33vw"
                   src="/short_about_me/image3.png"
+                  style={{ objectPosition: "center top" }}
                 />
               </motion.div>
               <div className="w-full md:w-2/3 text-sm md:text-lg text-gray-200 leading-relaxed">
