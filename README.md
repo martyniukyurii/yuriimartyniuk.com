@@ -1,56 +1,105 @@
-# Next.js & HeroUI Template
+# Персональний сайт Юрія Мартинюка
 
-This is a template for creating applications using Next.js 14 (app directory) and HeroUI (v2).
+Цей репозиторій містить код персонального веб-сайту Юрія Мартинюка, розробленого з використанням сучасних веб-технологій.
 
-[Try it on CodeSandbox](https://githubbox.com/heroui-inc/heroui/next-app-template)
+## 🌟 Основні функції
 
-## Technologies Used
+- Адаптивний дизайн з підтримкою мобільних пристроїв
+- Багатомовний інтерфейс (українська та англійська мови)
+- Темна та світла теми оформлення
+- Розділ блогу з підтримкою категорій та тегів
+- Інтерактивні 3D моделі
+- Портфоліо проєктів
+- Система зворотного зв'язку через форму контактів
+- Оптимізоване завантаження сторінок та зображень
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [HeroUI v2](https://heroui.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+## 🚀 Технології
 
-## How to Use
+Сайт розроблено з використанням таких технологій:
 
-### Use the template with create-next-app
+- [Next.js 15](https://nextjs.org/) - React-фреймворк з підтримкою SSR і статичної генерації
+- [TypeScript](https://www.typescriptlang.org/) - типізована надбудова над JavaScript
+- [HeroUI](https://heroui.com/) - UI-компоненти
+- [Tailwind CSS](https://tailwindcss.com/) - утилітарний CSS-фреймворк
+- [Framer Motion](https://www.framer.com/motion/) - бібліотека для анімацій
+- [MongoDB](https://www.mongodb.com/) - NoSQL база даних
+- [Three.js](https://threejs.org/) - 3D-рендеринг у веб-браузері
+- [next-themes](https://github.com/pacocoursey/next-themes) - управління темами оформлення
+- [React-Aria](https://react-spectrum.adobe.com/react-aria/) - інструменти для доступності
 
-To create a new project based on this template using `create-next-app`, run the following command:
+## 🛠️ Встановлення та запуск
 
-```bash
-npx create-next-app -e https://github.com/heroui-inc/next-app-template
-```
+### Передумови
 
-### Install dependencies
+- Node.js (версія 18.x або вище)
+- npm або yarn
+- MongoDB (локально або хмарний сервіс)
 
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+### Встановлення залежностей
 
 ```bash
 npm install
+# або
+yarn install
 ```
 
-### Run the development server
+### Налаштування змінних середовища
+
+Скопіюйте файл `.env.example` до `.env.local` та налаштуйте необхідні змінні:
+
+```bash
+cp .env.example .env.local
+```
+
+Основні змінні, які потрібно налаштувати:
+```
+MONGODB_URI=your_mongodb_connection_string
+RESEND_API_KEY=your_resend_api_key
+```
+
+### Запуск у режимі розробки
 
 ```bash
 npm run dev
+# або
+yarn dev
 ```
 
-### Setup pnpm (optional)
+Сайт буде доступний за адресою [http://localhost:3000](http://localhost:3000)
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+### Збірка проєкту
 
 ```bash
-public-hoist-pattern[]=*@heroui/*
+npm run build
+# або
+yarn build
 ```
 
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
+### Запуск зібраного проєкту
 
-## License
+```bash
+npm start
+# або
+yarn start
+```
 
-Licensed under the [MIT license](https://github.com/heroui-inc/next-app-template/blob/main/LICENSE).
+## 📝 Структура проєкту
+
+- `/app` - основні компоненти сторінок (структура Next.js App Router)
+- `/components` - повторно використовувані React-компоненти
+- `/public` - статичні файли (зображення, шрифти тощо)
+- `/lib` - допоміжні функції та утиліти
+- `/types` - TypeScript типізація
+- `/styles` - глобальні стилі CSS
+
+## 📜 Ліцензія
+
+[MIT](LICENSE)
+
+## 📞 Контакти
+
+- Веб-сайт: [yuriimartyniuk.com](https://yuriimartyniuk.com)
+- GitHub: [martyniukyurii](https://github.com/martyniukyurii)
 
 # Сайт Юрія Мартинюка
 
