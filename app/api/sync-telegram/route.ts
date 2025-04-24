@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { parseMessages } from '../../../scripts/telegram-parser';
 
 export const dynamic = 'force-dynamic';
-export const maxDuration = 300; // 5 хвилин
+export const maxDuration = 60; // 60 секунд - максимум для Hobby плану на Vercel
 
 export async function GET(request: Request) {
   try {
