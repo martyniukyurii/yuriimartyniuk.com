@@ -86,7 +86,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning className="overflow-y-auto overflow-x-hidden scroll-smooth">
+    <html suppressHydrationWarning className="overflow-y-auto overflow-x-hidden scroll-smooth" lang="uk">
       <head />
       <body
         className={`min-h-screen bg-background font-sans antialiased overflow-y-auto overflow-x-hidden ${fontSans.variable}`}
