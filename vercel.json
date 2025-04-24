@@ -1,8 +1,10 @@
 {
+  "buildCommand": "npm run build",
+  "installCommand": "npm install --force",
   "crons": [
     {
       "path": "/api/sync-telegram?apiKey=${TELEGRAM_SYNC_API_KEY}",
-      "schedule": "0 * * * *"
+      "schedule": "0 0 * * *"
     }
   ]
 } 
