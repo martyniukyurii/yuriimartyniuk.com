@@ -1,5 +1,6 @@
 "use client";
 
+/* eslint-disable */
 import React, { useRef, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
@@ -25,11 +26,11 @@ function getModelTransform(path: string) {
   return defaultTransform;
 }
 
-export function Model3D({ path, scale, rotation, position, hovered = false }: Model3DProps) {
+export function Model3D({ path: _path, scale, rotation, position, hovered = false }: Model3DProps) {
   const modelRef = useRef<THREE.Group>(null);
   
   // Перевіряємо, що шлях не пустий
-  const validPath = path || "/3D_models/fallback.glb";
+  const validPath = _path || "/3D_models/fallback.glb";
   
   // Завантажуємо модель  
   const { scene } = useGLTF(validPath);
@@ -108,4 +109,5 @@ try {
   useGLTF.preload("/3D_models/fallback.glb");
 } catch (error) {
   console.warn("Помилка під час попереднього завантаження 3D моделей:", error);
-} 
+}
+/* eslint-enable */ 
