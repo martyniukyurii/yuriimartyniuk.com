@@ -151,7 +151,7 @@ export function ProjectsSection() {
       customSize: false,
       technologies: ["Next.js", "React", "Python", "API Integration", "PyTorch", "NLP"],
       githubUrl: "#",
-      liveUrl: "mediamood.today"
+      liveUrl: "https://mediamood.today"
     },
     {
       id: 4,

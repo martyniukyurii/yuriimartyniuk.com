@@ -2,7 +2,11 @@ import BlogPostClient from '@/components/blog/blog-post-client';
 
 async function getPost(slug: string) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/posts/${slug}`, { 
+    // Створюємо правильний URL з базового URL та шляху
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const url = new URL(`/api/posts/${slug}`, baseUrl);
+    
+    const response = await fetch(url.toString(), { 
       cache: 'no-store'
     });
     
