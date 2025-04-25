@@ -2,12 +2,10 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import SimplifiedModelViewer from "./SimplifiedModelViewer";
 import { IconScissors, IconBike, IconCode, IconChess } from "@tabler/icons-react";
 import { useTheme } from "next-themes";
-
 import { MODEL_RESET_EVENT } from "../section-provider"; // Імпортуємо константу події
-
-import SimplifiedModelViewer from "./SimplifiedModelViewer";
 
 interface HobbyModelProps {
   hobbyName: string;
@@ -18,10 +16,10 @@ interface HobbyModelProps {
 
 // Карта для іконок фолбеку
 const fallbackIcons: Record<string, React.ReactNode> = {
-  "Орігамі": <IconScissors className="text-blue-400" size={60} />,
-  "Велоспорт": <IconBike className="text-blue-400" size={60} />,
-  "Програмування": <IconCode className="text-blue-400" size={60} />,
-  "Шахи": <IconChess className="text-blue-400" size={60} />,
+  "Орігамі": <IconScissors size={60} className="text-blue-400" />,
+  "Велоспорт": <IconBike size={60} className="text-blue-400" />,
+  "Програмування": <IconCode size={60} className="text-blue-400" />,
+  "Шахи": <IconChess size={60} className="text-blue-400" />,
 };
 
 // Спеціальні налаштування для кожної моделі - fitOffset визначає відстань камери
@@ -141,7 +139,6 @@ export function HobbyModel({ hobbyName, description, category, modelPath }: Hobb
     const checkModelAvailability = async () => {
       try {
         const response = await fetch(completePath, { method: 'HEAD' });
-
         if (!response.ok) {
           throw new Error(`Model not found: ${completePath}`);
         }
@@ -226,7 +223,6 @@ export function HobbyModel({ hobbyName, description, category, modelPath }: Hobb
   
   const getTitleClass = () => {
     const baseClass = "text-xl md:text-2xl font-semibold transition-colors duration-300";
-
     if (!isMounted) return baseClass; // Базове значення для SSR
     
     return `${baseClass} ${isHovered 
@@ -251,11 +247,12 @@ export function HobbyModel({ hobbyName, description, category, modelPath }: Hobb
     >
       {/* Ефект світіння/вспишки при наведенні */}
       <motion.div 
+        className="absolute inset-0 -z-10 rounded-xl opacity-0 glow-effect"
         animate={{
           opacity: isHovered ? 0.4 : 0,
           scale: isHovered ? 1.05 : 1
         }}
-        className="absolute inset-0 -z-10 rounded-xl opacity-0 glow-effect"
+        transition={{ duration: 0.3 }}
         style={{
           background: `radial-gradient(circle at center, var(--glow-color) 0%, transparent 70%)`,
           filter: 'blur(20px)',
@@ -264,7 +261,6 @@ export function HobbyModel({ hobbyName, description, category, modelPath }: Hobb
                        hobbyName === "Програмування" ? 'rgba(99, 102, 241, 0.4)' :
                        'rgba(168, 85, 247, 0.4)'
         } as any}
-        transition={{ duration: 0.3 }}
       />
 
       <div className="flex flex-col items-center text-center">
@@ -276,19 +272,19 @@ export function HobbyModel({ hobbyName, description, category, modelPath }: Hobb
         >
           {isLoading && !modelError && (
             <div className="absolute inset-0 flex items-center justify-center z-10">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-400" />
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-400"></div>
             </div>
           )}
           
           {!modelError ? (
             <div className="w-full h-full">
               <SimplifiedModelViewer 
-                key={visibilityKey}
+                modelPath={fullPath}
                 autoRotate={true}
                 backgroundColor="transparent"
-                className="w-full h-full"
                 fitOffset={settings.fitOffset}
-                modelPath={fullPath}
+                className="w-full h-full"
+                key={visibilityKey}
               />
             </div>
           ) : (
@@ -300,10 +296,10 @@ export function HobbyModel({ hobbyName, description, category, modelPath }: Hobb
         </motion.div>
         
         <motion.div 
+          className="flex items-center gap-2 mb-2 md:mb-3"
           animate={{ 
             scale: isHovered ? 1.05 : 1
           }}
-          className="flex items-center gap-2 mb-2 md:mb-3"
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
           <h3 className={getTitleClass()}>

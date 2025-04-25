@@ -6,5 +6,26 @@
       "path": "/api/sync-telegram?apiKey=${TELEGRAM_SYNC_API_KEY}",
       "schedule": "0 0 * * *"
     }
-  ]
+  ],
+  "headers": [
+    {
+      "source": "/3D_models/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Content-Type",
+          "value": "model/gltf-binary"
+        }
+      ]
+    }
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false
 }
