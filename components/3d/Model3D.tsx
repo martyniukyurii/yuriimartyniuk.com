@@ -1,6 +1,5 @@
 "use client";
 
-/* eslint-disable */
 import React, { useRef, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
@@ -14,8 +13,15 @@ interface Model3DProps {
   hovered?: boolean;
 }
 
+// Допоміжна функція для логування тільки в режимі розробки
+const logDebug = (message: string, ...args: any[]) => {
+  if (process.env.NODE_ENV !== 'production') {
+    console.log(message, ...args);
+  }
+};
+
 // Трансформація моделі в залежності від типу
-function getModelTransform(path: string) {
+function getModelTransform(_path: string) {
   // Базові налаштування (можна перезаписати)
   const defaultTransform = {
     position: [0, 0, 0] as [number, number, number],
@@ -26,11 +32,11 @@ function getModelTransform(path: string) {
   return defaultTransform;
 }
 
-export function Model3D({ path: _path, scale, rotation, position, hovered = false }: Model3DProps) {
+export function Model3D({ path, scale, rotation, position, hovered = false }: Model3DProps) {
   const modelRef = useRef<THREE.Group>(null);
   
   // Перевіряємо, що шлях не пустий
-  const validPath = _path || "/3D_models/fallback.glb";
+  const validPath = path || "/3D_models/fallback.glb";
   
   // Завантажуємо модель  
   const { scene } = useGLTF(validPath);
@@ -81,7 +87,8 @@ export function Model3D({ path: _path, scale, rotation, position, hovered = fals
         // Додаємо клоновану сцену
         modelRef.current.add(clonedScene);
       } catch (error) {
-        console.error(`Помилка при клонуванні сцени для моделі ${validPath}:`, error);
+        // Використовуємо консольне повідомлення для діагностики
+        logDebug(`Помилка при клонуванні сцени для моделі ${validPath}:`, error);
       }
     }
   }, [scene, validPath]);
@@ -90,8 +97,8 @@ export function Model3D({ path: _path, scale, rotation, position, hovered = fals
     <group 
       ref={modelRef}
       position={finalPosition}
-      rotation={[finalRotation[0], finalRotation[1], finalRotation[2]]}
-      scale={[finalScale, finalScale, finalScale]}
+      rotation={finalRotation}
+      scale={finalScale}
     />
   );
 }
@@ -108,6 +115,6 @@ try {
   // Також завантажуємо запасну модель, якщо потрібно
   useGLTF.preload("/3D_models/fallback.glb");
 } catch (error) {
-  console.warn("Помилка під час попереднього завантаження 3D моделей:", error);
-}
-/* eslint-enable */ 
+  // Логуємо помилку тільки в режимі розробки
+  logDebug("Помилка під час попереднього завантаження 3D моделей:", error);
+} 

@@ -87,6 +87,18 @@
         "prev": ["const", "let", "var"],
         "next": ["const", "let", "var"]
       }
+    ],
+    "react/no-unknown-property": [
+      "error",
+      {
+        "ignore": [
+          "position", "rotation", "scale", "args", "intensity", "emissive", "emissiveIntensity", 
+          "roughness", "metalness", "transparent", "opacity", "wireframe", "castShadow", 
+          "receiveShadow", "angle", "penumbra", "shadow-mapSize-width", "shadow-mapSize-height", 
+          "shadow-bias", "groundColor", "position-x", "position-y", "position-z", 
+          "rotation-x", "rotation-y", "rotation-z"
+        ]
+      }
     ]
   }
 }
