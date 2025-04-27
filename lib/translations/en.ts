@@ -42,7 +42,7 @@ export const enTranslations: Translations = {
   'about.ugb.role': 'Front-office Solutions Developer',
   'about.ugb.company': 'AB "Ukrgasbank", Kyiv',
   'about.ugb.duration': 'Present, part-time',
-  'about.ugb.responsibilities.1': 'Develop and configure API endpoints using Node-RED for integration with external systems.',
+  'about.ugb.responsibilities.1': 'Develop and configure API endpoints for integration with external systems.',
   'about.ugb.responsibilities.2': 'Create modern user interfaces based on React, Vue.js, and Angular, ensuring convenience and functionality.',
   'about.ugb.responsibilities.3': 'Implement integration of frontend solutions with backend systems via API, ensuring seamless interaction.',
   'about.mediamood.role': 'Co-founder, CTO',

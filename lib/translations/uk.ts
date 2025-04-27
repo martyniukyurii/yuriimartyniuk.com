@@ -42,7 +42,7 @@ export const ukTranslations: Translations = {
   'about.ugb.role': 'Фахівець з розробки фронт-офісних рішень',
   'about.ugb.company': 'АБ "Укргазбанк", Київ',
   'about.ugb.duration': 'Теперішній час, неповна зайнятість',
-  'about.ugb.responsibilities.1': 'Розробляю та налаштовую API-ендпоїнти з використанням Node-RED для інтеграції з зовнішніми системами.',
+  'about.ugb.responsibilities.1': 'Розробляю та налаштовую API-ендпоїнти для інтеграції з зовнішніми системами.',
   'about.ugb.responsibilities.2': 'Створюю сучасні інтерфейси користувача на базі React, Vue.js та Angular, забезпечуючи зручність і функціональність.',
   'about.ugb.responsibilities.3': 'Реалізую інтеграцію фронтенд-рішень із бекенд-системами через API, гарантуючи безперебійну взаємодію.',
   'about.more.about': 'Дізнатися більше:',
