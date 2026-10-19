@@ -1,6 +1,6 @@
 import type { SiteLanguage } from "@/lib/language-detection";
 
-export const SITE_URL = "https://yuriimartyniuk.com";
+export const SITE_URL = "https://www.yuriimartyniuk.com";
 
 // Тексти для пошукових систем і соцмереж окремо для кожної мови
 export const seoContent: Record<SiteLanguage, {

@@ -129,7 +129,7 @@ export function ProjectsSection() {
       customSize: false,
       technologies: ["Next.js", "TypeScript", "TailwindCSS", "React", "Three.js"],
       githubUrl: "https://github.com/martyniukyurii/yuriimartyniuk.com",
-      liveUrl: "https://yuriimartyniuk.com"
+      liveUrl: "https://www.yuriimartyniuk.com"
     },
     {
       id: 2,
