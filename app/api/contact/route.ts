@@ -1,20 +1,14 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-// Ініціалізуємо Resend з API ключем
-const resendApiKey = process.env.RESEND_API_KEY;
-
-// Перевіряємо наявність API ключа
-if (!resendApiKey) {
-  console.error('RESEND_API_KEY не вказаний в .env файлі');
-}
-
-const resend = new Resend(resendApiKey);
-
 // Адреса, на яку надсилатимуться повідомлення
 const toEmail = 'yura.martin.1993@gmail.com';
 
 export async function POST(request: Request) {
+  if (!process.env.RESEND_API_KEY) {
+    return NextResponse.json({ error: 'Сервіс повідомлень не налаштований' }, { status: 503 });
+  }
+  const resend = new Resend(process.env.RESEND_API_KEY);
   try {
     // Отримуємо дані з форми
     const data = await request.json();
@@ -62,4 +56,4 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-} 
+}

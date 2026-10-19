@@ -2,6 +2,8 @@
 
 import React, { createContext, useState, useContext, useEffect, ReactNode } from "react";
 
+import { LANGUAGE_COOKIE, LANGUAGE_COOKIE_MAX_AGE } from "@/lib/language-detection";
+
 export type Language = "uk" | "en";
 
 interface LanguageContextProps {
@@ -20,46 +22,23 @@ export const useLanguage = () => useContext(LanguageContext);
 
 interface LanguageProviderProps {
   children: ReactNode;
+  // Мова, визначена на сервері (cookie → IP → мова браузера)
+  initialLanguage?: Language;
 }
 
-export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>("uk");
+export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children, initialLanguage = "uk" }) => {
+  const [language, setLanguage] = useState<Language>(initialLanguage);
 
-  // Зберігаємо вибрану мову в localStorage
   useEffect(() => {
-    // Код виконується тільки на клієнті
-    if (typeof window !== 'undefined') {
-      // Зчитуємо мову з localStorage при ініціалізації
-      const savedLanguage = localStorage.getItem("language") as Language | null;
+    document.documentElement.lang = language;
 
-      console.log("Initial language from localStorage:", savedLanguage);
-      
-      if (savedLanguage && (savedLanguage === "uk" || savedLanguage === "en")) {
-        console.log("Setting initial language to:", savedLanguage);
-        setLanguage(savedLanguage);
-      }
-
-      // Встановлюємо атрибут lang для елемента html
-      document.documentElement.lang = language;
-    }
-  }, []);
-
-  // Оновлюємо localStorage при зміні мови
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      console.log("Language changed to:", language);
-      localStorage.setItem("language", language);
-      document.documentElement.lang = language;
-      
-      // Додатково викликаємо подію для перезавантаження компонентів, які реагують на зміну мови
-      const languageChangeEvent = new CustomEvent('languagechange', { detail: { language } });
-
-      window.dispatchEvent(languageChangeEvent);
-    }
+    // Повідомляємо компоненти, які реагують на зміну мови
+    window.dispatchEvent(new CustomEvent('languagechange', { detail: { language } }));
   }, [language]);
 
+  // Ручний вибір мови запам'ятовуємо в cookie, щоб сервер одразу віддавав потрібну мову
   const handleSetLanguage = (newLanguage: Language) => {
-    console.log("Setting language to:", newLanguage);
+    document.cookie = `${LANGUAGE_COOKIE}=${newLanguage}; path=/; max-age=${LANGUAGE_COOKIE_MAX_AGE}; samesite=lax`;
     setLanguage(newLanguage);
   };
 
@@ -68,4 +47,4 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       {children}
     </LanguageContext.Provider>
   );
-}; 
+};

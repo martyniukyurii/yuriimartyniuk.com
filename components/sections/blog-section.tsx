@@ -67,10 +67,11 @@ export function BlogSection() {
   const fetchPosts = async () => {
     try {
       setLoading(true);
+      setError(null);
       let url = `/api/posts?page=${page}&limit=3`;
       
       if (selectedTag) {
-        url += `&tag=${selectedTag}`;
+        url += `&tag=${encodeURIComponent(selectedTag)}`;
       }
       
       const response = await fetch(url);
@@ -295,4 +296,4 @@ export function BlogSection() {
       </div>
     </section>
   );
-} 
+}

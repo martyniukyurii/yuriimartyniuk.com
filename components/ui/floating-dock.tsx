@@ -1,6 +1,5 @@
 "use client";
 
-import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
 import {
   AnimatePresence,
   MotionValue,
@@ -30,15 +29,21 @@ export const FloatingDock = ({
   items,
   desktopClassName,
   mobileClassName,
+  mobileTrigger,
+  menuLabel = "Menu",
+  onInteract,
 }: {
   items: FloatingDockItem[];
   desktopClassName?: string;
   mobileClassName?: string;
+  mobileTrigger?: (open: boolean) => React.ReactNode;
+  menuLabel?: string;
+  onInteract?: () => void;
 }) => {
   return (
     <>
       <FloatingDockDesktop className={desktopClassName} items={items} />
-      <FloatingDockMobile className={mobileClassName} items={items} />
+      <FloatingDockMobile className={mobileClassName} items={items} menuLabel={menuLabel} trigger={mobileTrigger} onInteract={onInteract} />
     </>
   );
 };
@@ -46,9 +51,15 @@ export const FloatingDock = ({
 const FloatingDockMobile = ({
   items,
   className,
+  trigger,
+  menuLabel,
+  onInteract,
 }: {
   items: FloatingDockItem[];
   className?: string;
+  trigger?: (open: boolean) => React.ReactNode;
+  menuLabel: string;
+  onInteract?: () => void;
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -98,7 +109,8 @@ const FloatingDockMobile = ({
                       item.bgColor,
                       item.isActive && "scale-110"
                     )}
-                    onClick={item.onClick}
+                    aria-label={item.label}
+                    onClick={() => { onInteract?.(); item.onClick?.(); setOpen(false); }}
                   >
                     <div className="h-4 w-4 text-white">
                       {item.icon}
@@ -111,10 +123,12 @@ const FloatingDockMobile = ({
         )}
       </AnimatePresence>
       <button
-        className="h-10 w-10 rounded-full bg-gray-200/50 backdrop-blur-lg dark:bg-neutral-800/50 flex items-center justify-center"
-        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        aria-label={menuLabel}
+        className="flex items-center justify-center rounded-full"
+        onClick={() => { onInteract?.(); setOpen(!open); }}
       >
-        <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
+        {trigger?.(open)}
       </button>
     </div>
   );
@@ -287,7 +301,7 @@ function IconContainer({
           />
         </Link>
       ) : (
-        <button onClick={onClick}>
+        <button aria-label={label || title} onClick={onClick}>
           <DockIcon
             ref={ref}
             bgColor={bgColor}

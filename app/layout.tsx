@@ -9,7 +9,9 @@ import {
   IconMail
 } from "@tabler/icons-react";
 import Link from "next/link";
+import { headers } from "next/headers";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 
 import { Providers } from "./providers";
 
@@ -19,75 +21,87 @@ import { FloatingDockDemo } from "@/components/floating-dock-demo";
 import { PageTransition } from "@/components/page-transition";
 import { PreloadingScreen } from "@/components/PreloadingScreen";
 import { TranslatedText } from "@/components/ui/translated-text";
+import { LANGUAGE_HEADER, PATHNAME_HEADER, isSiteLanguage } from "@/lib/language-detection";
+import { SITE_URL, localizedUrl, seoContent } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: {
-    default: "Юрій Мартинюк | Full Stack Developer",
-    template: "%s | Юрій Мартинюк",
-  },
-  description: "Персональний сайт Юрія Мартинюка - Full Stack розробника з досвідом 5+ років. Експерт з Python, TypeScript, React, Next.js та MongoDB. CTO і співзасновник стартапів Mindex, MediaMood і Vishunka. Громадський активіст і учасник ГО 'Фонд Символи'.",
-  keywords: "Юрій Мартинюк, Martyniuk Yurii, Юрій Мартинюк розробник, Python, React, Next.js, MongoDB, TypeScript, JavaScript, Full Stack Developer, Громадський активіст, Фонд Символи, Mindex, MediaMood, Vishunka, програміст",
-  authors: [{ name: "Юрій Мартинюк", url: "https://www.linkedin.com/in/yurii-martyniuk-488a72326/" }],
-  creator: "Юрій Мартинюк",
-  publisher: "Юрій Мартинюк",
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
-  openGraph: {
-    type: "website",
-    locale: "uk_UA",
-    url: "https://yuriimartyniuk.com",
-    title: "Юрій Мартинюк | Full Stack Developer",
-    description: "Персональний сайт Юрія Мартинюка - Full Stack розробника з досвідом 5+ років. Експерт з Python, TypeScript, React, Next.js та MongoDB.",
-    siteName: "Юрій Мартинюк",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Юрій Мартинюк - Full Stack Developer",
-      }
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Юрій Мартинюк | Full Stack Developer",
-    description: "Персональний сайт Юрія Мартинюка - Full Stack розробника з досвідом 5+ років. Експерт з Python, TypeScript, React, Next.js та MongoDB.",
-    images: ["/og-image.jpg"],
-  },
-  alternates: {
-    canonical: "https://yuriimartyniuk.com",
-    languages: {
-      'uk': 'https://yuriimartyniuk.com',
-      'en': 'https://yuriimartyniuk.com?lang=en',
+export async function generateMetadata(): Promise<Metadata> {
+  const requestHeaders = await headers();
+  const headerLanguage = requestHeaders.get(LANGUAGE_HEADER);
+  const language = isSiteLanguage(headerLanguage) ? headerLanguage : "uk";
+  const pathname = requestHeaders.get(PATHNAME_HEADER) || "/";
+  const seo = seoContent[language];
+  const googleVerification = process.env.GOOGLE_SITE_VERIFICATION;
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: {
+      default: seo.title,
+      template: `%s | ${seo.name}`,
     },
-  },
-  category: "technology",
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+    description: seo.description,
+    keywords: seo.keywords,
+    authors: [{ name: seo.name, url: "https://www.linkedin.com/in/yurii-martyniuk-488a72326/" }],
+    creator: seo.name,
+    publisher: seo.name,
+    icons: {
+      icon: "/favicon.ico",
+      apple: "/apple-touch-icon.png",
+    },
+    openGraph: {
+      type: "website",
+      locale: seo.ogLocale,
+      alternateLocale: seoContent[language === "uk" ? "en" : "uk"].ogLocale,
+      url: pathname,
+      title: seo.title,
+      description: seo.description,
+      siteName: seo.name,
+      images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: seo.ogImageAlt }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: seo.title,
+      description: seo.description,
+      images: ["/og-image.jpg"],
+    },
+    category: "technology",
+    robots: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
-  },
-  verification: {
-    google: "google-site-verification=your-verification-code",
-  },
-};
+    ...(googleVerification && { verification: { google: googleVerification } }),
+  };
+}
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const requestHeaders = await headers();
+  const detectedLanguage = requestHeaders.get(LANGUAGE_HEADER);
+  const language = isSiteLanguage(detectedLanguage) ? detectedLanguage : "uk";
+  const pathname = requestHeaders.get(PATHNAME_HEADER) || "/";
+
   return (
-    <html suppressHydrationWarning className="overflow-y-auto overflow-x-hidden scroll-smooth" lang="uk">
-      <head />
+    <html suppressHydrationWarning className="overflow-y-auto overflow-x-hidden scroll-smooth" lang={language}>
+      <head>
+        {/* canonical і hreflang вручну: Next.js відкидає ?lang= у metadata для кореня сайту */}
+        {!pathname.startsWith("/blog/") && (
+          <>
+            <link href={localizedUrl(pathname, language)} rel="canonical" />
+            <link href={localizedUrl(pathname, "uk")} hrefLang="uk" rel="alternate" />
+            <link href={localizedUrl(pathname, "en")} hrefLang="en" rel="alternate" />
+            <link href={new URL(pathname, SITE_URL).toString()} hrefLang="x-default" rel="alternate" />
+          </>
+        )}
+      </head>
       <body
         className={`min-h-screen bg-background font-sans antialiased overflow-y-auto overflow-x-hidden ${fontSans.variable}`}
       >
@@ -108,16 +122,7 @@ export default function RootLayout({
             }
           `}
         </Script>
-        <Script async id="gtag-manager" src="https://www.googletagmanager.com/gtag/js?id=G-YOUR-GA-ID" strategy="afterInteractive" />
-        <Script id="gtag-config" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-YOUR-GA-ID');
-          `}
-        </Script>
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+        <Providers initialLanguage={language} themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <SectionProvider>
             <PreloadingScreen />
             <div className="relative flex flex-col min-h-screen">
@@ -161,6 +166,7 @@ export default function RootLayout({
             </div>
           </SectionProvider>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );

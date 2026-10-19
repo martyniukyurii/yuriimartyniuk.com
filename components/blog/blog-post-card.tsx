@@ -150,7 +150,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
               
       <div className="p-6 md:w-3/5 flex flex-col">
         <h3 className="blog-title text-xl font-bold mb-2">
-          {post.text.length > 70 ? post.text.substring(0, 70) + '...' : post.text}
+          {post.title || (post.text.length > 70 ? post.text.substring(0, 70) + '...' : post.text)}
         </h3>
                 
         <div className="flex items-center text-sm blog-meta mb-4 space-x-4">
@@ -179,7 +179,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
               <Link 
                 key={tag} 
                 className="blog-tag flex items-center px-2 py-1 text-xs rounded-md"
-                href={`${getBlogAnchorUrl()}?tag=${tag}`}
+                href={`/?tag=${encodeURIComponent(tag)}#blog`}
               >
                 <IconTag className="w-3 h-3 mr-1" />
                 {tag}
@@ -192,6 +192,8 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
           <Link 
             className="blog-nav-button inline-block px-4 py-2 rounded-md transition-colors duration-300" 
             href={`/blog/${post.slug}`}
+            target="_blank"
+            rel="noopener noreferrer"
           >
             {t('blog.read.more')}
           </Link>
@@ -199,4 +201,4 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
       </div>
     </div>
   );
-} 
+}

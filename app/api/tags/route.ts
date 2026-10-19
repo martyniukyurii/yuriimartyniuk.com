@@ -8,7 +8,7 @@ export async function GET() {
     await connectToDatabase();
     
     // Отримуємо всі унікальні теги
-    const posts = await Post.find({}, { tags: 1 }).lean();
+    const posts = await Post.find({ deleted: { $ne: true } }, { tags: 1 }).lean();
     
     // Вилучаємо унікальні теги з усіх постів
     const allTags = posts.flatMap(post => post.tags || []);

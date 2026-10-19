@@ -4,14 +4,6 @@ import dotenv from 'dotenv';
 // Завантаження змінних середовища з .env.local
 dotenv.config({ path: '.env.local' });
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/blog';
-
-if (!MONGODB_URI) {
-  throw new Error(
-    'Будь ласка, визначте змінну оточення MONGODB_URI у файлі .env.local'
-  );
-}
-
 interface MongooseConnection {
   conn: typeof mongoose | null;
   promise: Promise<typeof mongoose> | null;
@@ -28,6 +20,8 @@ if (!cached) {
  * Функція для підключення до бази даних MongoDB
  */
 export async function connectToDatabase() {
+  const MONGODB_URI = process.env.MONGODB_URI;
+  if (!MONGODB_URI) throw new Error('MONGODB_URI is not configured');
   if (cached.conn) {
     return cached.conn;
   }
@@ -35,6 +29,7 @@ export async function connectToDatabase() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
+      serverSelectionTimeoutMS: 8000,
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts);
@@ -57,4 +52,4 @@ declare global {
   var mongoose: MongooseConnection;
 }
 
-export default connectToDatabase; 
+export default connectToDatabase;

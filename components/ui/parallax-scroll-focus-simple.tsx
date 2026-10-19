@@ -4,6 +4,8 @@ import { useScroll, useTransform, motion } from "motion/react";
 
 import { useTranslation } from "@/lib/hooks/useTranslation";
 import { TranslationKey } from "@/lib/translations";
+import { ReadyImage } from "@/components/ui/ready-image";
+import galleryImageSizes from "@/lib/gallery-image-sizes.json";
 
 type ImageItem = {
   src: string;
@@ -109,10 +111,13 @@ export const ParallaxScrollFocusSimple = ({
                     transition-all duration-300 ease-in-out
                     ${hovered !== null && hovered !== item.index ? 'blur-sm scale-95 opacity-60' : ''}
                   `}>
-                    <img 
+                    <ReadyImage
                       alt={getPhotoDescription(item.index)}
                       className="w-full h-auto rounded-lg object-cover"
                       loading="lazy"
+                      width={galleryImageSizes[item.src as keyof typeof galleryImageSizes]?.width ?? 1200}
+                      height={galleryImageSizes[item.src as keyof typeof galleryImageSizes]?.height ?? 900}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 320px"
                       src={item.src}
                       style={{
                         minHeight: "280px", 
@@ -136,4 +141,4 @@ export const ParallaxScrollFocusSimple = ({
       </div>
     </div>
   );
-}; 
+};

@@ -4,8 +4,11 @@ import { GridFSBucket } from 'mongodb';
 
 import { MediaFile, Post } from '@/lib/models';
 import { connectToDatabase } from '@/lib/mongodb';
+import { telegramFile } from '@/lib/telegram-api';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+export const maxDuration = 60;
 
 export async function GET(
   request: NextRequest,
@@ -18,6 +21,31 @@ export async function GET(
     await connectToDatabase();
     
     const isThumbnail = request.nextUrl.searchParams.has('thumbnail');
+
+    // Telegram stores the bytes. The website stores only an opaque public ID and file_id.
+    const botPost = await Post.findOne({ deleted: { $ne: true }, 'media.fileId': id, 'media.telegramFileId': { $exists: true } });
+    const botMedia = botPost?.media?.find((media: any) => media.fileId === id && media.telegramFileId);
+    if (botMedia) {
+      const fileId = isThumbnail ? botMedia.thumbnailFileId : botMedia.telegramFileId;
+      if (!fileId) return new NextResponse('Thumbnail not found', { status: 404 });
+      const headers = new Headers();
+      const range = request.headers.get('range');
+      if (range && /^bytes=\d*-\d*$/.test(range)) headers.set('Range', range);
+      const upstream = await fetch(await telegramFile(fileId), { headers, cache: 'no-store', signal: AbortSignal.timeout(45000) });
+      if (!upstream.ok && upstream.status !== 416) return new NextResponse('Telegram media unavailable', { status: 502 });
+      const responseHeaders = new Headers({
+        'Content-Type': isThumbnail ? 'image/jpeg' : (/^(image\/(jpeg|png|webp|gif|avif)|video\/(mp4|webm|quicktime)|audio\/[a-z0-9.+-]+)$/.test(botMedia.mimeType || '') ? botMedia.mimeType : 'application/octet-stream'),
+        'Cache-Control': 'public, max-age=3600, s-maxage=3600',
+        'X-Content-Type-Options': 'nosniff',
+      });
+      for (const name of ['content-length', 'content-range', 'accept-ranges']) {
+        const value = upstream.headers.get(name);
+        if (value) responseHeaders.set(name, value);
+      }
+      if (botMedia.type === 'document') responseHeaders.set('Content-Disposition', `attachment; filename*=UTF-8''${encodeURIComponent(botMedia.fileName || 'file')}`);
+      // No redirect, token in the browser, or full-file Buffer allocation.
+      return new NextResponse(upstream.body, { status: upstream.status, headers: responseHeaders });
+    }
     
     // Перевіряємо, чи є файл в базі даних
     const mediaFile = await MediaFile.findOne({ fileId: id });
@@ -70,7 +98,7 @@ export async function GET(
     }
     
     // Файлу немає в базі - отримуємо інформацію про пост
-    const post = await Post.findOne({ 'media.fileId': id });
+    const post = await Post.findOne({ deleted: { $ne: true }, 'media.fileId': id });
 
     if (!post) {
       return new NextResponse('Post not found', { status: 404 });
@@ -89,17 +117,11 @@ export async function GET(
     }
     
     // Якщо це медіа з Telegram, але немає запису в базі - повідомляємо
-    if (id.startsWith('tg_')) {
-      const parts = id.split('_');
-      const messageId = parseInt(parts[2]);
-      const telegramUrl = `https://t.me/${process.env.TELEGRAM_CHANNEL_USERNAME?.replace('@', '')}/${messageId}`;
-      
-      return NextResponse.redirect(telegramUrl);
-    }
+    if (id.startsWith('tg_')) return new NextResponse('Legacy media not found in storage', { status: 404 });
     
     return new NextResponse('Media not found', { status: 404 });
   } catch (error) {
-    console.error('Помилка при обробці запиту медіа:', error);
+    console.error('Помилка при обробці запиту медіа');
 
     return new NextResponse('Internal server error', { status: 500 });
   }
@@ -114,4 +136,4 @@ export async function OPTIONS() {
       'Access-Control-Allow-Headers': 'Content-Type',
     },
   });
-} 
+}

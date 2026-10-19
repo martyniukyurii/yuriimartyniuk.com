@@ -18,6 +18,11 @@ export interface Media {
 }
 
 export interface IPost extends Document {
+  title?: string;
+  excerpt?: string;
+  renderedHtml?: string;
+  publicationKey?: string;
+  deleted?: boolean;
   messageId: number;
   telegramId?: number; // додано поле telegramId для старих записів
   text: string;
@@ -33,6 +38,9 @@ export interface IPost extends Document {
     thumbnailUrl?: string;
     isExternal?: boolean;
     caption?: string; // додано поле caption
+    telegramFileId?: string;
+    thumbnailFileId?: string;
+    ref?: string;
   }[];
   tags?: string[];
   url?: string; // посилання на повідомлення в Telegram
@@ -49,6 +57,11 @@ const mediaSchema = new Schema({
 });
 
 const postSchema = new Schema<IPost>({
+  deleted: { type: Boolean, default: false },
+  title: String,
+  excerpt: String,
+  renderedHtml: String,
+  publicationKey: { type: String, unique: true, sparse: true },
   messageId: { type: Number, required: true, unique: true },
   text: { type: String, required: true },
   slug: { type: String, required: true, unique: true },
@@ -61,6 +74,9 @@ const postSchema = new Schema<IPost>({
     fileName: String,
     url: String,
     thumbnailUrl: String,
+    telegramFileId: String,
+    thumbnailFileId: String,
+    ref: String,
     isExternal: { type: Boolean, default: false }
   }],
   tags: [String],
@@ -69,7 +85,7 @@ const postSchema = new Schema<IPost>({
 
 // Створення slug з тексту поста
 postSchema.pre('save', function(next) {
-  if (!this.isModified('text') && this.slug) {
+  if (this.slug) {
     return next();
   }
   
@@ -84,4 +100,4 @@ postSchema.pre('save', function(next) {
   next();
 });
 
-export default mongoose.models.Post || mongoose.model<IPost>('Post', postSchema); 
+export default mongoose.models.Post || mongoose.model<IPost>('Post', postSchema);

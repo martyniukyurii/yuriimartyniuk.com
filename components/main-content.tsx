@@ -1,14 +1,15 @@
 "use client";
 
 import React from "react";
+import dynamic from "next/dynamic";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { useSection } from "./section-provider";
 import { AboutSection } from "./sections/about-section";
-import { ProjectsSection } from "./sections/projects-section";
-import { BlogSection } from "./sections/blog-section";
-import { ActivismSection } from "./sections/activism-section";
-import { ContactsSection } from "./sections/contacts-section";
+const ProjectsSection = dynamic(() => import("./sections/projects-section").then(module => module.ProjectsSection));
+const BlogSection = dynamic(() => import("./sections/blog-section").then(module => module.BlogSection));
+const ActivismSection = dynamic(() => import("./sections/activism-section").then(module => module.ActivismSection));
+const ContactsSection = dynamic(() => import("./sections/contacts-section").then(module => module.ContactsSection));
 
 // Варіанти анімації для переходів між секціями
 const variants = {
@@ -79,8 +80,9 @@ export function MainContent() {
   };
 
   return (
-    <AnimatePresence mode="wait">
+    // Нова секція завжди відкривається з початку сторінки
+    <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo({ top: 0, behavior: "instant" })}>
       {renderSection()}
     </AnimatePresence>
   );
-} 
+}

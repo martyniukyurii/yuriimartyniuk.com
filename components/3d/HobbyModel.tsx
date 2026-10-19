@@ -2,7 +2,9 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import SimplifiedModelViewer from "./SimplifiedModelViewer";
+import dynamic from "next/dynamic";
+
+const SimplifiedModelViewer = dynamic(() => import("./SimplifiedModelViewer"), { ssr: false });
 import { IconScissors, IconBike, IconCode, IconChess } from "@tabler/icons-react";
 import { useTheme } from "next-themes";
 import { MODEL_RESET_EVENT } from "../section-provider"; // Імпортуємо константу події
@@ -316,4 +318,4 @@ export function HobbyModel({ hobbyName, description, category, modelPath }: Hobb
       </div>
     </motion.div>
   );
-} 
+}

@@ -107,41 +107,49 @@ export function PreloadingScreen() {
   }, []);
   
   return (
-    <AnimatePresence>
+    <AnimatePresence onExitComplete={() => {
+      window.dispatchEvent(new Event("portfolio:ready"));
+      document.documentElement.dataset.portfolioReady = "true";
+    }}>
       {loading && (
         <motion.div
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-gradient-to-b from-blue-900/80 to-black/90 backdrop-blur-lg"
-          exit={{ opacity: 0 }}
+          aria-label={language === "uk" ? "Завантаження сайту" : "Loading the site"}
+          aria-live="polite"
+          className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[#140b2e]"
+          exit={{ opacity: 0, scale: 1.04, filter: "blur(8px)" }}
           initial={{ opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
+          role="status"
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
+          {/* М'які кольорові плями на фоні — ті ж кольори, що й у навігації */}
+          <div aria-hidden className="preloader-aurora absolute inset-0" />
+
           <motion.div
             animate={{ y: 0, opacity: 1 }}
-            className="text-center"
-            initial={{ y: 20, opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            className="relative flex flex-col items-center"
+            initial={{ y: 16, opacity: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-8">
-              {language === 'uk' ? 'Завантаження...' : 'Loading...'}
-            </h1>
-            
-            <div className="w-64 md:w-80 h-3 md:h-4 bg-white/20 rounded-full overflow-hidden mb-4 mx-auto">
+            <div className="preloader-ring relative flex h-24 w-24 items-center justify-center rounded-full md:h-28 md:w-28">
+              <span className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
+                {language === "uk" ? "ЮМ" : "YM"}
+              </span>
+            </div>
+
+            <p className="mt-8 text-sm font-medium uppercase tracking-[0.3em] text-white/70">
+              {language === "uk" ? "Юрій Мартинюк" : "Yurii Martyniuk"}
+            </p>
+
+            <div className="mt-6 h-1 w-56 overflow-hidden rounded-full bg-white/10 md:w-64">
               <motion.div
                 animate={{ width: `${progress}%` }}
-                className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full"
+                className="h-full rounded-full bg-gradient-to-r from-blue-500 via-violet-500 to-pink-500"
                 initial={{ width: 0 }}
+                transition={{ ease: "easeOut", duration: 0.4 }}
               />
             </div>
-            
-            <p className="text-lg md:text-xl text-white">
-              {progress}%
-            </p>
-            
-            <p className="text-sm md:text-base text-white/60 mt-8 max-w-md mx-auto">
-              {language === 'uk' 
-                ? 'Завантажуємо всі необхідні ресурси для найкращого досвіду перегляду сайту' 
-                : 'Loading all necessary resources for the best site viewing experience'}
-            </p>
+
+            <p className="mt-3 text-xs tabular-nums text-white/50">{progress}%</p>
           </motion.div>
         </motion.div>
       )}

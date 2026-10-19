@@ -1,6 +1,45 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
+import {
+  LANGUAGE_COOKIE,
+  LANGUAGE_COOKIE_MAX_AGE,
+  LANGUAGE_HEADER,
+  PATHNAME_HEADER,
+  detectLanguage,
+  isSiteLanguage,
+} from './lib/language-detection';
+
+// Визначаємо мову сторінки: вибір користувача (cookie або ?lang=) → країна за IP → мова браузера
+function withLanguage(request: NextRequest) {
+  const queryLanguage = request.nextUrl.searchParams.get('lang');
+  const cookieLanguage = request.cookies.get(LANGUAGE_COOKIE)?.value;
+  const language = isSiteLanguage(queryLanguage)
+    ? queryLanguage
+    : isSiteLanguage(cookieLanguage)
+      ? cookieLanguage
+      : detectLanguage({
+          country: request.headers.get('x-vercel-ip-country'),
+          acceptLanguage: request.headers.get('accept-language'),
+        });
+
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set(LANGUAGE_HEADER, language);
+  requestHeaders.set(PATHNAME_HEADER, request.nextUrl.pathname);
+
+  const response = NextResponse.next({ request: { headers: requestHeaders } });
+
+  if (isSiteLanguage(queryLanguage) && queryLanguage !== cookieLanguage) {
+    response.cookies.set(LANGUAGE_COOKIE, queryLanguage, {
+      path: '/',
+      maxAge: LANGUAGE_COOKIE_MAX_AGE,
+      sameSite: 'lax',
+    });
+  }
+
+  return response;
+}
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   
@@ -28,15 +67,13 @@ export function middleware(request: NextRequest) {
     return response;
   }
   
-  return NextResponse.next();
+  return withLanguage(request);
 }
 
 export const config = {
-  // Застосовуємо middleware тільки для запитів до 3D-моделей
-  // та для сторінок, які використовують ці моделі
+  // 3D-моделі та всі сторінки (без API, службових файлів Next.js і статики)
   matcher: [
     '/3D_models/:path*',
-    '/models-demo/:path*',
-    '/'
+    '/((?!api|_next/static|_next/image|.*\\..*).*)',
   ],
 }; 

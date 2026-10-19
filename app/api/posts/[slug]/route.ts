@@ -2,13 +2,14 @@ import { NextResponse } from 'next/server';
 
 import { connectToDatabase } from '../../../../lib/mongodb';
 import Post from '../../../models/Post';
+import { publicPostFields, normalizePostSlug } from '@/lib/posts';
 
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const { slug } = await params;
+    const slug = normalizePostSlug((await params).slug);
     
     if (!slug) {
       return NextResponse.json(
@@ -20,7 +21,7 @@ export async function GET(
     await connectToDatabase();
     
     // Знаходимо пост за slug
-    const post = await Post.findOne({ slug }).lean();
+    const post = await Post.findOne({ slug, deleted: { $ne: true } }).select(publicPostFields).lean();
     
     if (!post) {
       return NextResponse.json(
@@ -40,4 +41,4 @@ export async function GET(
       { status: 500 }
     );
   }
-} 
+}

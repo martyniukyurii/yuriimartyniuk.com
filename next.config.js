@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  outputFileTracingIncludes: {
+    '/api/telegram/webhook': ['./public/blog-template.txt'],
+  },
   images: {
     domains: [
       'assets.aceternity.com',

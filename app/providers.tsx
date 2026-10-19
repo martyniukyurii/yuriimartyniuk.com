@@ -7,11 +7,12 @@ import { HeroUIProvider, ToastProvider } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
-import { LanguageProvider } from "@/components/language-provider";
+import { Language, LanguageProvider } from "@/components/language-provider";
 
 export interface ProvidersProps {
   children: React.ReactNode;
   themeProps?: ThemeProviderProps;
+  initialLanguage?: Language;
 }
 
 declare module "@react-types/shared" {
@@ -22,7 +23,7 @@ declare module "@react-types/shared" {
   }
 }
 
-export function Providers({ children, themeProps }: ProvidersProps) {
+export function Providers({ children, themeProps, initialLanguage }: ProvidersProps) {
   const router = useRouter();
   
   // Виводимо дані для дебагу
@@ -34,7 +35,7 @@ export function Providers({ children, themeProps }: ProvidersProps) {
   return (
     <HeroUIProvider navigate={router.push}>
       <NextThemesProvider {...themeProps}>
-        <LanguageProvider>
+        <LanguageProvider initialLanguage={initialLanguage}>
           {children}
         </LanguageProvider>
       </NextThemesProvider>

@@ -2,19 +2,23 @@ import { NextResponse } from 'next/server';
 
 import { connectToDatabase } from '../../../lib/mongodb';
 import Post from '../../models/Post';
+import { publicPostFields } from '@/lib/posts';
 
 export async function GET(request: Request) {
   try {
     const url = new URL(request.url);
-    const page = parseInt(url.searchParams.get('page') || '1', 10);
-    const limit = parseInt(url.searchParams.get('limit') || '10', 10);
+    const page = Math.max(1, Number(url.searchParams.get('page')) || 1);
+    const limit = Math.min(50, Math.max(1, Number(url.searchParams.get('limit')) || 10));
+    if (!Number.isSafeInteger(page) || !Number.isSafeInteger(limit)) {
+      return NextResponse.json({ error: 'Невірна пагінація' }, { status: 400 });
+    }
     const tag = url.searchParams.get('tag');
 
     await connectToDatabase();
 
     const skip = (page - 1) * limit;
     
-    const query: any = {};
+    const query: any = { deleted: { $ne: true } };
     
     // Фільтрація за тегом, якщо вказано
     if (tag) {
@@ -23,6 +27,7 @@ export async function GET(request: Request) {
     
     // Отримуємо пости
     const posts = await Post.find(query)
+      .select(publicPostFields)
       .sort({ date: -1 })
       .skip(skip)
       .limit(limit)
@@ -68,4 +73,4 @@ export async function GET(request: Request) {
       { status: 500 }
     );
   }
-} 
+}

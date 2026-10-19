@@ -7,10 +7,10 @@ import {
   IconArticle,
   IconHeartHandshake,
   IconMail,
-  IconChevronUp
+  IconX,
 } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useTheme } from "next-themes";
+import { usePathname, useRouter } from "next/navigation";
 
 import { SectionType, useSection } from "./section-provider";
 
@@ -36,21 +36,15 @@ const iconColors = {
 
 export function FloatingDockDemo({ id }: { id?: string }) {
   const { activeSection, setActiveSection } = useSection();
+  const pathname = usePathname();
+  const router = useRouter();
   const [currentSection, setCurrentSection] = useState<SectionType>("about");
   const [showDock, setShowDock] = useState(false);
-  const [showIndicator, setShowIndicator] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
   const dockRef = useRef<HTMLDivElement>(null);
-  const tooltipRef = useRef<HTMLDivElement>(null);
-  const indicatorTimer = useRef<NodeJS.Timeout | null>(null);
-  const { theme } = useTheme();
-  const { t, language } = useTranslation();
 
-  // Додаємо useEffect для відстеження монтування компоненту
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const indicatorTimer = useRef<NodeJS.Timeout | null>(null);
+  const { t, language } = useTranslation();
 
   useEffect(() => {
     // Перевіряємо, чи це мобільний пристрій
@@ -70,8 +64,7 @@ export function FloatingDockDemo({ id }: { id?: string }) {
       if (showDock && 
           dockRef.current && 
           !dockRef.current.contains(event.target as Node) &&
-          tooltipRef.current && 
-          !tooltipRef.current.contains(event.target as Node)) {
+          !(event.target as Element).closest("[data-dock-trigger]")) {
         setShowDock(false);
       }
     };
@@ -92,15 +85,15 @@ export function FloatingDockDemo({ id }: { id?: string }) {
     return () => clearTimeout(timer);
   }, [activeSection]);
 
-  // Відстежуємо зміни мови
-  useEffect(() => {
-    console.log("FloatingDockDemo - Current language:", language);
-  }, [language]);
+  useEffect(() => () => {
+    if (indicatorTimer.current) clearTimeout(indicatorTimer.current);
+  }, []);
 
   const handleSectionChange = (section: SectionType) => {
     console.log("Changing section to:", section);
     setActiveSection(section);
-    window.location.hash = section;
+    if (pathname === '/') window.location.hash = section;
+    else router.push(`/#${section}`);
   };
 
   // Функція для обробки появи/зникнення доку
@@ -114,6 +107,8 @@ export function FloatingDockDemo({ id }: { id?: string }) {
   };
 
   const handleDockMouseLeave = () => {
+    if (isMobile) return;
+    if (indicatorTimer.current) clearTimeout(indicatorTimer.current);
     const timeout = setTimeout(() => {
       setShowDock(false);
     }, 300); // Швидке зникнення при відведенні курсора
@@ -197,25 +192,30 @@ export function FloatingDockDemo({ id }: { id?: string }) {
       
       <div className="fixed bottom-0 left-0 right-0 h-40 z-50 pointer-events-none" id={id}>
         <AnimatePresence>
-          {showIndicator && !isMobile && !showDock && (
-            <motion.div 
-              animate={{ opacity: 1, y: 0 }}
-              className="absolute bottom-5 left-1/2 -translate-x-1/2 w-8 h-8 flex items-center justify-center cursor-pointer pointer-events-auto"
+          {!isMobile && (
+            <motion.div
+              animate={{ opacity: showDock ? 0 : 1, y: 0 }}
+              className="absolute z-10 bottom-8 inset-x-0 flex justify-center pointer-events-none"
               exit={{ opacity: 0, y: 20 }}
               initial={{ opacity: 0, y: 20 }}
-              onMouseEnter={handleIndicatorMouseEnter}
             >
-              <motion.div 
-                animate={{ y: [2, -2, 2] }}
-                className={isMounted ? `${theme === 'light' ? 'bg-blue-600/50' : 'bg-white/20'} backdrop-blur-md rounded-full p-1.5 shadow-lg` : 'bg-white/20 backdrop-blur-md rounded-full p-1.5 shadow-lg'}
-                transition={{ 
-                  duration: 1.5, 
-                  repeat: Infinity, 
-                  ease: "easeInOut" 
+              <button
+                data-dock-trigger
+                aria-expanded={showDock}
+                aria-label={language === "uk" ? "Відкрити меню" : "Open menu"}
+                className="cursor-pointer pointer-events-auto rounded-full"
+                type="button"
+                onClick={handleIndicatorMouseEnter}
+                onFocus={(event) => {
+                  if (!event.currentTarget.matches(":focus-visible")) return;
+                  handleIndicatorMouseEnter();
+                  requestAnimationFrame(() => dockRef.current?.querySelector<HTMLButtonElement>("button")?.focus());
                 }}
+                onMouseEnter={handleIndicatorMouseEnter}
+                onMouseLeave={handleDockMouseLeave}
               >
-                <IconChevronUp className={isMounted ? `h-3 w-3 ${theme === 'light' ? 'text-blue-100' : 'text-white'}` : 'h-3 w-3 text-white'} />
-              </motion.div>
+                <DockHandle activeSection={currentSection} />
+              </button>
             </motion.div>
           )}
         </AnimatePresence>
@@ -234,11 +234,20 @@ export function FloatingDockDemo({ id }: { id?: string }) {
                 damping: 25, 
                 stiffness: 300 
               }}
+              onFocusCapture={handleDockMouseEnter}
+              onBlurCapture={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget as Node)) handleDockMouseLeave();
+              }}
+              onKeyDown={(event) => {
+                if (event.key === "Escape") setShowDock(false);
+              }}
               onMouseEnter={handleDockMouseEnter}
               onMouseLeave={handleDockMouseLeave}
             >
               <FloatingDock
                 items={links}
+                menuLabel={language === "uk" ? "Меню" : "Menu"}
+                mobileTrigger={(open) => <DockHandleRound open={open} />}
                 mobileClassName="translate-y-0 flex justify-start"
               />
             </motion.div>
@@ -247,4 +256,57 @@ export function FloatingDockDemo({ id }: { id?: string }) {
       </div>
     </>
   );
-} 
+}
+
+const sectionOrder: SectionType[] = ["about", "projects", "blog", "activism", "contacts"];
+
+// Кольори крапок для світіння (відповідають sectionBgColors)
+const sectionGlowColors: Record<SectionType, string> = {
+  about: "#3b82f6",
+  projects: "#10b981",
+  blog: "#8b5cf6",
+  activism: "#ec4899",
+  contacts: "#f59e0b",
+};
+
+// Згорнутий док: скляна капсула з переливчастим бордером і крапками секцій, що по черзі світяться
+function DockHandle({ activeSection }: { activeSection: SectionType }) {
+  return (
+    <span className="dock-handle flex items-center gap-2.5 rounded-full px-5 py-3.5 bg-white/20 backdrop-blur-xl shadow-lg">
+      {sectionOrder.map((section, index) => (
+        <span
+          key={section}
+          className={`dock-handle-dot block h-2.5 rounded-full transition-[width] duration-500 ${sectionBgColors[section]} ${section === activeSection ? "w-7" : "w-2.5"}`}
+          style={{ "--dot-color": sectionGlowColors[section], animationDelay: `${index * 0.6}s` } as React.CSSProperties}
+        />
+      ))}
+    </span>
+  );
+}
+
+// Мобільна версія ручки: кругла кнопка розміром з пункти меню, крапки секцій по колу
+function DockHandleRound({ open }: { open: boolean }) {
+  return (
+    <span className="dock-handle relative flex h-10 w-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-xl shadow-lg">
+      {open ? (
+        <IconX className="h-4 w-4 text-white" />
+      ) : (
+        sectionOrder.map((section, index) => {
+          const angle = (index / sectionOrder.length) * 2 * Math.PI - Math.PI / 2;
+
+          return (
+            <span
+              key={section}
+              className={`dock-handle-dot absolute block h-1.5 w-1.5 rounded-full ${sectionBgColors[section]}`}
+              style={{
+                "--dot-color": sectionGlowColors[section],
+                animationDelay: `${index * 0.6}s`,
+                transform: `translate(${Math.cos(angle) * 8}px, ${Math.sin(angle) * 8}px)`,
+              } as React.CSSProperties}
+            />
+          );
+        })
+      )}
+    </span>
+  );
+}

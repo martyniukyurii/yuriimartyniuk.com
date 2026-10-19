@@ -11,7 +11,7 @@ export default function TagRedirect({ params }: { params: Promise<{ tag: string 
   
   useEffect(() => {
     // Перенаправляємо на головну сторінку з параметром тегу
-    router.push(`/#blog?tag=${encodeURIComponent(tag)}`);
+    router.replace(`/?tag=${encodeURIComponent(tag)}#blog`);
   }, [router, tag]);
   
   return (
@@ -19,4 +19,4 @@ export default function TagRedirect({ params }: { params: Promise<{ tag: string 
       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-violet-700" />
     </div>
   );
-} 
+}

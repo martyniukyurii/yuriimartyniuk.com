@@ -240,9 +240,10 @@ export default function BlogPostClient({ post }: { post: IPost | null }) {
 
   // Формуємо текст з урахуванням переносів рядків та посилань
   const formatPostText = (text: string) => {
+    const escaped = text.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]!);
     // Заміна URL на посилання
     const urlRegex = /(https?:\/\/[^\s]+)/g;
-    const withLinks = text.replace(urlRegex, url => `<a href="${url}" target="_blank" rel="noopener noreferrer" class="blog-link hover:underline">${url}</a>`);
+    const withLinks = escaped.replace(urlRegex, url => `<a href="${url}" target="_blank" rel="noopener noreferrer" class="blog-link hover:underline">${url}</a>`);
     
     // Заміна переносів рядків на <br>
     return withLinks.replace(/\n/g, '<br />');
@@ -293,7 +294,7 @@ export default function BlogPostClient({ post }: { post: IPost | null }) {
         ) : (
           <article className="bg-white/10 dark:bg-gray-800/30 backdrop-blur-md rounded-lg overflow-hidden shadow-lg p-6">
             <h1 className="blog-title text-3xl font-bold mb-4">
-              {post.text.length > 100 ? post.text.substring(0, 100) + '...' : post.text}
+              {post.title || (post.text.length > 100 ? post.text.substring(0, 100) + '...' : post.text)}
             </h1>
             
             <div className="flex flex-wrap items-center text-sm blog-meta mb-6 gap-4">
@@ -327,7 +328,7 @@ export default function BlogPostClient({ post }: { post: IPost | null }) {
                   <Link 
                     key={tag} 
                     className="blog-tag flex items-center px-2 py-1 text-xs rounded-md"
-                    href={`${getBlogAnchorUrl()}?tag=${tag}`}
+                    href={`/?tag=${encodeURIComponent(tag)}#blog`}
                   >
                     <IconTag className="w-3 h-3 mr-1" />
                     {tag}
@@ -337,7 +338,7 @@ export default function BlogPostClient({ post }: { post: IPost | null }) {
             )}
             
             {/* Відображення медіа-файлів */}
-            {post.media && post.media.length > 0 && (
+            {!post.renderedHtml && post.media && post.media.length > 0 && (
               <div className="mb-8">
                 {isAlbum ? (
                   <MediaCarousel media={post.media.map(m => ({...m, url: m.url || ''}))} />
@@ -351,7 +352,7 @@ export default function BlogPostClient({ post }: { post: IPost | null }) {
             
             {/* Відображення тексту поста */}
             <div 
-              dangerouslySetInnerHTML={{ __html: formatPostText(post.text) }}
+              dangerouslySetInnerHTML={{ __html: post.renderedHtml || formatPostText(post.text) }}
               className="blog-content prose prose-lg dark:prose-invert prose-violet max-w-none"
             />
           </article>
@@ -359,4 +360,4 @@ export default function BlogPostClient({ post }: { post: IPost | null }) {
       </div>
     </div>
   );
-} 
+}

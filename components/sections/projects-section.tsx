@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { IconCode, IconExternalLink, IconBrandGithub } from "@tabler/icons-react";
-import Image from "next/image";
+import { ReadyImage as Image } from "@/components/ui/ready-image";
 import "../../styles/projects.css";
 import { Tooltip } from "@heroui/react";
 
@@ -140,7 +140,7 @@ export function ProjectsSection() {
       customSize: false,
       technologies: ["Next.js", "React", "TailwindCSS", "Python", "FastAPI", "MongoDB"],
       githubUrl: "https://github.com/martyniukyurii/KovchegFrontend",
-      liveUrl: "https://vashkovcheg.cv.ua"
+      liveUrl: "https://www.kovcheg.cv.ua/"
     },
     {
       id: 3,
@@ -236,6 +236,7 @@ export function ProjectsSection() {
                       alt={project.title}
                       className="rounded"
                       src={project.image}
+                      sizes="(max-width: 768px) 35vw, (max-width: 1024px) 18vw, 12vw"
                       style={{ objectFit: 'contain' }}
                     />
                   </div>
@@ -247,6 +248,7 @@ export function ProjectsSection() {
                         alt={project.title}
                         className="transform transition-transform duration-500 hover:scale-105"
                         src={project.image}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 60vw, 400px"
                         style={{ objectFit: 'contain' }}
                       />
                     </div>
@@ -258,6 +260,7 @@ export function ProjectsSection() {
                       alt={project.title}
                       className="transform transition-transform duration-500 hover:scale-105"
                       src={project.image}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 360px"
                       style={{ objectFit: 'contain' }}
                     />
                   </div>
@@ -362,4 +365,4 @@ export function ProjectsSection() {
       `}</style>
     </section>
   );
-} 
+}

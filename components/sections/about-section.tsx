@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import {
   IconCoffee,
@@ -32,8 +32,6 @@ declare global {
 }
 
 export function AboutSection() {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const totalImages = 5;
   const { setActiveSection } = useSection();
   const { t, language } = useTranslation();
   
@@ -56,15 +54,6 @@ export function AboutSection() {
     "community activist"
   ];
   
-  // Зміна фото з інтервалом
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % totalImages);
-    }, 5000);
-    
-    return () => clearInterval(interval);
-  }, []);
-
   // Функція для переходу на інші секції
   const handleSectionChange = (section: SectionType) => {
     console.log("Changing section to:", section);
@@ -383,7 +372,13 @@ export function AboutSection() {
                   />
                 </div>
                     <div className="text-right text-sm font-medium text-blue-300 whitespace-nowrap">
-                  {skill.level}%
+                  {skill.level >= 90
+                    ? (language === 'uk' ? 'Щодня' : 'Daily')
+                    : skill.level >= 80
+                      ? (language === 'uk' ? 'Часто' : 'Often')
+                      : skill.level >= 60
+                        ? (language === 'uk' ? 'За потреби' : 'As needed')
+                        : (language === 'uk' ? 'Вчуся' : 'Learning')}
                     </div>
                   </div>
                 </div>
@@ -698,4 +693,4 @@ export function AboutSection() {
       </section>
     </div>
   );
-} 
+}
